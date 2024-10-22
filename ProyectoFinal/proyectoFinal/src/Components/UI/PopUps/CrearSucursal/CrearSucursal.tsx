@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap"
 import styles from "./styles.module.css"
 
 import { FC } from "react"
-import { CancelButton } from "../Icons/CancelButton";
+import { CancelButton } from "../../Icons/CancelButton";
 
 interface Props {
     onClose: () => void;

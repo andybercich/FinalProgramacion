@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CrearSucursal } from "./components/UI/PopUps/CrearSucursal"
+import { CrearSucursal } from "./components/ui/PopUps/CrearSucursal/CrearSucursal"
 
 export const App = ()=> {
   const [sentence, setSentence] = useState(false); 
