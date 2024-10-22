@@ -1,7 +1,8 @@
 import { Button } from "react-bootstrap"
 import styles from "./styles.module.css"
-import { CancleButton } from "../Icons/CancelButton"
+
 import { FC } from "react"
+import { CancelButton } from "../Icons/CancelButton";
 
 interface Props {
     onClose: () => void;
@@ -13,7 +14,7 @@ interface Props {
         <div className={styles.popUp}>
           <div className={styles.headerPopUp}>
             <h2>Crear Sucursal</h2>
-            <CancleButton onClick={onClose} />
+            <CancelButton onClick={onClose} />
           </div>
           <form className={styles.form}>
             <div className={styles.divColums}>

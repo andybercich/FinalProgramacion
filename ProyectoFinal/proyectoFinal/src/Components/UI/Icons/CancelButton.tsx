@@ -5,7 +5,7 @@ interface CancelButtonProps {
   onClick: () => void; 
 }
 
-export const CancleButton: FC<CancelButtonProps> = ({onClick}) => {
+export const CancelButton: FC<CancelButtonProps> = ({onClick}) => {
   return (
     <span onClick={onClick} className={`material-symbols-outlined ${styles.customIcon}`}>
 
