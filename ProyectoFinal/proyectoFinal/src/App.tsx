@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CrearSucursal } from "./components/ui/PopUps/CrearSucursal/CrearSucursal"
+import { VerEmpresa } from "./Components/UI/PopUps/VerEmpresa/VerEmpresa"
 
 export const App = ()=> {
   const [sentence, setSentence] = useState(false); 
@@ -10,8 +10,8 @@ export const App = ()=> {
 
   return (
     <>
-      <button onClick={handleCreateSucur}>Agregar Sucursal</button>
-      {sentence && <CrearSucursal onClose={() => setSentence(false)} />}
+      <button onClick={handleCreateSucur}>Ver empresa</button>
+      {sentence && <VerEmpresa onClose={() => setSentence(false)} />}
     </>
   );
 }
