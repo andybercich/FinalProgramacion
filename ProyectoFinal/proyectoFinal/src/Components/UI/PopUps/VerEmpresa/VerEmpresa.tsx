@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styles from "./VerEmpresa.module.css";
+
 interface Props {
   onClose: () => void;
 }

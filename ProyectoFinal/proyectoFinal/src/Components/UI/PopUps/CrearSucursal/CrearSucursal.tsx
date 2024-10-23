@@ -1,6 +1,5 @@
 import { Button } from "react-bootstrap"
-import styles from "./styles.module.css"
-
+import styles from "./CrearSucursal.module.css"
 import { FC } from "react"
 import { CancelButton } from "../../Icons/CancelButton";
 

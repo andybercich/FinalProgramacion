@@ -1,19 +1,18 @@
 import { Button } from "react-bootstrap";
-import styles from "./ModalEmpresa.module.css";
+import styles from "./CrearEmpresa.module.css";
 import { FC } from "react";
+import { CancelButton } from "../../Icons/CancelButton";
 interface Props {
   onClose: () => void;
 }
 
-export const ModalEmpresa: FC<Props> = ({ onClose }) => {
+export const CrearEmpresa: FC<Props> = ({ onClose }) => {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.modalEmpresa}>
         <div className={styles.contentTittle}>
           <h2>Crear Empresa</h2>
-          <span onClick={onClose} className="material-symbols-outlined">
-            cancel
-          </span>
+          <CancelButton onClick={onClose} />
         </div>
         <form action="submit" className={styles.formCrearEmpresa}>
           <div className={styles.contentInputs}>

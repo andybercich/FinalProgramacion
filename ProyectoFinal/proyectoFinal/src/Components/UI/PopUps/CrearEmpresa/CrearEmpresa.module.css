@@ -32,19 +32,6 @@
   font-size: 2.3rem;
 }
 
-.contentTittle span {
-  font-size: 1.9rem;
-  color: #b81616;
-  position: absolute;
-  top: -15%;
-  left: 92%;
-}
-
-.contentTittle span:hover {
-  color: #ca5555;
-  cursor: pointer;
-}
-
 .formCrearEmpresa {
   padding: 1rem;
   width: 100%;
