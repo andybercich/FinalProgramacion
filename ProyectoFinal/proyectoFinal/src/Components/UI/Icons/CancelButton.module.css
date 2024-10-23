@@ -1,0 +1,13 @@
+.customIcon{
+    position: absolute; 
+    top: 5px;
+    right: 15px;
+    color: #ab7d7d;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 500ms;     
+}
+
+.customIcon:hover{
+    color: #B81616;
+}
