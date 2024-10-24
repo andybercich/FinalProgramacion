@@ -24,6 +24,7 @@
 
 .contentTittle {
   position: relative;
+  top: 2%;
   width: 100%;
   text-align: center;
 }
@@ -31,6 +32,7 @@
 .contentTittle h2 {
   font-size: 2.3rem;
 }
+
 
 .formCrearEmpresa {
   padding: 1rem;

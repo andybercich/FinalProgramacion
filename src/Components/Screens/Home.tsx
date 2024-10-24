@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import style from "./Home.module.css";
 import { CrearEmpresa } from "../../Components/UI/PopUps/CrearEmpresa/CrearEmpresa";
 import { CrearSucursal } from "../../Components/UI/PopUps/CrearSucursal/CrearSucursal";
@@ -53,20 +52,3 @@ export const Home = () => {
   </div>
   )
 }
-=======
-import { StrictMode } from "react";
-import { Home } from "./Components/Screens/Home";
-
-
-export const App = ()=> {
-
-  return (
-    <StrictMode>
-      <Home>
-        
-      </Home>
-    </StrictMode>
-
-  );
-}
->>>>>>> a387fdaf154c0c7295532c173d7e4f3c249e19fa
