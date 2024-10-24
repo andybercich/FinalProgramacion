@@ -2,10 +2,12 @@ import { useState } from "react";
 import style from "./App.module.css";
 import { CrearEmpresa } from "./components/ui/PopUps/CrearEmpresa/CrearEmpresa";
 import { CrearSucursal } from "./components/ui/PopUps/CrearSucursal/CrearSucursal";
+import { CardEmpresa } from "./components/ui/CardEmpresa/CardEmpresa";
 
 export const App = ()=> {
   const [modalEmpresa, setModalEmpresa] = useState(false); 
   const [modalSucursal, setmodalSucursal] = useState(false); 
+
 
   return (
     <div className={style.containerApp}>
@@ -19,7 +21,10 @@ export const App = ()=> {
           </button>
       </div>
 
-      <div className={style.sectionCardsEmpresa}></div>
+      <div className={style.sectionCardsEmpresa}>
+        <CardEmpresa titulo="hOLA"/>
+        <CardEmpresa titulo="cas"/>
+      </div>
     </div>
 
     {modalEmpresa && <CrearEmpresa onClose={() => setModalEmpresa(false)} />}

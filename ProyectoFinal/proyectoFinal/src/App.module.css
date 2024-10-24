@@ -50,6 +50,16 @@
     background-color: rgb(233, 233, 233);
     cursor: pointer;
   }
+
+  .sectionCardsEmpresa{
+    margin-top: 3vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4vh;
+  }
   
   /*SECTION SUCURSAL*/
   .sectionSucursal{

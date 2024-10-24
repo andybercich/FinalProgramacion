@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap"
 import styles from "./CrearSucursal.module.css"
 import { FC } from "react"
-import { CancelButton } from "../../Icons/CancelButton";
+import { CancelButton } from "../../Icons/CancelIcon/CancelButton";
 
 interface Props {
     onClose: () => void;

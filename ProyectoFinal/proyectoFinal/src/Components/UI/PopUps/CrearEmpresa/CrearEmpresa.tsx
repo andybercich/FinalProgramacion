@@ -1,12 +1,20 @@
 import { Button } from "react-bootstrap";
 import styles from "./CrearEmpresa.module.css";
 import { FC } from "react";
-import { CancelButton } from "../../Icons/CancelButton";
+import { CancelButton } from "../../Icons/CancelIcon/CancelButton";
 interface Props {
   onClose: () => void;
 }
 
 export const CrearEmpresa: FC<Props> = ({ onClose }) => {
+
+
+  
+
+
+
+
+
   return (
     <div className={styles.mainDiv}>
       <div className={styles.modalEmpresa}>

@@ -1,0 +1,24 @@
+.containerCard{
+    background-color: #EFEFFC;
+    width: 15vw;
+    border: 1px solid rgb(211, 211, 211);
+    transition: box-shadow 0.3s ease;
+}
+
+.containerCard:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tittleCard{
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    font-family: 'Unbounded', sans-serif;
+}
+
+.contentIcons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6vw;
+}
