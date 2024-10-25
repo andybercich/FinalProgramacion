@@ -2,21 +2,13 @@ import style from "./Home.module.css";
 import { CrearEmpresa } from "../../Components/UI/PopUps/CrearEmpresa/CrearEmpresa";
 import { CrearSucursal } from "../../Components/UI/PopUps/CrearSucursal/CrearSucursal";
 import { useState } from "react";
-<<<<<<<< HEAD:src/App.tsx
-import style from "./App.module.css";
-import { CrearEmpresa } from "./components/ui/PopUps/CrearEmpresa/CrearEmpresa";
-import { CrearSucursal } from "./components/ui/PopUps/CrearSucursal/CrearSucursal";
-import { CardEmpresa } from "./components/ui/CardEmpresa/CardEmpresa";
-========
->>>>>>>> a387fdaf154c0c7295532c173d7e4f3c249e19fa:src/Components/Screens/Home.tsx
+import { CardEmpresa } from "../UI/CardEmpresa/CardEmpresa";
 
 export const Home = () => {
 
     const [modalEmpresa, setModalEmpresa] = useState(false); 
     const [modalSucursal, setmodalSucursal] = useState(false); 
   
-
-
   return (
     <div className={style.containerApp}>
     <div className={style.sectionEmpresa}>
