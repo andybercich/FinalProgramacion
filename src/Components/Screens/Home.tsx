@@ -5,13 +5,15 @@ import { useState } from "react";
 import { CardEmpresa } from "../UI/CardEmpresa/CardEmpresa";
 import VerSucursal from "../UI/PopUps/VerSucursal/VerSucursal";
 import { VerEmpresa } from "../UI/PopUps/VerEmpresa/VerEmpresa";
+import CardSucursal from "../UI/CardSucursal/CardSucursal";
 
 export const Home = () => {
 
     const [modalEmpresa, setModalEmpresa] = useState(false); 
     const [modalSucursal, setmodalSucursal] = useState(false);
     const [modalVerSucursal, setModalverSucursal] = useState(false); 
-    const [modalVerEmpresa, setModalverEmpresa] = useState(false); 
+    const [modalVerEmpresa, setModalverEmpresa] = useState(false);
+    const [modalCardSucursal, setModalCardSucursal] = useState(false);  
   
   return (
     <div className={style.containerApp}>
@@ -35,12 +37,13 @@ export const Home = () => {
     {modalSucursal && <CrearSucursal onClose={() => setmodalSucursal(false)} />}
     {modalVerSucursal && <VerSucursal onClose={() => setModalverSucursal(false)}/>}
     {modalVerEmpresa && <VerEmpresa onClose={() => setModalverEmpresa(false)}/>}
+    {modalCardSucursal && <CardSucursal titulo="PALMARES" horario="Horario: 20:00hs - 22:00hs" imagen="" onClose={() => setModalCardSucursal(false)}/>}  
 
     <div className={style.sectionSucursal}>
       <div className={style.headerSucursal}>
         <h2>Sucursales</h2>
         <button onClick={()=>{
-          setModalverSucursal(true)
+          setmodalSucursal(true)
         }}
         >Agregar Sucursal</button>
       </div>

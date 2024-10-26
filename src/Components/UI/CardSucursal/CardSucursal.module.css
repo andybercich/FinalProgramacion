@@ -1,0 +1,45 @@
+.containerCardSucursal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20rem;
+    width: 18rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background-color: #EFEFFC;
+}
+
+.containerCardSucursal:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.cardSucursalTitle {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-family: 'Unbounded', sans-serif;    
+}
+
+.contentIcons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6vw;
+}
+
+.horarioStyle {
+    text-align: center;
+}
+
+.imgStyle {
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 13rem; /* Ajusta el ancho */
+    height: 10rem; /* Ajusta la altura */
+    margin: 0 auto; /* Centra el recuadro gris */
+    margin-bottom: 1rem; /* Añade espacio debajo */
+    border-radius: 0.4rem;
+  }
