@@ -1,52 +1,80 @@
+.mainDiv {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  font-family: "Unbounded", sans-serif;
+}
+
 .containerSucursal {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #333;
   height: 100vh;
 }
-.materialSymbolsOutlined {
-  background: none;
-  border: none;
-  color: red;
-  font-size: 1.2em;
-  cursor: pointer;
-}
+
 .containerCardSucursal {
+  position: relative;
   background-color: #fff;
-  height: 300px;
-  width: 250px;
-  border-radius: 0.7rem;
-  font-family: "Unbounded", sans-serif;
-}
-.containerHeaderCard {
-  display: flex;
-  justify-content: center;
-}
-.cardTitle {
-  font-size: 18px;
+  height: 60vh;
+  width: 25vw;
+  border-radius: 1rem;
 }
 
-.containerBodyCard {
+.containerHeaderCardSucursal {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  padding-top: 12px;
+}
+
+.containerHeaderCardSucursal span:hover {
+  color: #b81616;
+}
+
+.containerHeaderCardSucursal span {
+  position: absolute;
+  right: 2px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #ab7d7d;
+}
+
+.containerBodyCardSucursal {
+  position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  font-size: 13px;
-  padding-left: 6px;
+  justify-content: center;
+  font-size: 18px;
+  padding: 50px;
 }
-.containerImgCard {
+.containerBodyCardSucursal p {
+
+  margin: 1px 0;
+}
+
+.containerImgCardSucursal {
+  position: relative;
   display: flex;
   justify-content: center;
-  font-size: 13px;
-  padding-left: 6px;
-}
-.imgCard {
-  background-color: #a39d9d;
+  padding-top: 8rem;
+  font-size: 20px;
 
+}
+
+.imgCardSucursal {
+
+  background-color: #d9d9d9;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 7vh;
-  width: 7vw;
-  border: solid 0.5px #333;
+  width: 25rem;
+  height: 15rem;
+  margin-top: 6rem;
 }
