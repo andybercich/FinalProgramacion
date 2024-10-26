@@ -53,6 +53,4 @@ export class ServiceSucursal {
   }
 
 
-const service: ServiceSucursal = new ServiceSucursal();
-console.log(service.getAllSucursalesByEmpresa(1));
 

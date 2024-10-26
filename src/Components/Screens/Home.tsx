@@ -5,6 +5,7 @@ import { useState } from "react";
 import { CardEmpresa } from "../UI/CardEmpresa/CardEmpresa";
 import VerSucursal from "../UI/PopUps/VerSucursal/VerSucursal";
 import { VerEmpresa } from "../UI/PopUps/VerEmpresa/VerEmpresa";
+import CardSucursal from "../UI/CardSucursal/CardSucursal";
 
 export const Home = () => {
 
@@ -40,13 +41,14 @@ export const Home = () => {
       <div className={style.headerSucursal}>
         <h2>Sucursales</h2>
         <button onClick={()=>{
-          setModalverSucursal(true)
+          setmodalSucursal(true)
         }}
         >Agregar Sucursal</button>
       </div>
 
 
-      <div className={style.sectionCardsSucursal}></div>
+      <div className={style.sectionCardsSucursal}>
+      </div>
     </div>
   </div>
   )
