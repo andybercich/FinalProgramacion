@@ -1,0 +1,80 @@
+.mainDiv {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  font-family: "Unbounded", sans-serif;
+}
+
+.containerEmpresa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.containerCardEmpresa {
+  position: relative;
+  background-color: #fff;
+  height: 60vh;
+  width: 25vw;
+  border-radius: 1rem;
+}
+
+.containerHeaderCardEmpresa {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  padding-top: 12px;
+}
+
+.containerHeaderCardEmpresa span:hover {
+  color: #b81616;
+}
+
+.containerHeaderCardEmpresa span {
+  position: absolute;
+  right: 2px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #ab7d7d;
+}
+
+.containerBodyCardEmpresa {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 18px;
+  padding: 50px;
+}
+.containerBodyCardEmpresa p {
+
+  margin: 1px 0;
+}
+
+.containerImgCardEmpresa {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 8rem;
+  font-size: 20px;
+
+}
+
+.imgCardEmpresa {
+
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25rem;
+  height: 15rem;
+  margin-top: 6rem;
+}

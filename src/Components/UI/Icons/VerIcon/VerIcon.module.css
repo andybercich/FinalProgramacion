@@ -1,0 +1,17 @@
+.buttonVer{
+    background-color: transparent;
+    border: 1px solid #F6AD24;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.customIcon{
+    color: #F6AD24;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 500ms;     
+}
+
+.customIcon:hover{
+    color: #d38900
+}
