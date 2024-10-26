@@ -1,0 +1,52 @@
+.containerSucursal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  height: 100vh;
+}
+.materialSymbolsOutlined {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+.containerCardSucursal {
+  background-color: #fff;
+  height: 300px;
+  width: 250px;
+  border-radius: 0.7rem;
+  font-family: "Unbounded", sans-serif;
+}
+.containerHeaderCard {
+  display: flex;
+  justify-content: center;
+}
+.cardTitle {
+  font-size: 18px;
+}
+
+.containerBodyCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 13px;
+  padding-left: 6px;
+}
+.containerImgCard {
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  padding-left: 6px;
+}
+.imgCard {
+  background-color: #a39d9d;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7vh;
+  width: 7vw;
+  border: solid 0.5px #333;
+}
