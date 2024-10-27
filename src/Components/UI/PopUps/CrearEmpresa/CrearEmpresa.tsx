@@ -58,11 +58,28 @@ export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa 
         try {
           if (editar && empresa) {
             await serviceEmpresa.editEmpresa(empresa.id, nuevaEmpresa);
+            Swal.fire({
+              icon: 'success',
+              title: 'Éxito',
+              text: 'La empresa ha sido modificada correctamente.',
+              showCloseButton: true,
+              confirmButtonText: 'Aceptar',
+            });
           } else {
             await serviceEmpresa.createEmpresa(nuevaEmpresa);
+            Swal.fire({
+              icon: 'success',
+              title: 'Éxito',
+              text: 'La empresa ha sido creada correctamente.',
+              showCloseButton: true,
+              confirmButtonText: 'Aceptar',
+            });
           }
 
-            window.location.reload();
+            setTimeout(() => {
+              window.location.reload()
+            }, 1500);
+            
     
           const empresasActualizadas = await serviceEmpresa.getAllEmpresas();
           onAddEmpresa(empresasActualizadas.data); 
