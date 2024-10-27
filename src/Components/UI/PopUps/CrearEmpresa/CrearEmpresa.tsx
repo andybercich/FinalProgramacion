@@ -42,7 +42,9 @@ export const CrearEmpresa: FC<Props> = ({ onClose }) => {
       <div className={styles.modalEmpresa}>
         <div className={styles.contentTittle}>
           <h2>Crear Empresa</h2>
+        <div className={styles.contentbutton}>
           <CancelButton onClick={onClose} />
+        </div>
         </div>
         <form
           className={styles.formCrearEmpresa}
@@ -70,7 +72,10 @@ export const CrearEmpresa: FC<Props> = ({ onClose }) => {
               required
             />
 
-            <input
+          <div className={styles.contentLabel}>
+            <label>Ingrese un numero de CUIT</label>
+          </div>
+          <input
               type="number"
               name="cuit"
               placeholder="Ingresa un CUIT"

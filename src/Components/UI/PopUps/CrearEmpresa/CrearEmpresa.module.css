@@ -28,9 +28,16 @@
   text-align: center;
 }
 
+.contentbutton{
+  position: absolute;
+  left: 98%;
+  top: -30%;
+}
+
 .contentTittle h2 {
   font-size: 2.3rem;
 }
+
 
 
 .formCrearEmpresa {
@@ -65,9 +72,20 @@
   gap: 2vh;
 }
 
+.contentLabel{
+  width: 100%;
+  margin-right: -4%;
+  margin-bottom: -5%;
+}
+
+.contentLabel label{
+
+}
+
 .contentInputs input {
+  padding: 8px;
   width: 15vw;
-  height: 4vh;
+  height: 5vh;
   text-align: left;
   background-color: #d9d9d9;
   border-radius: 0.5rem;
