@@ -18,7 +18,6 @@ interface Props {
 
     const handleLocalidadChange = (localidad: string) => {
       setLocalidadSeleccionada(localidad);
-      console.log(localidad)
     };
 
   
@@ -43,7 +42,6 @@ interface Props {
   
     const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault();
-      console.log(parseInt(localidadSeleccionada))
       const nuevaSucursal: ICreateSucursal = {
         nombre: values.nombre,
         horarioApertura: values.apertura,
