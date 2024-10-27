@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import Swal from 'sweetalert2';
 import styles from './CrearEmpresa.module.css';
 import { CancelButton } from '../../Icons/CancelButton';
 import { Button } from 'react-bootstrap';
-import { useFormEmpresa } from "../../../Hooks/useFormEmpresa"; 
+import { useForm } from '../../../Hooks/useForm';
+
 
 interface Props {
   onClose: () => void;
@@ -17,21 +17,17 @@ interface EmpresaFormValues {
 }
 
 export const CrearEmpresa: FC<Props> = ({ onClose }) => {
-  const initialFormValues: EmpresaFormValues = {
+
+
+  const { values, handleChange, resetForm } = useForm({
     nombre: '',
     razonSocial: '',
     cuit: 0,
     logo: '',
-  };
+  });
 
-  const {
-    values,
-    handleChange,
-    handleSubmit,
-    resetForm,
-  } = useFormEmpresa({ initialValues: initialFormValues });
-
-  const onSubmit = async () => {
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     console.log('Datos enviados:', values);
     resetForm();
     onClose();
@@ -46,10 +42,7 @@ export const CrearEmpresa: FC<Props> = ({ onClose }) => {
         </div>
         <form
           className={styles.formCrearEmpresa}
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(onSubmit);
-          }}
+          onSubmit={handleSubmit}
         >
           <div className={styles.contentInputs}>
             <input

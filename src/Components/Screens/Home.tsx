@@ -33,7 +33,7 @@ export const Home = () => {
     </div>
 
     {modalEmpresa && <CrearEmpresa onClose={() => setModalEmpresa(false)} />}
-    {modalSucursal && <CrearSucursal onClose={() => setmodalSucursal(false)} />}
+    {modalSucursal && <CrearSucursal onClose={() => setmodalSucursal(false)} casaMatriz={false} />}
     {modalVerSucursal && <VerSucursal onClose={() => setModalverSucursal(false)}/>}
     {modalVerEmpresa && <VerEmpresa onClose={() => setModalverEmpresa(false)}/>}
 

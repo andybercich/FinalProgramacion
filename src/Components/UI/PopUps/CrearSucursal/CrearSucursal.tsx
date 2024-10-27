@@ -2,31 +2,34 @@ import { Button } from "react-bootstrap"
 import styles from "./CrearSucursal.module.css"
 import { FC, useState} from "react"
 import { CancelButton } from "../../Icons/CancelIcon/CancelButton";
-import useForm from "../../../Hooks/useFormSucursal";
+import {useForm} from "../../../Hooks/useForm";
 import { ServiceSucursal } from "../../../../Services/sucursalService";
 import { ICreateSucursal } from "../../../../Models/types/dtos/sucursal/ICreateSucursal";
 import { Selectors } from "./Selectors";
 
 interface Props {
     onClose: () => void;
+    casaMatriz: boolean
   }
   
-  export const CrearSucursal: FC<Props> = ({ onClose }) => {
+  export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz }) => {
     
-    const [localidadSeleccionada, setLocalidadSeleccionada] = useState(0);
+    const [localidadSeleccionada, setLocalidadSeleccionada] = useState("");
 
-    const handleLocalidadChange = (localidad: number) => {
-        setLocalidadSeleccionada(localidad);
+    const handleLocalidadChange = (localidad: string) => {
+      setLocalidadSeleccionada(localidad);
+      console.log(localidad)
     };
 
-    const initialFormValues = {
+  
+    const { values, handleChange, resetForm } = useForm({
       nombre: '',
       apertura: '',
       cierre: '',
       casaMatriz: false,
       pais: '',
       provincia: '',
-      localidad: 0,
+      localidad: localidadSeleccionada,
       latitud: 0,
       longitud: 0,
       calle: '',
@@ -35,13 +38,12 @@ interface Props {
       piso: 0,
       departamento: 0,
       srcPhoto: '',
-    };
-  
-    const { values, handleChange, resetForm } = useForm(initialFormValues);
+
+    });
   
     const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault();
-
+      console.log(parseInt(localidadSeleccionada))
       const nuevaSucursal: ICreateSucursal = {
         nombre: values.nombre,
         horarioApertura: values.apertura,
@@ -55,7 +57,7 @@ interface Props {
           cp: values.codigoPostal,
           piso: values.piso,
           nroDpto: values.departamento,
-          idLocalidad: localidadSeleccionada
+          idLocalidad: parseInt(localidadSeleccionada)
         },
         idEmpresa: 1,
         logo: values.srcPhoto 
@@ -65,10 +67,11 @@ interface Props {
       try {
         const response = await serviceSucursal.createOneSucursalByEmpresa(nuevaSucursal);
         console.log(response.data);
+        console.log(await serviceSucursal.getAllSucursalesByEmpresa(1) )
     } catch (error) {
         console.error('Error al obtener las sucursales:', error);
     }
-      console.log('Formulario enviado:', values);
+
       resetForm();
       onClose(); 
     };
@@ -113,8 +116,9 @@ interface Props {
                   value={values.cierre}
                   onChange={handleChange}
                 />
-  
-                <div className={styles.containerCheck}>
+                {
+                  casaMatriz ? <div className={styles.containerCheck}>
+                  
                   <label htmlFor="casaMatriz">Casa Matriz</label>
                   <input
                     id="casaMatriz"
@@ -123,12 +127,15 @@ interface Props {
                     checked={values.casaMatriz}
                     onChange={handleChange}
                   />
-                </div>
+                </div> : <div></div>
+                }
+  
+                
               </div>
   
               <div className={styles.colums}>
 
-                <Selectors onLocalidadChange={setLocalidadSeleccionada} ></Selectors>
+                <Selectors onLocalidadChange={handleLocalidadChange} localidadSeleccionada={localidadSeleccionada} ></Selectors>
 
                 <input
                   required
