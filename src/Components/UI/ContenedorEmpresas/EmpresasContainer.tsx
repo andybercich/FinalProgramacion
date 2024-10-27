@@ -38,7 +38,7 @@ export const EmpresasContainer = () => {
     return (
         <div className={styles.divContainer} >
             <button className={styles.buttonEmpresa}  onClick={() => setShowCrearEmpresa(true)}>Agregar Empresa</button>
-            <ListEmpresa empresas={empresas} />
+            <ListEmpresa onAddEmpresa={handleAddEmpresa} empresas={empresas} />
             {showCrearEmpresa && (
                 <CrearEmpresa 
                     onClose={() => setShowCrearEmpresa(false)} 

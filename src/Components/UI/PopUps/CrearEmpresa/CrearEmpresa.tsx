@@ -18,55 +18,68 @@ interface Empresa {
 interface Props {
     onClose: () => void;
     onAddEmpresa: (empresa: Empresa) => void;
+    editar?: boolean ;
+    empresa? : Empresa;
 }
 
-export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa }) => {
+export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa }) => {
     const { values, handleChange, resetForm } = useForm({
-        nombre: '',
-        razonSocial: '',
-        cuit: '',
-        logo: '',
+        nombre: editar && empresa ? empresa.nombre : '',
+        razonSocial: editar && empresa ? empresa.razonSocial : '',
+        cuit: editar && empresa ? empresa.cuit.toString() : '',
+        logo: editar && empresa ? empresa.logo : '',
+
     });
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        if (values.cuit.toString().length !== 11) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'El CUIT debe tener exactamente 11 dígitos.',
-                showCloseButton: true,
-                confirmButtonText: 'Aceptar',
-            });
-            return;
+    
+        if (values.cuit && values.cuit.toString().length !== 11) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El CUIT debe tener exactamente 11 dígitos.',
+            showCloseButton: true,
+            confirmButtonText: 'Aceptar',
+          });
+          return;
         }
-
+    
         const nuevaEmpresa: Empresa = {
-            id: Date.now(),
-            nombre: values.nombre,
-            razonSocial: values.razonSocial,
-            cuit: parseInt(values.cuit),
-            logo: values.logo,
-            eliminado: false,
+          id: editar && empresa ? empresa.id : Date.now(), 
+          nombre: values.nombre,
+          razonSocial: values.razonSocial,
+          cuit: parseInt(values.cuit as string, 10) || 0,
+          logo: values.logo,
+          eliminado: empresa?.eliminado || false,
         };
-
+    
         const serviceEmpresa = new ServiceEmpresa();
         try {
-            const response = await serviceEmpresa.createEmpresa(nuevaEmpresa);
-            onAddEmpresa(response.data); 
-        } catch (error) {
-            console.error('Error al crear la empresa:', error);
-        }
+          if (editar && empresa) {
+            await serviceEmpresa.editEmpresa(empresa.id, nuevaEmpresa);
+          } else {
+            await serviceEmpresa.createEmpresa(nuevaEmpresa);
+          }
 
+            window.location.reload();
+    
+          const empresasActualizadas = await serviceEmpresa.getAllEmpresas();
+          onAddEmpresa(empresasActualizadas.data); 
+        } catch (error) {
+          console.error('Error al guardar la empresa:', error);
+        }
+    
         resetForm();
         onClose();
-    };
+      };
 
     return (
         <div className={styles.mainDiv}>
             <div className={styles.modalEmpresa}>
                 <div className={styles.contentTittle}>
-                    <h2>Crear Empresa</h2>
+                    {editar && empresa ? <h2>Modificar Empresa</h2> :<h2>Crear Empresa</h2>  }
+                    
                     <div className={styles.contentbutton}>
                         <CancelButton onClick={onClose} />
                     </div>
