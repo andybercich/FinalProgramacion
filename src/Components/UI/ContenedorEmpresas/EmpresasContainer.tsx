@@ -5,7 +5,6 @@ import { CrearEmpresa } from '../PopUps/CrearEmpresa/CrearEmpresa';
 import styles from "./Empresas.module.css"
 
 interface Empresa {
-
     cuit: number;
     eliminado: boolean;
     id: number;

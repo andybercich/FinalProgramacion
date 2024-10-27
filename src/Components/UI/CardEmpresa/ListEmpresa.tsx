@@ -16,7 +16,7 @@ export const ListEmpresa = ({ empresas }: { empresas: Empresa[] }) => {
                 "No hay empresas :("
             ) : (
                 empresas.map((empresa) => (
-                    <CardEmpresa titulo={empresa.nombre} key={empresa.id} />
+                    <CardEmpresa empresa={empresa} />
                 ))
             )}
         </div>

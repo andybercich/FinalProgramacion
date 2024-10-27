@@ -2,29 +2,35 @@ import { FC } from "react";
 import styles from "./VerEmpresa.module.css";
 
 interface Props {
-  onClose: () => void;
+  onClose: () => void,
+  empresa:Empresa
 }
 
-export const VerEmpresa: FC<Props> = ({ onClose }) => {
+interface Empresa {
+  cuit: number;
+  logo: string;
+  nombre: string;
+  razonSocial: string;
+}
+
+export const VerEmpresa: FC<Props> = ({ onClose,empresa }) => {
   return (
     <div className={styles.mainDiv}>
-      <div className={styles.containerEmpresa}>
         <div className={styles.containerCardEmpresa}>
           <div className={styles.containerHeaderCardEmpresa}>
-            <h3>Nombre Empresa</h3>
+            <h3>{empresa.nombre}</h3>
             <span onClick={onClose} className="material-symbols-outlined">
               cancel
             </span>
           </div>
           <div className={styles.containerBodyCardEmpresa}>
-            <p>Razon Social:</p>
-            <p>CUIT:</p>
+            <p>Razon Social: {empresa.razonSocial}</p>
+            <p>CUIT: {empresa.cuit}</p>
           </div>
           <div className={styles.containerImgCardEmpresa}>
-            <b className={styles.imgCardEmpresa}>Imagen</b>
+            <img src= {empresa.logo} />
           </div>
         </div>
-      </div>
     </div>
   );
 };

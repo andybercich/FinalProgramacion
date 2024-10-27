@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
-import { ICreateEmpresaDto } from '../Models/types/dtos/empresa/ICreateEmpresaDto';
-import { IUpdateEmpresaDto } from '../Models/types/dtos/empresa/IUpdateEmpresaDto';
+import { ICreateEmpresaDto } from "../Models/types/dtos/empresa/ICreateEmpresaDto";
+import { IUpdateEmpresaDto } from "../Models/types/dtos/empresa/IUpdateEmpresaDto";
+import axios, { AxiosResponse } from 'axios'
 
 export class ServiceEmpresa {
   private baseURL: string;
@@ -13,7 +13,7 @@ export class ServiceEmpresa {
     const url = `${this.baseURL}/${id}`;
     return axios.get(url, {
       headers: {
-        'User-Agent': 'insomnia/9.3.1',
+        'User-Agent': 'insomnia/9.3.1'
       },
     });
   }
@@ -21,8 +21,8 @@ export class ServiceEmpresa {
   public async createEmpresa(empresa: ICreateEmpresaDto): Promise<AxiosResponse<any>> {
     return axios.post(this.baseURL, empresa, {
       headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'insomnia/9.3.1',
+        'Content-Type': 'application/json'
+        //'User-Agent': 'insomnia/9.3.1',
       },
     });
   }
@@ -31,8 +31,8 @@ export class ServiceEmpresa {
     const url = `${this.baseURL}/${id}`;
     return axios.put(url, empresa, {
       headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'insomnia/9.3.1',
+        'Content-Type': 'application/json'
+        //'User-Agent': 'insomnia/9.3.1',
       },
     });
   }
@@ -40,12 +40,9 @@ export class ServiceEmpresa {
   public async getAllEmpresas(): Promise<AxiosResponse<any>> {
     return axios.get(this.baseURL, {
       headers: {
-        'User-Agent': 'insomnia/9.3.1',
+        'Content-Type': 'application/json'
+        //'User-Agent': 'insomnia/9.3.1',
       },
     });
   }
 }
-
-
-
-
