@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 0.4rem;
 }
 .customIcon{
     color: #F6AD24;
