@@ -5,6 +5,7 @@ import { EditIcon } from "../Icons/EditIcon/EditIcon";
 import { FC, useState } from "react";
 import { VerEmpresa } from "../PopUps/VerEmpresa/VerEmpresa";
 import { CrearEmpresa } from "../PopUps/CrearEmpresa/CrearEmpresa";
+import ReactDOM from "react-dom";
 
 interface IProps {
   empresa:Empresa
@@ -20,11 +21,10 @@ interface Empresa {
   razonSocial: string;
 }
 
+
 export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
-
-  const [modalVer,setModalVer] = useState<boolean>(false)
-  const [modalEditar, setModalEditar] = useState <boolean> (false)
-
+  const [modalVer, setModalVer] = useState<boolean>(false);
+  const [modalEditar, setModalEditar] = useState<boolean>(false);
 
   return (
     <Card className={styles.containerCard}>
@@ -33,26 +33,30 @@ export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
           {empresa.nombre ? empresa.nombre.toUpperCase() : 'Nombre no disponible'}
         </Card.Title>
         <div className={styles.contentIcons}>
-          <div
-            onClick={() => {
-              setModalVer(true)
-            }}>
-
+          <div onClick={() => setModalVer(true)}>
             <VerIcon />
-          
           </div>
-
-          <div onClick={()=>{
-              setModalEditar(true)
-          }}>
-
+          <div onClick={() => setModalEditar(true)}>
             <EditIcon />
-
           </div>
-
         </div>
-        {modalVer ? <VerEmpresa onClose={() => setModalVer(false)} empresa={empresa}/> : null}
-        {modalEditar ? <CrearEmpresa editar={true} empresa={empresa}  onAddEmpresa={onAddEmpresa} onClose={() => setModalEditar(false)} ></CrearEmpresa> : null}
+
+        {modalVer &&
+          ReactDOM.createPortal(
+            <VerEmpresa onClose={() => setModalVer(false)} empresa={empresa} />,
+            document.body
+          )}
+
+        {modalEditar &&
+          ReactDOM.createPortal(
+            <CrearEmpresa
+              editar={true}
+              empresa={empresa}
+              onAddEmpresa={onAddEmpresa}
+              onClose={() => setModalEditar(false)}
+            />,
+            document.body
+          )}
       </Card.Body>
     </Card>
   );
