@@ -64,7 +64,11 @@ export const Home = () => {
             Agregar Sucursal
           </button>
         </div>
-        <ListSucursal sucursales={sucursales} />
+        {sucursales.length > 0 ? (
+          <ListSucursal sucursales={sucursales} />
+        ) : (
+          <p className={style.noSucursalMessage}>No hay sucursales disponibles actualmente.</p>
+        )}
       </div>
     </div>
   );
