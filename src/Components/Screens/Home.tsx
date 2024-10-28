@@ -4,6 +4,14 @@ import { useState } from "react";
 import VerSucursal from "../UI/PopUps/VerSucursal/VerSucursal";
 import { EmpresasContainer } from "../UI/ContenedorEmpresas/EmpresasContainer";
 import ListSucursal from "../UI/ListSucursal/ListSucursal";
+import { ISucursal } from "../../Models/types/dtos/sucursal/ISucursal";
+
+
+const sucursales: ISucursal[] = [
+  { nombre: "PALMARES", horarioApertura: "20:00hs", horarioCierre: "22:00hs", logo: "" },
+  { nombre: "PALMARES", horarioApertura: "20:00hs", horarioCierre: "22:00hs", logo: "" },
+  { nombre: "PALMARES", horarioApertura: "20:00hs", horarioCierre: "22:00hs", logo: "" },
+];
 
 export const Home = () => {
     const [modalSucursal, setmodalSucursal] = useState(false);
@@ -36,7 +44,7 @@ export const Home = () => {
         >Agregar Sucursal</button>
       </div>
 
-        <ListSucursal></ListSucursal>
+        
       <div className={style.sectionCardsSucursal}>
       </div>
     </div>

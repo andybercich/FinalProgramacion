@@ -1,45 +1,25 @@
+import { FC } from "react";
+
 import CardSucursal from "../CardSucursal/CardSucursal";
 import styles from "./ListSucursal.module.css";
+import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
 
-const ListSucursal = () => {
+interface IListSucursal {
+  sucursales: ISucursal[];
+}
+
+const ListSucursal: FC<IListSucursal>=({sucursales}) => {
   return (
     <div className={styles.containerListSucursal}>
-      <CardSucursal
-          titulo="PALMARES"
-          horario="Horario: 20:00hs - 22:00hs"
-          imagen=""
-        />
+      {sucursales.map((sucursal, index) => (
         <CardSucursal
-          titulo="PALMARES"
-          horario="Horario: 20:00hs - 22:00hs"
-          imagen=""
+          key={index}
+          nombre={sucursal.nombre}
+          horarioApertura={sucursal.horarioApertura}
+          horarioCierre={sucursal.horarioCierre} 
+          logo=""
         />
-        <CardSucursal
-          titulo="PALMARES"
-          horario="Horario: 20:00hs - 22:00hs"
-          imagen=""
-        />
-        <CardSucursal
-          titulo="PALMARES"
-          horario="Horario: 20:00hs - 22:00hs"
-          imagen=""
-        />
-        <CardSucursal
-          titulo="PALMARES"
-          horario="Horario: 20:00hs - 22:00hs"
-          imagen=""
-        />
-        <CardSucursal
-          titulo="PALMARES"
-          horario="Horario: 20:00hs - 22:00hs"
-          imagen=""
-        />
-        <CardSucursal
-          titulo="PALMARES"
-          horario="Horario: 20:00hs - 22:00hs"
-          imagen=""
-        />
-        
+      ))}
     </div>
   );
 };
