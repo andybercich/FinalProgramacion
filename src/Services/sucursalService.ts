@@ -25,7 +25,7 @@ export class ServiceSucursal {
       return axios.post(url, sucursal, {
         headers: {
           'Content-Type': 'application/json',
-          'User-Agent': 'insomnia/9.3.2',
+          //'User-Agent': 'insomnia/9.3.2',
         },
       });
     }
@@ -36,7 +36,7 @@ export class ServiceSucursal {
       return axios.put(url, sucursal, {
         headers: {
           'Content-Type': 'application/json',
-          'User-Agent': 'insomnia/9.3.2',
+          //'User-Agent': 'insomnia/9.3.2',
         },
       });
     }
@@ -46,13 +46,12 @@ export class ServiceSucursal {
       const url = `${this.baseURL}/porEmpresa/${idEmpresa}`;
       return axios.get(url, {
         headers: {
-          'User-Agent': 'insomnia/9.3.2',
+          'Content-Type': 'application/json',
+          //'User-Agent': 'insomnia/9.3.2',
         },
       });
     }
   }
 
 
-const service: ServiceSucursal = new ServiceSucursal();
-console.log(service.getAllSucursalesByEmpresa(1));
 

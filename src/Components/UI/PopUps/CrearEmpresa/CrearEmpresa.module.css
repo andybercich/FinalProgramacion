@@ -17,22 +17,26 @@
   align-items: center;
   justify-content: center;
   gap: 3vh;
-  width: 25vw;
-  height: 50vh;
+  width: 25%;
+  height: 60%;
   border-radius: 0.5rem;
 }
 
 .contentTittle {
   position: relative;
-  top: 2%;
   width: 100%;
   text-align: center;
+}
+
+.contentbutton{
+  position: absolute;
+  left: 98%;
+  top: -30%;
 }
 
 .contentTittle h2 {
   font-size: 2.3rem;
 }
-
 
 .formCrearEmpresa {
   padding: 1rem;
@@ -47,7 +51,7 @@
 .formCrearEmpresa input {
   width: 15vw;
   height: 8vh;
-  text-align: center;
+  padding: 8px;
   background-color: #d9d9d9;
   outline: none;
   border: 1px solid rgb(158, 158, 158);
@@ -66,9 +70,11 @@
   gap: 2vh;
 }
 
+
 .contentInputs input {
+  padding: 8px;
   width: 15vw;
-  height: 4vh;
+  height: 5vh;
   text-align: left;
   background-color: #d9d9d9;
   border-radius: 0.5rem;
