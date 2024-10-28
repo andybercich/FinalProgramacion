@@ -2,7 +2,6 @@ import style from "./Home.module.css";
 import { CrearSucursal } from "../../Components/UI/PopUps/CrearSucursal/CrearSucursal";
 import { useState } from "react";
 import VerSucursal from "../UI/PopUps/VerSucursal/VerSucursal";
-import ListSucursal from "../UI/ListSucursal/ListSucursal";
 import { EmpresasContainer } from "../UI/ContenedorEmpresas/EmpresasContainer";
 
 export const Home = () => {
@@ -28,22 +27,18 @@ export const Home = () => {
     {modalVerSucursal && <VerSucursal onClose={() => setModalverSucursal(false)}/>}
 
     <div className={style.sectionSucursal}>
-        <div className={style.headerSucursal}>
-          <h2>Sucursales</h2>
+      <div className={style.headerSucursal}>
+        <h2>Sucursales</h2>
+        <button onClick={()=>{
+          setmodalSucursal(true)
+        }}
+        >Agregar Sucursal</button>
+      </div>
 
-          <button
-            onClick={() => {
-              setmodalSucursal(true);
-            }}
-          >
-            Agregar Sucursal
-          </button>
-        </div>
-        <ListSucursal />
+
+      <div className={style.sectionCardsSucursal}>
       </div>
     </div>
+  </div>
   )
 }
-
-
-
