@@ -4,19 +4,19 @@ import { Card } from "react-bootstrap";
 import { AdmSucursal } from "../Icons/AdmSucursal/AdmSucursal";
 import { VerIcon } from "../Icons/VerIcon/VerIcon";
 import { EditIcon } from "../Icons/EditIcon/EditIcon";
-import { CancelButton } from "../Icons/CancelIcon/CancelButton";
+
 
 interface IProps {
   titulo: string;
   horario: string;
   imagen: string;
-  onClose: () => void;
+  
 }
 export const CardSucursal: FC<IProps> = ({
   titulo,
   horario,
   imagen,
-  onClose,
+  
 }) => {
   return (
     <div>
@@ -29,13 +29,11 @@ export const CardSucursal: FC<IProps> = ({
           <div className={styles.imgStyle}>
             <p>{imagen}</p>
           </div>
-
           <div className={styles.contentIcons}>
           <AdmSucursal />
           <VerIcon />
           <EditIcon />
           </div>
-          <CancelButton onClick={onClose} />
         </Card.Body>
       </Card>
     </div>

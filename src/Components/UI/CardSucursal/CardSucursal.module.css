@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20rem;
-    width: 18rem;
+    height: 100%;
+    width: 100%;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     background-color: #EFEFFC;
@@ -37,9 +37,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 13rem; /* Ajusta el ancho */
-    height: 10rem; /* Ajusta la altura */
-    margin: 0 auto; /* Centra el recuadro gris */
-    margin-bottom: 1rem; /* Añade espacio debajo */
+    width: 13rem; 
+    height: 10rem; 
+    margin: 0 auto; 
+    margin-bottom: 1rem;
     border-radius: 0.4rem;
   }
