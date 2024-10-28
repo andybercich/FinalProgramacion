@@ -22,7 +22,10 @@ export const ListEmpresa: FC<PropsList> = ({ empresas, onAddEmpresa }) => {
                 "No hay empresas :("
             ) : (
                 empresas.map((empresa) => (
-                    <CardEmpresa onAddEmpresa={onAddEmpresa} empresa={empresa} />
+                    <div className={styles.cardContainer}>
+                        <CardEmpresa onAddEmpresa={onAddEmpresa} empresa={empresa} />
+                    </div>
+                    
                 ))
             )}
         </div>

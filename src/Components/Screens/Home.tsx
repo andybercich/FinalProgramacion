@@ -3,6 +3,7 @@ import { CrearSucursal } from "../../Components/UI/PopUps/CrearSucursal/CrearSuc
 import { useState } from "react";
 import VerSucursal from "../UI/PopUps/VerSucursal/VerSucursal";
 import { EmpresasContainer } from "../UI/ContenedorEmpresas/EmpresasContainer";
+import ListSucursal from "../UI/ListSucursal/ListSucursal";
 
 export const Home = () => {
     const [modalSucursal, setmodalSucursal] = useState(false);
@@ -35,7 +36,7 @@ export const Home = () => {
         >Agregar Sucursal</button>
       </div>
 
-
+        <ListSucursal></ListSucursal>
       <div className={style.sectionCardsSucursal}>
       </div>
     </div>
