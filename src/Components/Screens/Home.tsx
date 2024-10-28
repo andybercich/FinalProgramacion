@@ -6,11 +6,13 @@ import { CardEmpresa } from "../UI/CardEmpresa/CardEmpresa";
 import VerSucursal from "../UI/PopUps/VerSucursal/VerSucursal";
 import { VerEmpresa } from "../UI/PopUps/VerEmpresa/VerEmpresa";
 import ListSucursal from "../UI/ListSucursal/ListSucursal";
-import { ISucursal } from "../../Models/types/ISucursal";
+import { ISucursal } from "../../Models/types/dtos/sucursal/ISucursal";
+
 
 const sucursales: ISucursal[] = [
-  { titulo: "PALMARES", horario: "Horario: 20:00hs - 22:00hs", imagen: "" },
-
+  { nombre: "PALMARES", horarioApertura: "20:00hs", horarioCierre: "22:00hs", logo: "" },
+  { nombre: "PALMARES", horarioApertura: "20:00hs", horarioCierre: "22:00hs", logo: "" },
+  { nombre: "PALMARES", horarioApertura: "20:00hs", horarioCierre: "22:00hs", logo: "" },
 ];
 
 export const Home = () => {

@@ -4,24 +4,26 @@ import { Card } from "react-bootstrap";
 import { AdmSucursal } from "../Icons/AdmSucursal/AdmSucursal";
 import { VerIcon } from "../Icons/VerIcon/VerIcon";
 import { EditIcon } from "../Icons/EditIcon/EditIcon";
-import { ISucursal } from "../../../Models/types/ISucursal";
+import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
+
 
 
 export const CardSucursal: FC<ISucursal> = ({
-  titulo,
-  horario,
-  imagen,
+  nombre,
+  horarioApertura,
+  horarioCierre,
+  logo,
 }) => {
   return (
     <div>
       <Card className={styles.containerCardSucursal}>
         <Card.Body>
-          <Card.Title className={styles.cardSucursalTitle}>{titulo}</Card.Title>
+          <Card.Title className={styles.cardSucursalTitle}>{nombre}</Card.Title>
           <div className={styles.horarioStyle}>
-            <p>{horario}</p>
+            <p>{"Horario: " + horarioApertura + " - " + horarioCierre}</p>
           </div>
           <div className={styles.imgStyle}>
-            <p>{imagen}</p>
+          {logo ?   <img src={logo}/> :  <img src={""}/>}
           </div>
           <div className={styles.contentIcons}>
           <AdmSucursal />
