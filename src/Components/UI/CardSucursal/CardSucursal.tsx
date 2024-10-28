@@ -4,19 +4,13 @@ import { Card } from "react-bootstrap";
 import { AdmSucursal } from "../Icons/AdmSucursal/AdmSucursal";
 import { VerIcon } from "../Icons/VerIcon/VerIcon";
 import { EditIcon } from "../Icons/EditIcon/EditIcon";
+import { ISucursal } from "../../../Models/types/ISucursal";
 
 
-interface IProps {
-  titulo: string;
-  horario: string;
-  imagen: string;
-  
-}
-export const CardSucursal: FC<IProps> = ({
+export const CardSucursal: FC<ISucursal> = ({
   titulo,
   horario,
   imagen,
-  
 }) => {
   return (
     <div>

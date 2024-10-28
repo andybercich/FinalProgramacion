@@ -5,8 +5,13 @@ import { useState } from "react";
 import { CardEmpresa } from "../UI/CardEmpresa/CardEmpresa";
 import VerSucursal from "../UI/PopUps/VerSucursal/VerSucursal";
 import { VerEmpresa } from "../UI/PopUps/VerEmpresa/VerEmpresa";
-
 import ListSucursal from "../UI/ListSucursal/ListSucursal";
+import { ISucursal } from "../../Models/types/ISucursal";
+
+const sucursales: ISucursal[] = [
+  { titulo: "PALMARES", horario: "Horario: 20:00hs - 22:00hs", imagen: "" },
+
+];
 
 export const Home = () => {
   const [modalEmpresa, setModalEmpresa] = useState(false);
@@ -57,7 +62,11 @@ export const Home = () => {
             Agregar Sucursal
           </button>
         </div>
-        <ListSucursal />
+        {sucursales.length > 0 ? (
+          <ListSucursal sucursales={sucursales} />
+        ) : (
+          <p className={style.noSucursalMessage}>No hay sucursales disponibles actualmente.</p>
+        )}
       </div>
     </div>
   );
