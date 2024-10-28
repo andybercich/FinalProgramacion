@@ -4,17 +4,17 @@ import { IEmpresa } from "../empresa/IEmpresa";
 
 
 export interface ISucursal {
-  id?: number;
+  id: number;
   nombre: string;
-  empresa?: IEmpresa;
-  domicilio?: IDomicilio;
-  calle?: string;
-  latitud?: number;
-  longitud?: number;
-  categorias?: ICategorias[];
-  esCasaMatriz?: boolean;
+  empresa: IEmpresa;
+  domicilio: IDomicilio|null;
+  calle: string;
+  latitud: number;
+  longitud: number;
+  categorias: ICategorias[]|null;
+  esCasaMatriz: boolean;
   horarioApertura: string;
-  eliminado?: boolean;
+  eliminado: boolean;
   horarioCierre: string;
-  logo?: string;
+  logo: string| null;
 }

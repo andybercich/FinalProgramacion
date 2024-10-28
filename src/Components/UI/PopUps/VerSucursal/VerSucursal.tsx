@@ -1,9 +1,11 @@
 import { FC } from "react";
 import styles from "./VerSucursal.module.css";
+import { ISucursal } from "../../../../Models/types/dtos/sucursal/ISucursal";
 interface Props {
   onClose: () => void;
+  sucursal: ISucursal;
 }
-export const VerSucursal: FC<Props> = ({ onClose }) => {
+export const VerSucursal: FC<Props> = ({ onClose, sucursal }) => {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.containerSucursal}>
@@ -15,10 +17,17 @@ export const VerSucursal: FC<Props> = ({ onClose }) => {
             </span>
           </div>
           <div className={styles.containerBodyCardSucursal}>
-            <p>Empresa:</p>
-            <p>Domicilio:</p>
-            <p>Casa Matriz:</p>
-            <p>Horario:</p>
+            <p>Empresa: {sucursal.empresa.nombre}</p>
+            {sucursal.domicilio  ? (
+              <p>Domicilio: {sucursal.domicilio.calle}</p>
+            ) : (
+              <p>No tiene registrada una calle</p>
+            )}
+            <p >Casa Matriz: {String(sucursal.esCasaMatriz)}</p>
+            <p>
+              Horario: 
+              {sucursal.horarioApertura + " - " + sucursal.horarioCierre}
+            </p>
           </div>
           <div className={styles.containerImgCardSucursal}>
             <p className={styles.imgCardSucursal}>Imagen</p>

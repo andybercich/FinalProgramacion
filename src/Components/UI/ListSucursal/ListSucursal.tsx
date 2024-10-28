@@ -8,17 +8,12 @@ interface IListSucursal {
   sucursales: ISucursal[];
 }
 
-const ListSucursal: FC<IListSucursal>=({sucursales}) => {
+
+const ListSucursal: FC<IListSucursal> = ({ sucursales }) => {
   return (
     <div className={styles.containerListSucursal}>
       {sucursales.map((sucursal, index) => (
-        <CardSucursal
-          key={index}
-          nombre={sucursal.nombre}
-          horarioApertura={sucursal.horarioApertura}
-          horarioCierre={sucursal.horarioCierre} 
-          logo=""
-        />
+        <CardSucursal sucursal={sucursal}   />
       ))}
     </div>
   );
