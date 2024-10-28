@@ -23,7 +23,7 @@ export const CardSucursal: FC<ISucursal> = ({
             <p>{"Horario: " + horarioApertura + " - " + horarioCierre}</p>
           </div>
           <div className={styles.imgStyle}>
-          {logo ?   <img src={logo}/> :  <img src={""}/>}
+          {logo ?   <img src={logo}/> :  <img src="https://th.bing.com/th/id/OIP.DDCR2MUOCxeeQsRMX8ddRAHaFs?w=212&h=180&c=7&r=0&o=5&pid=1.7" />}
           </div>
           <div className={styles.contentIcons}>
           <AdmSucursal />

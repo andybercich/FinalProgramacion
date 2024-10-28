@@ -26,6 +26,20 @@ const sucursales: ISucursal[] = [
     horarioCierre: "22:00hs",
     logo: "",
   },
+  {
+    nombre: "PALMARES",
+    horarioApertura: "20:00hs",
+    horarioCierre: "22:00hs",
+    logo: "",
+  },
+  {
+    nombre: "PALMARES",
+    horarioApertura: "20:00hs",
+    horarioCierre: "22:00hs",
+    logo: "",
+  },
+
+  
 ];
 
 export const Home = () => {
@@ -64,11 +78,15 @@ export const Home = () => {
             Agregar Sucursal
           </button>
         </div>
-        {sucursales.length > 0 ? (
-          <ListSucursal sucursales={sucursales} />
-        ) : (
-          <p className={style.noSucursalMessage}>No hay sucursales disponibles actualmente.</p>
-        )}
+        <div className={style.containerListHome}>
+          {sucursales.length > 0 ? (
+            <ListSucursal sucursales={sucursales} />
+          ) : (
+            <p className={style.noSucursalMessage}>
+              No hay sucursales disponibles actualmente.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
