@@ -1,6 +1,6 @@
 import styles from "./ListEmpresa.module.css"
 import { CardEmpresa } from "./CardEmpresa"
-import { FC } from "react";
+import { FC, useState } from "react";
 
 interface Empresa {
     cuit: number;
@@ -16,16 +16,27 @@ interface PropsList{
 }
 
 export const ListEmpresa: FC<PropsList> = ({ empresas, onAddEmpresa }) => {
+    const [selectedEmpresaId, setSelectedEmpresaId] = useState<number | null>(null);
+
+    const handleCardClick = (id: number) => {
+        setSelectedEmpresaId(id); 
+    };
+
     return (
         <div className={styles.mainContainer}>
             {empresas.length === 0 ? (
                 "No hay empresas :("
             ) : (
                 empresas.map((empresa) => (
-                    <div className={styles.cardContainer}>
+                    <div
+                        key={empresa.id}
+                        className={`${styles.cardContainer} ${
+                            selectedEmpresaId === empresa.id ? styles.selected : ""
+                        }`}
+                        onClick={() => handleCardClick(empresa.id)}
+                    >
                         <CardEmpresa onAddEmpresa={onAddEmpresa} empresa={empresa} />
                     </div>
-                    
                 ))
             )}
         </div>

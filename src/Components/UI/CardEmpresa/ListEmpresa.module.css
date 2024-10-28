@@ -10,3 +10,18 @@
     gap: 15px;
     padding-bottom: 11px;
 }
+
+
+.cardContainer {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 5px;
+}
+
+.cardContainer:hover,
+.cardContainer.selected {
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.cardContainer.selected{
+    transform: scale(1.02);
+}
