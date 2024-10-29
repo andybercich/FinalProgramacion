@@ -90,8 +90,9 @@
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    margin: 20px auto;
-    width: 90%;
+    margin: 20px auto; /* Centra el elemento */
+    width: 90%; /* Define el ancho */
+    height: 10%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
