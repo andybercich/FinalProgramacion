@@ -19,7 +19,7 @@ export const VerSucursal: FC<Props> = ({ onClose, sucursal }) => {
           <h4 style={{ fontWeight: "bold" }}>{sucursal.nombre}</h4>
         </div>
 
-          <p>Nombre: {sucursal.nombre}</p>
+          <p>Empresa: {sucursal.empresa.nombre}</p>
           <p>Domicilio: {sucursal.domicilio.calle}</p>
           <p>Casa Matriz: {sucursal.esCasaMatriz ? "Si" : "No"}</p>
           <p>
