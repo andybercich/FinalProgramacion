@@ -7,7 +7,7 @@ export interface ISucursal {
   id: number;
   nombre: string;
   empresa: IEmpresa;
-  domicilio: IDomicilio|null;
+  domicilio: IDomicilio;
   calle: string;
   latitud: number;
   longitud: number;
@@ -16,5 +16,5 @@ export interface ISucursal {
   horarioApertura: string;
   eliminado: boolean;
   horarioCierre: string;
-  logo: string| null;
+  logo: string;
 }

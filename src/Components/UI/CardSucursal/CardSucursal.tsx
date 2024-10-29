@@ -14,6 +14,8 @@ interface Props {
 
 export const CardSucursal: FC<Props> = ({sucursal}) => {
   const [modalVer, setModalVer] = useState<boolean>(false);
+  const [modalEditar, setModalEditar] = useState<boolean>(false);
+  
   return (
     <div>
       <Card className={styles.containerCardSucursal}>
