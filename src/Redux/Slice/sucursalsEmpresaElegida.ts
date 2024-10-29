@@ -10,8 +10,8 @@ interface UserDataInitial{
 
 const initialState: UserDataInitial = {empresa: null }
 
-const SucursalesEmpresa = createSlice({
-    name: "SucursalesEmpresa",
+const Empresa = createSlice({
+    name: "empresa",
     initialState,
     reducers: {
 
@@ -25,5 +25,5 @@ const SucursalesEmpresa = createSlice({
 
 })
 
-export const {setSelectedEmpresa}= SucursalesEmpresa.actions;
-export default SucursalesEmpresa.reducer;
+export const {setSelectedEmpresa}= Empresa.actions;
+export default Empresa.reducer;

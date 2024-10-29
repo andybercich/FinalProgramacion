@@ -15,43 +15,52 @@ interface IProps {
   onAddEmpresa: (empresa: IEmpresa) => void;
 }
 
-
-
 export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
   const [modalVer, setModalVer] = useState<boolean>(false);
   const [modalEditar, setModalEditar] = useState<boolean>(false);
-  const [oneClick, setOneClick] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const handleViewClick = () => {
-    if(!oneClick){dispatch(setSelectedEmpresa(empresa));setOneClick(true) }
-      
-      setModalVer(true);
+  const handleSelectEmpresa = () => {
+    if (!modalVer && !modalEditar) {
+      dispatch(setSelectedEmpresa(empresa));
+    }
   };
 
-  const handleEditClick = () => {
-    if(!oneClick){dispatch(setSelectedEmpresa(empresa));setOneClick(true) }
-      setModalEditar(true);
+  const handleViewClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); +
+    handleSelectEmpresa();
+    setModalVer(true);
+  };
+
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.stopPropagation();+
+    handleSelectEmpresa();
+    setModalEditar(true);
+  };
+
+  const closeModal = () => {
+    setModalVer(false);
+    setModalEditar(false);
   };
 
   return (
-      <Card onClick={()=>{if(!oneClick){dispatch(setSelectedEmpresa(empresa));setOneClick(true) }}} className={styles.containerCard}>
-          <Card.Body>
-              <Card.Title className={styles.tittleCard}>
-                  {empresa.nombre ? empresa.nombre.toUpperCase() : 'Nombre no disponible'}
-              </Card.Title>
-              <div className={styles.contentIcons}>
-                  <div onClick={handleViewClick}>
-                      <VerIcon />
-                  </div>
-                  <div onClick={handleEditClick}>
-                      <EditIcon />
-                  </div>
-              </div>
+    <Card onClick={handleSelectEmpresa} className={styles.containerCard}>
+      <Card.Body>
+        <Card.Title className={styles.tittleCard}>
+          {empresa.nombre ? empresa.nombre.toUpperCase() : 'Nombre no disponible'}
+        </Card.Title>
+        <div className={styles.contentIcons}>
+          <div onClick={handleViewClick}>
+            <VerIcon />
+          </div>
+          <div onClick={handleEditClick}>
+            <EditIcon />
+          </div>
+        </div>
 
         {modalVer &&
           ReactDOM.createPortal(
-            <VerEmpresa onClose={() => setModalVer(false)} empresa={empresa} />,
+            <VerEmpresa onClose={closeModal} empresa={empresa} />,
             document.body
           )}
 
@@ -61,7 +70,7 @@ export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
               editar={true}
               empresa={empresa}
               onAddEmpresa={onAddEmpresa}
-              onClose={() => setModalEditar(false)}
+              onClose={closeModal}
             />,
             document.body
           )}
@@ -69,4 +78,3 @@ export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
     </Card>
   );
 };
-

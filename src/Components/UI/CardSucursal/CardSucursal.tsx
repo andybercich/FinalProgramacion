@@ -7,6 +7,7 @@ import { EditIcon } from "../Icons/EditIcon/EditIcon";
 import VerSucursal from "../PopUps/VerSucursal/VerSucursal";
 import ReactDOM from "react-dom"
 import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
+import { CrearSucursal } from "../PopUps/CrearSucursal/CrearSucursal";
 
 interface Props {
   sucursal :ISucursal
@@ -33,9 +34,9 @@ export const CardSucursal: FC<Props> = ({sucursal}) => {
           </div>
           <div className={styles.imgStyle}>
             {sucursal.logo ? (
-              <img src={sucursal.logo} />
+              <img src={sucursal.logo} alt="imagen Sucursal" />
             ) : (
-              <img src="https://th.bing.com/th/id/OIP.DDCR2MUOCxeeQsRMX8ddRAHaFs?w=212&h=180&c=7&r=0&o=5&pid=1.7" />
+              <img src="imgNotFound.jpg"  alt="imagen Sucursal" />
             )}
           </div>
           <div className={styles.contentIcons}>
@@ -43,14 +44,27 @@ export const CardSucursal: FC<Props> = ({sucursal}) => {
             <div onClick={() => setModalVer(true)}>
               <VerIcon />
             </div>
-            <EditIcon />
+
+            <div onClick={()=> setModalEditar(true)}>
+              <EditIcon />
+            </div>
+            
           </div>
           {modalVer &&
             ReactDOM.createPortal(
               <VerSucursal
-                onClose={() => setModalVer(false)} sucursal={sucursal}              />,
+                onClose={() => setModalVer(false)} sucursal={sucursal}/>,
               document.body
             )}
+
+          {modalEditar &&
+            ReactDOM.createPortal(
+              <CrearSucursal
+                onClose={() => setModalEditar(false)} editar={true} casaMatriz= {sucursal.esCasaMatriz}  sucursal={sucursal}/>,
+              document.body
+            )}
+          
+
         </Card.Body>
       </Card>
     </div>

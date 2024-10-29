@@ -1,95 +1,85 @@
 import axios from "axios";
-import { FC, useEffect, useState } from "react";
+import {  FC, useEffect, useState } from "react";
 import { IPais } from "../../../../Models/types/IPais";
 import { IProvincia } from "../../../../Models/types/IProvincia";
 import { ILocalidad } from "../../../../Models/types/ILocalidad";
-import styles from "./CrearSucursal.module.css";
+import styles from "./CrearSucursal.module.css"
 
-interface SelectorsProps {
+interface Props {
   onLocalidadChange: (localidad: string) => void;
-  localidadSeleccionada: string;
-  isLocalidad: ILocalidad | null;
 }
 
-export const Selectors: FC<SelectorsProps> = ({
-  onLocalidadChange,
-  localidadSeleccionada,
-  isLocalidad,
-}) => {
+export const Selectors: FC<Props> = ({ onLocalidadChange }) => {
   const [paises, setPaises] = useState<IPais[]>([]);
   const [provincias, setProvincias] = useState<IProvincia[]>([]);
   const [localidades, setLocalidades] = useState<ILocalidad[]>([]);
-  const [selectedPais, setSelectedPais] = useState("");
-  const [selectedProvincia, setSelectedProvincia] = useState("");
+  const [selectedPais, setSelectedPais] = useState('');
+  const [selectedLocalidad, setSelectedLocalidad] = useState('');
+  const [selectedProvincia, setSelectedProvincia] = useState('');
   const [loadingProvincias, setLoadingProvincias] = useState(false);
   const [loadingLocalidades, setLoadingLocalidades] = useState(false);
-  const [localidad, setLocalidad] = useState(localidadSeleccionada);
-  const [hasClickedPais, setHasClickedPais] = useState(false);
-
-  const handlePaisFocus = () => {
-    if (!hasClickedPais) {
-      setHasClickedPais(true);
-      isLocalidad=null
-    }
-  };
-
-  useEffect(() => {
-    setLocalidad(localidadSeleccionada);
-  }, [localidadSeleccionada]);
-
-  const handleLocalidadChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const nuevaLocalidad = event.target.value;
-    setLocalidad(nuevaLocalidad);
-    onLocalidadChange(nuevaLocalidad);
-    console.log(nuevaLocalidad);
-  };
 
   useEffect(() => {
     const fetchPaises = async () => {
-      const response = await axios.get("http://190.221.207.224:8090/paises");
-      setPaises(response.data);
+      try {
+        const response = await axios.get('http://190.221.207.224:8090/paises');
+        setPaises(response.data);
+      } catch (error) {
+        console.error('Error al obtener países:', error);
+      }
     };
 
     fetchPaises();
   }, []);
 
-  const handlePaisChange = async (event: { target: { value: any } }) => {
-    const paisId = event.target.value;
-    setSelectedPais(paisId);
-    setLoadingProvincias(true);
+  useEffect(() => {
+    const fetchProvincias = async () => {
+      if (!selectedPais) return;
 
-    try {
-      const response = await axios.get(
-        `http://190.221.207.224:8090/provincias/findByPais/${paisId}`
-      );
-      setProvincias(response.data);
-      setSelectedProvincia("");
-      setLocalidades([]);
-      setLocalidad("");
-    } catch (error) {
-      console.error("Error al obtener provincias:", error);
-    } finally {
-      setLoadingProvincias(false);
-    }
-  };
+      setLoadingProvincias(true);
+      try {
+        const response = await axios.get(`http://190.221.207.224:8090/provincias/findByPais/${selectedPais}`);
+        setProvincias(response.data);
+      } catch (error) {
+        console.error('Error al obtener provincias:', error);
+      } finally {
+        setLoadingProvincias(false);
+      }
+    };
 
-  const handleProvinciaChange = async (event: { target: { value: any } }) => {
-    const provinciaId = event.target.value;
-    setSelectedProvincia(provinciaId);
-    setLoadingLocalidades(true);
+    fetchProvincias();
+  }, [selectedPais]);
 
-    try {
-      const response = await axios.get(
-        `http://190.221.207.224:8090/localidades/findByProvincia/${provinciaId}`
-      );
-      setLocalidades(response.data);
-      setLocalidad("");
-    } catch (error) {
-      console.error("Error al obtener localidades:", error);
-    } finally {
-      setLoadingLocalidades(false);
+  useEffect(() => {
+    const fetchLocalidades = async () => {
+      if (!selectedProvincia) return;
+
+      setLoadingLocalidades(true);
+      try {
+        const response = await axios.get(`http://190.221.207.224:8090/localidades/findByProvincia/${selectedProvincia}`);
+        setLocalidades(response.data);
+      } catch (error) {
+        console.error('Error al obtener localidades:', error);
+      } finally {
+        setLoadingLocalidades(false);
+      }
+    };
+
+    fetchLocalidades();
+  }, [selectedProvincia]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+
+    if (name === 'pais') {
+      setSelectedPais(value);
+      setSelectedProvincia(''); 
+      setLocalidades([]); 
+    } else if (name === 'provincia') {
+      setSelectedProvincia(value);
+    } else if (name === 'localidad') {
+      setSelectedLocalidad(value)
+      onLocalidadChange(value);
     }
   };
 
@@ -100,25 +90,12 @@ export const Selectors: FC<SelectorsProps> = ({
         name="pais"
         className={styles.largeInput}
         value={selectedPais}
-        onChange={handlePaisChange}
+        onChange={handleChange}
       >
-        <option value="" disabled>
-          Seleccione un País
-        </option>
-        {isLocalidad ? (
-          <option
-            key={isLocalidad.provincia.pais.id}
-            value={isLocalidad.provincia.pais.id}
-          >
-            {isLocalidad.provincia.pais.nombre}
-          </option>
-        ) : (
-          paises.map((pais) => (
-            <option key={pais.id} value={pais.id}>
-              {pais.nombre}
-            </option>
-          ))
-        )}
+        <option value="" disabled>Seleccione un País</option>
+        {paises.map(pais => (
+          <option key={pais.id} value={pais.id}>{pais.nombre}</option>
+        ))}
       </select>
 
       <select
@@ -126,53 +103,33 @@ export const Selectors: FC<SelectorsProps> = ({
         name="provincia"
         className={styles.largeInput}
         value={selectedProvincia}
-        onChange={handleProvinciaChange}
-        onFocus={handlePaisFocus}
+        onChange={handleChange}
         disabled={!selectedPais || loadingProvincias}
       >
-        <option value="" disabled>
-          Seleccione una Provincia
-        </option>
-        {isLocalidad ? (
-          <option
-            key={isLocalidad.provincia.pais.id}
-            value={isLocalidad.provincia.pais.id}
-          >
-            {isLocalidad.provincia.pais.nombre}
-          </option>
+        <option value="" disabled>Seleccione una Provincia</option>
+        {loadingProvincias ? (
+          <option>Cargando...</option>
         ) : (
-          provincias.map((provincia) => (
-            <option key={provincia.id} value={provincia.id}>
-              {provincia.nombre}
-            </option>
+          provincias.map(provincia => (
+            <option key={provincia.id} value={provincia.id}>{provincia.nombre}</option>
           ))
         )}
       </select>
+
       <select
         required
         name="localidad"
-        value={localidad}
-        onChange={handleLocalidadChange}
         className={styles.largeInput}
+        onChange={handleChange}
         disabled={!selectedProvincia || loadingLocalidades}
+        value={selectedLocalidad }
       >
-        <option value="" disabled>
-          Seleccione una Localidad
-        </option>
-        {isLocalidad ? (
-          <option
-            key={isLocalidad.provincia.pais.id}
-            value={isLocalidad.provincia.pais.id}
-          >
-            {isLocalidad.provincia.pais.nombre}
-          </option>
-        ) : loadingLocalidades ? (
+        <option value="" disabled>Seleccione una Localidad</option>
+        {loadingLocalidades ? (
           <option>Cargando...</option>
         ) : (
-          localidades.map((localidad) => (
-            <option key={localidad.id} value={localidad.id}>
-              {localidad.nombre}
-            </option>
+          localidades.map(localidad => (
+            <option key={localidad.id} value={localidad.id}>{localidad.nombre}</option>
           ))
         )}
       </select>

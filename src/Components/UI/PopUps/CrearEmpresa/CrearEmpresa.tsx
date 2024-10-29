@@ -6,7 +6,7 @@ import { useForm } from '../../../Hooks/useForm';
 import Swal from 'sweetalert2';
 import { ServiceEmpresa } from '../../../../Services/empresaService';
 import { IEmpresa } from '../../../../Models/types/dtos/empresa/IEmpresa';
-
+import { godContest, badContest } from '../Alerts/ServerBadAlert';
 
 interface Props {
     onClose: () => void;
@@ -55,22 +55,10 @@ export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa 
         try {
           if (editar && empresa) {
             await serviceEmpresa.editEmpresa(empresa.id, nuevaEmpresa);
-            Swal.fire({
-              icon: 'success',
-              title: 'Éxito',
-              text: 'La empresa ha sido modificada correctamente.',
-              showCloseButton: true,
-              confirmButtonText: 'Aceptar',
-            });
+            godContest();
           } else {
             await serviceEmpresa.createEmpresa(nuevaEmpresa);
-            Swal.fire({
-              icon: 'success',
-              title: 'Éxito',
-              text: 'La empresa ha sido creada correctamente.',
-              showCloseButton: true,
-              confirmButtonText: 'Aceptar',
-            });
+            godContest();
           }
 
             setTimeout(() => {
@@ -81,6 +69,7 @@ export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa 
           const empresasActualizadas = await serviceEmpresa.getAllEmpresas();
           onAddEmpresa(empresasActualizadas.data); 
         } catch (error) {
+          badContest();
           console.error('Error al guardar la empresa:', error);
         }
     

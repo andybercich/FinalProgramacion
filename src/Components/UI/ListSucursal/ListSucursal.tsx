@@ -1,22 +1,56 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import CardSucursal from "../CardSucursal/CardSucursal";
 import styles from "./ListSucursal.module.css";
+import { IEmpresa } from "../../../Models/types/dtos/empresa/IEmpresa";
 import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
+import { ServiceSucursal } from "../../../Services/sucursalService";
 
-interface IListSucursal {
-  sucursales: ISucursal[];
+interface Props {
+  empresa : IEmpresa
 }
 
+const ListSucursal: FC<Props> = ({empresa}) => {
+  const [sucursales, setSucursales] = useState<ISucursal[]>([]);
 
-const ListSucursal: FC<IListSucursal> = ({ sucursales }) => {
+  useEffect(() => {
+    const service = new ServiceSucursal();
+  
+    service.getAllSucursalesByEmpresa(empresa.id)
+
+      .then((response) => setSucursales(response.data)) 
+
+      .catch((error) => {
+
+        console.error("Error al obtener las sucursales:", error);
+
+      });
+
+  }, [empresa.id]);
+
   return (
+    (sucursales.length !== 0 ? 
+    
+    (
+    
     <div className={styles.containerListSucursal}>
-      {sucursales.map((sucursal, index) => (
-        <CardSucursal sucursal={sucursal}   />
+      {sucursales.map((sucursal) => (
+        <CardSucursal key={sucursal.id} sucursal={sucursal} />
       ))}
-    </div>
+    
+    </div>): 
+
+      <div className={styles.noSucursales}>
+        <p >NO HAY SUCURSALES EN ESTA EMPRESA</p>
+      </div>
+
+      
+    
+  
+  )
+   
   );
 };
+
 
 export default ListSucursal;

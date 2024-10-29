@@ -8,32 +8,34 @@ interface Props {
 export const VerSucursal: FC<Props> = ({ onClose, sucursal }) => {
   return (
     <div className={styles.mainDiv}>
-      <div className={styles.containerSucursal}>
-        <div className={styles.containerCardSucursal}>
-          <div className={styles.containerHeaderCardSucursal}>
-            <h3 className={styles.cardTitle}>Nombre Sucursal</h3>
-            <span onClick={onClose} className="material-symbols-outlined">
-              cancel
-            </span>
-          </div>
-          <div className={styles.containerBodyCardSucursal}>
-            <p>Empresa: {sucursal.empresa.nombre}</p>
-            {sucursal.domicilio  ? (
-              <p>Domicilio: {sucursal.domicilio.calle}</p>
-            ) : (
-              <p>No tiene registrada una calle</p>
-            )}
-            <p >Casa Matriz: {String(sucursal.esCasaMatriz)}</p>
-            <p>
-              Horario: 
-              {sucursal.horarioApertura + " - " + sucursal.horarioCierre}
-            </p>
-          </div>
-          <div className={styles.containerImgCardSucursal}>
-            <p className={styles.imgCardSucursal}>Imagen</p>
-          </div>
+
+      <div className={styles.cardContainer}>
+        
+        <span onClick={onClose} className="material-symbols-outlined">
+        cancel
+        </span>
+
+        <div className={styles.bodyContainer}>
+
+          <p style={{fontWeight:"bold"}}>{sucursal.nombre}</p>
+
+          <p>Horario: {sucursal.empresa.nombre}</p>
+          <p>Domicilio: {sucursal.domicilio.calle}</p>
+          <p>Casa Matriz: {sucursal.esCasaMatriz ? "si" : "no"}</p>
+          <p>Horario: {sucursal.horarioApertura} - {sucursal.horarioCierre}</p>
+
+          {sucursal.logo ? <img src={sucursal.logo} alt="fotoSucursal" /> : <img src={"imgNotFound.jpg"} alt="fotoSucursal" /> }
+          
         </div>
+
+
+
+
+
+
       </div>
+
+      
     </div>
   );
 };

@@ -3,40 +3,14 @@ import { CrearSucursal } from "../../Components/UI/PopUps/CrearSucursal/CrearSuc
 import { useState } from "react";
 import { EmpresasContainer } from "../UI/ContenedorEmpresas/EmpresasContainer";
 import ListSucursal from "../UI/ListSucursal/ListSucursal";
-import { ISucursal } from "../../Models/types/dtos/sucursal/ISucursal";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/Store/Store";
+import { IEmpresa } from "../../Models/types/dtos/empresa/IEmpresa";
 
-const sucursales: ISucursal[] = [
-  {
-    id: 1,
-    nombre: "Sucursal nueva",
-    empresa: {id: 1,
-      nombre: "Peugeot",
-      razonSocial: "Hacer Autos",
-      cuit: 12345678910,
-      logo: null,
-      sucursales: null,
-      pais: {
-        nombre:"Argentina",
-        id:1
-      }
-    },
-    domicilio: null,
-    calle: "Olazabal",
-    latitud: 12,
-    longitud: 213,
-    categorias: null,
-    esCasaMatriz: true,
-    horarioApertura: "12:00",
-    eliminado: false,
-    horarioCierre: "20:00",
-    logo: null
-  }
-
-  
-];
 
 export const Home = () => {
   const [modalSucursal, setmodalSucursal] = useState(false);
+  const empresa = useSelector((state: RootState) => state.changeSucursales.empresa) as IEmpresa | null;
   
 
   return (
@@ -65,16 +39,17 @@ export const Home = () => {
             onClick={() => {
               setmodalSucursal(true);
             }}
+            disabled= {empresa ? false : true}
           >
             Agregar Sucursal
           </button>
         </div>
         <div className={style.containerListHome}>
-          {sucursales.length > 0 ? (
-            <ListSucursal sucursales={sucursales} />
+          {empresa ? (
+            <ListSucursal empresa={empresa} />
           ) : (
-            <p className={style.noSucursalMessage}>
-              No hay sucursales disponibles actualmente.
+            <p className={style.noEmpresaSelected}>
+              Elige una Empresa para ver sus sucursales
             </p>
           )}
         </div>

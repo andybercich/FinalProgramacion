@@ -11,55 +11,45 @@
   z-index: 999;
   font-family: "Unbounded", sans-serif;
 }
+.cardContainer {
 
-.containerCardEmpresa {
   position: relative;
+  width: 25vw ;
+  height: 65vh auto;
   background-color: #fff;
-  height: 60vh;
-  width: 23vw;
-  border-radius: 1rem;
-}
-
-.containerHeaderCardEmpresa {
-  display: flex;
-  justify-content: center;
-  font-size: 18px;
-  padding-top: 12px;
-}
-
-.containerHeaderCardEmpresa span:hover {
-  color: #B81616;
-}
-
-.containerHeaderCardEmpresa span {
-  position: absolute;
-  right: 10px;
-  font-size: 30px;
-  cursor: pointer;
-  color: #ab7d7d;
-}
-
-.containerBodyCardEmpresa {
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  font-size: 18px;
-  padding: 50px;
-  gap: 3vh;
-}
-.containerBodyCardEmpresa p {
-  margin: 1px 0;
-}
-
-.containerImgCardEmpresa {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  object-fit: fill;
+
 }
 
-.containerImgCardEmpresa img{
-  width: 200px;
-  height: 150px;
+.cardContainer span{
+  position: absolute;
+  right: 1px;
+  font-size: 30px;
+  color: #ab7d7d;
+
+}
+.cardContainer span:hover {
+
+  cursor: pointer;
+  color: #B81616;
+
+
+}
+.bodyContainer{
+  font-size: 20px;
+  width: 75%;
+  height: 100%;
+
+  margin: 20px;
+
+}
+
+.bodyContainer img{
+
+  width: 300px;
+  height: 180px;
+
 }
