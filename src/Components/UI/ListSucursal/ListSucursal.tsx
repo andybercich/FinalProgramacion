@@ -41,7 +41,7 @@ const ListSucursal: FC<Props> = ({empresa}) => {
     </div>): 
 
       <div className={styles.noSucursalMessage}>
-        <p >NO HAY SUCURSALES EN ESTA EMPRESA</p>
+        <p >No hay sucursales en esta empresa.</p>
       </div>
 
       
