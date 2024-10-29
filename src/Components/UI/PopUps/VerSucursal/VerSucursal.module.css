@@ -13,16 +13,13 @@
 }
 
 .cardContainer {
-
   position: relative;
-  width: 25vw ;
+  width: 20vw ;
   height: 65vh auto;
   background-color: #fff;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
 }
 
 .cardContainer span{
@@ -30,27 +27,25 @@
   right: 1px;
   font-size: 30px;
   color: #ab7d7d;
-
 }
-.cardContainer span:hover {
 
+.cardContainer span:hover {
   cursor: pointer;
   color: #B81616;
-
-
 }
+
+.contentTittle h4{
+  text-align: center;
+}
+
 .bodyContainer{
   font-size: 20px;
   width: 75%;
   height: 100%;
-
   margin: 20px;
-
 }
 
 .bodyContainer img{
-
   width: 300px;
   height: 180px;
-
 }
