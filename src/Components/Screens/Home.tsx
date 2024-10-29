@@ -1,9 +1,7 @@
 import style from "./Home.module.css";
 import { CrearSucursal } from "../../Components/UI/PopUps/CrearSucursal/CrearSucursal";
 import { useState } from "react";
-import VerSucursal from "../UI/PopUps/VerSucursal/VerSucursal";
 import { EmpresasContainer } from "../UI/ContenedorEmpresas/EmpresasContainer";
-import { VerEmpresa } from "../UI/PopUps/VerEmpresa/VerEmpresa";
 import ListSucursal from "../UI/ListSucursal/ListSucursal";
 import { ISucursal } from "../../Models/types/dtos/sucursal/ISucursal";
 

@@ -5,21 +5,14 @@ import { Button } from 'react-bootstrap';
 import { useForm } from '../../../Hooks/useForm';
 import Swal from 'sweetalert2';
 import { ServiceEmpresa } from '../../../../Services/empresaService';
+import { IEmpresa } from '../../../../Models/types/dtos/empresa/IEmpresa';
 
-interface Empresa {
-  cuit: number;
-  eliminado: boolean;
-  id: number;
-  logo: string;
-  nombre: string;
-  razonSocial: string;
-}
 
 interface Props {
     onClose: () => void;
-    onAddEmpresa: (empresa: Empresa) => void;
+    onAddEmpresa: (empresa: IEmpresa) => void;
     editar?: boolean ;
-    empresa? : Empresa;
+    empresa : IEmpresa | null;
 }
 
 export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa }) => {
@@ -27,7 +20,7 @@ export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa 
         nombre: editar && empresa ? empresa.nombre : '',
         razonSocial: editar && empresa ? empresa.razonSocial : '',
         cuit: editar && empresa ? empresa.cuit.toString() : '',
-        logo: editar && empresa ? empresa.logo : '',
+        logo: editar && empresa?.logo ? empresa.logo : '',
 
     });
 
@@ -45,13 +38,17 @@ export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa 
           return;
         }
     
-        const nuevaEmpresa: Empresa = {
+        const nuevaEmpresa: IEmpresa = {
           id: editar && empresa ? empresa.id : Date.now(), 
           nombre: values.nombre,
           razonSocial: values.razonSocial,
           cuit: parseInt(values.cuit as string, 10) || 0,
           logo: values.logo,
-          eliminado: empresa?.eliminado || false,
+          sucursales: editar && empresa ? empresa.sucursales : null,
+          pais:{
+            nombre: "Argentina",
+            id: 0,
+          }
         };
     
         const serviceEmpresa = new ServiceEmpresa();

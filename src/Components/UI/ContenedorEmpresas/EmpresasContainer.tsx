@@ -3,18 +3,11 @@ import { ServiceEmpresa } from '../../../Services/empresaService';
 import { ListEmpresa } from '../CardEmpresa/ListEmpresa';
 import { CrearEmpresa } from '../PopUps/CrearEmpresa/CrearEmpresa';
 import styles from "./Empresas.module.css"
+import { IEmpresa } from '../../../Models/types/dtos/empresa/IEmpresa';
 
-interface Empresa {
-    cuit: number;
-    eliminado: boolean;
-    id: number;
-    logo: string;
-    nombre: string;
-    razonSocial: string;
-}
 
 export const EmpresasContainer = () => {
-    const [empresas, setEmpresas] = useState<Empresa[]>([]);
+    const [empresas, setEmpresas] = useState<IEmpresa[]>([]);
     const [showCrearEmpresa, setShowCrearEmpresa] = useState(false);
 
     const fetchEmpresas = async () => {
@@ -31,7 +24,7 @@ export const EmpresasContainer = () => {
         fetchEmpresas();
     }, []);
 
-    const handleAddEmpresa = (empresa: Empresa) => {
+    const handleAddEmpresa = (empresa: IEmpresa) => {
         setEmpresas([...empresas, empresa]);
     };
 
@@ -43,6 +36,7 @@ export const EmpresasContainer = () => {
                 <CrearEmpresa 
                     onClose={() => setShowCrearEmpresa(false)} 
                     onAddEmpresa={handleAddEmpresa} 
+                    empresa={null}
                 />
             )}
         </div>

@@ -1,18 +1,12 @@
 import styles from "./ListEmpresa.module.css"
 import { CardEmpresa } from "./CardEmpresa"
 import { FC, useState } from "react";
+import { IEmpresa } from "../../../Models/types/dtos/empresa/IEmpresa";
 
-interface Empresa {
-    cuit: number;
-    eliminado: boolean;
-    id: number;
-    logo: string;
-    nombre: string;
-    razonSocial: string;
-}
+
 interface PropsList{
-    empresas: Empresa[];
-    onAddEmpresa: (empresa: Empresa) => void;
+    empresas: IEmpresa[];
+    onAddEmpresa: (empresa: IEmpresa) => void;
 }
 
 export const ListEmpresa: FC<PropsList> = ({ empresas, onAddEmpresa }) => {

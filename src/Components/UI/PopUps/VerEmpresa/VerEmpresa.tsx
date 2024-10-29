@@ -1,17 +1,13 @@
 import { FC } from "react";
 import styles from "./VerEmpresa.module.css";
+import { IEmpresa } from "../../../../Models/types/dtos/empresa/IEmpresa";
 
 interface Props {
   onClose: () => void,
-  empresa:Empresa
+  empresa:IEmpresa
 }
 
-interface Empresa {
-  cuit: number;
-  logo: string;
-  nombre: string;
-  razonSocial: string;
-}
+
 
 export const VerEmpresa: FC<Props> = ({ onClose,empresa }) => {
   return (
@@ -28,7 +24,7 @@ export const VerEmpresa: FC<Props> = ({ onClose,empresa }) => {
             <p>CUIT: {empresa.cuit}</p>
           </div>
           <div className={styles.containerImgCardEmpresa}>
-            <img src= {empresa.logo} />
+            <img src= {(empresa.logo ? empresa.logo : "imageNotFound.jpg")} />
           </div>
         </div>
     </div>

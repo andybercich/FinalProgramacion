@@ -15,7 +15,8 @@ const SucursalesEmpresa = createSlice({
     initialState,
     reducers: {
 
-        setLogin: (state, action: PayloadAction<IEmpresa>)=>{
+        setSelectedEmpresa: (state, action: PayloadAction<IEmpresa>)=>{
+            console.log(action.payload)
             state.empresa = action.payload;
         }
 
@@ -24,5 +25,5 @@ const SucursalesEmpresa = createSlice({
 
 })
 
-export const {setLogin}= SucursalesEmpresa.actions;
+export const {setSelectedEmpresa}= SucursalesEmpresa.actions;
 export default SucursalesEmpresa.reducer;
