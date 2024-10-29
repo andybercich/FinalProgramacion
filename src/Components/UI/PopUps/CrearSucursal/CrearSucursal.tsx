@@ -119,7 +119,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar,sucursal 
     <div className={styles.mainDiv}>
       <div className={styles.popUp}>
         <div className={styles.headerPopUp}>
-          <h2>Crear Sucursal</h2>
+          <h2>{editar ? "Editar Sucursal" : "Crear Sucursal"}</h2>
           <CancelButton onClick={onClose} />
         </div>
 
