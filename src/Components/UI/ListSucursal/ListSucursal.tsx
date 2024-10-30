@@ -2,31 +2,16 @@ import { FC, useEffect, useState } from "react";
 
 import CardSucursal from "../CardSucursal/CardSucursal";
 import styles from "./ListSucursal.module.css";
-import { IEmpresa } from "../../../Models/types/dtos/empresa/IEmpresa";
 import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
-import { ServiceSucursal } from "../../../Services/sucursalService";
 
 interface Props {
-  empresa : IEmpresa
+  sucursales : ISucursal[]
 }
 
-const ListSucursal: FC<Props> = ({empresa}) => {
-  const [sucursales, setSucursales] = useState<ISucursal[]>([]);
+const ListSucursal: FC<Props> = ({sucursales}) => {
 
-  useEffect(() => {
-    const service = new ServiceSucursal();
-  
-    service.getAllSucursalesByEmpresa(empresa.id)
 
-      .then((response) => setSucursales(response.data)) 
 
-      .catch((error) => {
-
-        console.error("Error al obtener las sucursales:", error);
-
-      });
-
-  }, [empresa.id]);
 
   return (
     (sucursales.length !== 0 ? 

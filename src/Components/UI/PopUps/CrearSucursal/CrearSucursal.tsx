@@ -7,11 +7,13 @@ import { ServiceSucursal } from "../../../../Services/sucursalService";
 import { ICreateSucursal } from "../../../../Models/types/dtos/sucursal/ICreateSucursal";
 import { Selectors } from "./Selectors";
 import { ISucursal } from "../../../../Models/types/dtos/sucursal/ISucursal";
-import { useSelector } from "react-redux";
 import { RootState } from "../../../../Redux/Store/Store";
 import { IEmpresa } from "../../../../Models/types/dtos/empresa/IEmpresa";
 import { IUpdateSucursal } from "../../../../Models/types/dtos/sucursal/IUpdateSucursal";
 import { badContest, godContest } from "../Alerts/ServerBadAlert";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedEmpresa } from "../../../../Redux/Slice/sucursalsEmpresaElegida";
+import { ServiceEmpresa } from "../../../../Services/empresaService";
 
 interface Props {
   onClose: () => void;
@@ -20,8 +22,9 @@ interface Props {
   casaMatriz: boolean
 }
 
-export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar,sucursal }) => {
+export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal }) => {
   const [localidadSeleccionada, setLocalidadSeleccionada] = useState("");
+  const dispatch = useDispatch();
   const empresa = useSelector((state: RootState) => state.changeSucursales.empresa) as IEmpresa | null;
 
   const handleLocalidadChange = (localidad: string) => {
@@ -49,9 +52,8 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar,sucursal 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-
     const serviceSucursal: ServiceSucursal = new ServiceSucursal();
-
+    const serviceEmpresa = new ServiceEmpresa();
     try {
 
       if(editar && sucursal){
@@ -109,10 +111,18 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar,sucursal 
       console.error("Error al obtener las sucursales:", error);
     }
 
+    setTimeout(() => {
 
-    window.location.reload()
+
+    }, 100);
+    if(empresa){
+      const response = await serviceEmpresa.getEmpresaById(empresa.id);
+      dispatch(setSelectedEmpresa(response.data))
+    }
+
     resetForm();
     onClose();
+
   };
 
   return (
