@@ -8,6 +8,7 @@ import VerSucursal from "../PopUps/VerSucursal/VerSucursal";
 import ReactDOM from "react-dom"
 import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
 import { CrearSucursal } from "../PopUps/CrearSucursal/CrearSucursal";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   sucursal :ISucursal
@@ -16,6 +17,13 @@ interface Props {
 export const CardSucursal: FC<Props> = ({sucursal}) => {
   const [modalVer, setModalVer] = useState<boolean>(false);
   const [modalEditar, setModalEditar] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const handleClickAdmin = ()=>{
+
+    navigate("/admin")
+
+  }
   
   return (
     <div>
@@ -39,8 +47,11 @@ export const CardSucursal: FC<Props> = ({sucursal}) => {
               <img src="imgNotFound.jpg"  alt="imagen Sucursal" />
             )}
           </div>
-          <div className={styles.contentIcons}>
-            <AdmSucursal />
+          <div  className={styles.contentIcons}>
+            <div onClick={handleClickAdmin}>
+              <AdmSucursal />
+            </div>
+            
             <div onClick={() => setModalVer(true)}>
               <VerIcon />
             </div>

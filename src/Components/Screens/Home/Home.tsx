@@ -1,14 +1,13 @@
 import style from "./Home.module.css";
-import { CrearSucursal } from "../../Components/UI/PopUps/CrearSucursal/CrearSucursal";
 import { useEffect, useState } from "react";
-import { EmpresasContainer } from "../UI/ContenedorEmpresas/EmpresasContainer";
-import ListSucursal from "../UI/ListSucursal/ListSucursal";
 import { useSelector } from "react-redux";
-import { RootState } from "../../Redux/Store/Store";
-import { IEmpresa } from "../../Models/types/dtos/empresa/IEmpresa";
-import { ServiceSucursal } from "../../Services/sucursalService";
-import { badContest } from "../UI/PopUps/Alerts/ServerBadAlert";
-import { ISucursal } from "../../Models/types/dtos/sucursal/ISucursal";
+import { RootState } from "../../../Redux/Store/Store";
+import { ServiceSucursal } from "../../../Services/sucursalService";
+import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
+import { IEmpresa } from "../../../Models/types/dtos/empresa/IEmpresa";
+import { EmpresasContainer } from "../../UI/ContenedorEmpresas/EmpresasContainer";
+import { CrearSucursal } from "../../UI/PopUps/CrearSucursal/CrearSucursal";
+import ListSucursal from "../../UI/ListSucursal/ListSucursal";
 
 
 export const Home = () => {

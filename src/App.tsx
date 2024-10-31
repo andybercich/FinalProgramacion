@@ -1,10 +1,11 @@
-import { Home } from "./Components/Screens/Home";
+import { AppRouter } from "./Routes/AppRouter";
 
 export const App = () => {
   return (
     <>
 
-      <Home></Home>
+      <AppRouter></AppRouter>
+
     </>
   );
 };
