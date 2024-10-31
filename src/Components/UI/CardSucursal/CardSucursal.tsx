@@ -9,6 +9,8 @@ import ReactDOM from "react-dom"
 import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
 import { CrearSucursal } from "../PopUps/CrearSucursal/CrearSucursal";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSelectedEmpresa, setSelectedSucursal } from "../../../Redux/Slice/sucursalsEmpresaElegida";
 
 interface Props {
   sucursal :ISucursal
@@ -18,9 +20,10 @@ export const CardSucursal: FC<Props> = ({sucursal}) => {
   const [modalVer, setModalVer] = useState<boolean>(false);
   const [modalEditar, setModalEditar] = useState<boolean>(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleClickAdmin = ()=>{
-
+    dispatch(setSelectedSucursal(sucursal))
     navigate("/admin")
 
   }
