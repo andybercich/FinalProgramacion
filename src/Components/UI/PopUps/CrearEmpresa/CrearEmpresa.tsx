@@ -108,10 +108,10 @@ export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa 
                         />
 
                         <input
-                            type="text"
+                            type="number"
                             name="cuit"
                             placeholder="Ingresa un CUIT"
-                            value={values.cuit}
+                            value={values.cuit ? values.cuit : ""}
                             onChange={handleChange}
                             required
                         />

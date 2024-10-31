@@ -21,9 +21,9 @@ export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
   const dispatch = useDispatch();
 
   const handleSelectEmpresa = () => {
-    if (!modalVer && !modalEditar) {
+    
       dispatch(setSelectedEmpresa(empresa));
-    }
+      
   };
 
   const handleViewClick = (e: React.MouseEvent) => {

@@ -192,7 +192,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
                 name="latitud"
                 placeholder="Latitud"
                 className={styles.largeInput}
-                value={values.latitud}
+                value={values.latitud ? values.latitud : ""}
                 onChange={handleChange}
               />
               <input
@@ -201,7 +201,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
                 name="longitud"
                 placeholder="Longitud"
                 className={styles.largeInput}
-                value={values.longitud}
+                value={values.longitud ? values.longitud : ""}
                 onChange={handleChange}
               />
             </div>
@@ -221,7 +221,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
                 name="numeroCalle"
                 placeholder="Número de Calle"
                 className={styles.largeInput}
-                value={values.numeroCalle}
+                value={values.numeroCalle ? values.numeroCalle : ""}
                 onChange={handleChange}
               />
               <input
@@ -229,15 +229,15 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
                 name="codigoPostal"
                 placeholder="Código Postal"
                 className={styles.largeInput}
-                value={values.codigoPostal}
+                value={values.codigoPostal ? values.codigoPostal : ""}
                 onChange={handleChange}
               />
               <input
                 type="number"
                 name="piso"
-                placeholder="Ingrese Número de Piso"
+                placeholder="Ingrese el numero de piso"  
                 className={styles.largeInput}
-                value={values.piso}
+                value={values.piso ? values.piso : ""}
                 onChange={handleChange}
               />
               <input
@@ -245,7 +245,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
                 name="departamento"
                 placeholder="Ingrese número de departamento"
                 className={styles.largeInput}
-                value={values.departamento}
+                value={values.departamento ? values.departamento : ""}
                 onChange={handleChange}
               />
             </div>
