@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom"
 import { Home } from "../Components/Screens/Home/Home"
 import { Admin } from "../Components/Screens/Admin/Admin"
+import { Product } from "../Components/Screens/Productos/Product"
+import { Alergeno } from "../Components/UI/Alergenos/alergeno"
 
 export const AppRouter = () => {
 
@@ -8,8 +10,13 @@ export const AppRouter = () => {
 
   return (
     <Routes>
-        <Route path="/" element= { <Home/>}>thsrg</Route>
-        <Route path="/admin" element={<Admin/>} />
+        <Route path="/" element= { <Home/>}>
+        </Route>
+        <Route path="/admin" element={<Admin />}>
+          <Route path="productos" element={<Product />} />
+          <Route path="alergenos" element={<Alergeno/>} />
+        </Route>
+
     </Routes>
   )
 }

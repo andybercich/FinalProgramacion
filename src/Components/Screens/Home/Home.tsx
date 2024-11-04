@@ -11,6 +11,7 @@ import ListSucursal from "../../UI/ListSucursal/ListSucursal";
 
 
 export const Home = () => {
+  
   const [modalSucursal, setmodalSucursal] = useState(false);
   const empresa = useSelector((state: RootState) => state.changeSucursales.empresa) as IEmpresa | null;
   const serviceSucursal = new ServiceSucursal();
@@ -30,7 +31,7 @@ export const Home = () => {
 }, [empresa]);
 
   return (
-    <div className={style.containerApp}>
+  <div className={style.containerApp}>
       <div className={style.sectionEmpresa}>
         <div className={style.headerEmpresa}>
           <h2>Empresas</h2>
@@ -71,5 +72,8 @@ export const Home = () => {
         </div>
       </div>
     </div>
+
+    
+    
   );
 };
