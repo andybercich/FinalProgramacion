@@ -78,7 +78,7 @@ export const Product = () => {
           <AddIcon/>
       </div>
       {modalCreate && (
-        <CrearProducto editar={true}  close={() => setModalCreate(false)} />
+        <CrearProducto editar={false}  close={() => setModalCreate(false)} />
       )}
       {loading ? (
         <div

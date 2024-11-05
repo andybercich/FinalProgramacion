@@ -132,8 +132,6 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
         }
     }
     
-    const response = await service.getArticulosPorSucursal(1);
-    console.log(response.data);
     close();
 
     
@@ -266,7 +264,7 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
             </div>
           </div>
 
-          <Button variant="outline-info">Aceptar</Button>
+          <Button type="submit" variant="outline-info">Aceptar</Button>
         </form>
       </div>
     </div>
