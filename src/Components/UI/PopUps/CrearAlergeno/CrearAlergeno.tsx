@@ -34,7 +34,10 @@ export const CrearAlergeno: FC<IProps> = ({
           ? alergenoEdit.id
           : parseInt(Date.now().toPrecision()),
       denominacion: values.denominacion,
-      imagen: null,
+      imagen: {
+        url: values.srcPhoto,
+        name: "Foto de: " + values.denominacion
+      }
     };
 
     if (editar && alergenoEdit) {
@@ -88,7 +91,7 @@ export const CrearAlergeno: FC<IProps> = ({
           <div className={styles.imgContainer}>
             <input
               type="text"
-              name="imagen"
+              name="srcPhoto"
               placeholder="Agrega una Imagen"
               value={values.srcPhoto}
               onChange={handleChange}
