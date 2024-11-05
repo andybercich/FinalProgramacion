@@ -1,61 +1,50 @@
 import { useEffect, useState } from "react";
-import { IProductos } from "../../../Models/types/dtos/productos/IProductos";
-import { CrearProducto } from "../../UI/PopUps/CrearProducto/CrearProducto";
-import { Button } from "react-bootstrap";
-import { ServiceArticulo } from "../../../Services/articuloService";
 import { TableGeneric } from "../../UI/TableGeneric/TableGeneric";
 import { CircularProgress } from "@mui/material";
 import { ButtonsTable } from "../../UI/ButtonsTable/ButtonsTable";
 import { setDataTable } from "../../../Redux/Slice/TablaReducer";
 import { useAppDispatch } from "../../Hooks/redux";
-import styles from "./Product.module.css";
+import styles from "./Alergenos.module.css";
 import { AddIcon } from "../../UI/Icons/AddIcon/AddIcon";
+import { IAlergenos } from "../../../Models/types/dtos/alergenos/IAlergenos";
+import { ServiceAlergeno } from "../../../Services/alergenoService";
+import { CrearAlergeno } from "../../UI/PopUps/CrearAlergeno/CrearAlergeno";
 
-export const Product = () => {
+
+export const Alergeno = () => {
+  const [verItem, setVerItem] = useState<boolean>(false);
   const [modalCreate, setModalCreate] = useState<boolean>(false);
-  const [productos, setProductos] = useState<IProductos[]>([]);
-  const [loading, setLoading] = useState(false); // Cambiado a true para mostrar el loader al inicio
+  const [alergenos, setAlergenos] = useState<IAlergenos[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const service = new ServiceArticulo();
+  const service = new ServiceAlergeno();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {}, []);
-
-  // Función para cargar productos
-  const cargarProductos = async () => {
+  // Función para cargar alergenos
+  const cargarAlergenos = async () => {
     try {
-      const response = await service.getArticulosPorSucursal(1);
+      const response = await service.getAllAlergenos();
       console.log(response.data);
       dispatch(setDataTable(response.data));
     } catch (error) {
-      console.error("Error al cargar los productos", error);
+      console.error("Error al cargar los alergenos", error);
     }
   };
 
-  // Función para eliminar un producto
+  // Función para eliminar un alergeno
   const handleDelete = async (id: number) => {
-    // Aquí puedes llamar a tu servicio para eliminar el producto
-    // await service.deleteArticuloById(id);
-    setProductos((prev) => prev.filter((producto) => producto.id !== id));
+    // Aquí puedes llamar a tu servicio para eliminar el alergeno
+    // await service.deleteAlergenoById(id);
+    setAlergenos((prev) => prev.filter((alergeno) => alergeno.id !== id));
   };
 
   // Columnas de la tabla
   const columns = [
     { label: "Nombre", key: "denominacion" },
-    { label: "Precio", key: "precioVenta" },
-    { label: "Descripción", key: "descripcion" },
-    {
-      label: "Categoría",
-      key: "categoria",
-      render: (el: IProductos) => {
-        return el.categoria?.denominacion;
-      },
-    },
-    { label: "Habilitado", key: "habilitado" },
     {
       label: "Acciones",
       key: "acciones",
-      render: (row: IProductos) => (
+      render: (row: IAlergenos) => (
         <ButtonsTable
           el={row}
           handleDelete={handleDelete}
@@ -65,9 +54,9 @@ export const Product = () => {
     },
   ];
 
-  // Cargar productos
+  // Cargar alergenos
   useEffect(() => {
-    cargarProductos();
+    cargarAlergenos();
   }, []);
 
   return (
@@ -76,9 +65,8 @@ export const Product = () => {
         <AddIcon />
       </div>
       {modalCreate && (
-        <CrearProducto editar={false}  close={() => setModalCreate(false)} />
+        <CrearAlergeno editar={false} onClose={() => setModalCreate(false)} />
       )}
-
       {loading ? (
         <div
           style={{
@@ -95,9 +83,9 @@ export const Product = () => {
           <h2>Cargando...</h2>
         </div>
       ) : (
-        // Pasar productos a TableGeneric
+        // Pasar alergenos a TableGeneric
         <div className={styles.containerTabla}>
-          <TableGeneric<IProductos>
+          <TableGeneric<IAlergenos>
             columns={columns}
             handleDelete={handleDelete}
             setOpenModal={setModalCreate}
@@ -107,3 +95,4 @@ export const Product = () => {
     </div>
   );
 };
+

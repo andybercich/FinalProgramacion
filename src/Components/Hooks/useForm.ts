@@ -3,7 +3,7 @@ import { ICategorias } from "../../Models/types/dtos/categorias/ICategorias";
 import { IAlergenos } from "../../Models/types/dtos/alergenos/IAlergenos";
 
 interface FormValue {
-    [key: string]: string | number | boolean| ICategorias| IAlergenos[];
+    [key: string]: string | number | boolean| ICategorias| IAlergenos;
 }
 
 export const useForm = <T extends FormValue>(initialValues: T) => {
