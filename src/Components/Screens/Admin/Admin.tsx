@@ -5,19 +5,19 @@ import { Outlet } from "react-router-dom";
 import { ServiceArticulo } from "../../../Services/articuloService";
 
 export const Admin = () => {
+  
+  const onClick = async ()=>{
 
-  const handleOnClick = async ()=>{
     const service = new ServiceArticulo();
-    const response = await service.getArticulosPorSucursal(1)
-    console.log( response.data);
+
+    console.log(await service.getArticulosPorSucursal(1))
 
   }
-  
   return (
     <div className={styles.mainDiv}>
       <HeaderAdmin></HeaderAdmin>
       <SliceBar></SliceBar>
-      <button onClick={handleOnClick}>Click me plis daddy</button>
+      <button onClick={onClick}>Click me</button>
       <div className={styles.containerOutlet}>
 
         <Outlet></Outlet>

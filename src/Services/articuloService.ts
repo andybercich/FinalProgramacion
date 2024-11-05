@@ -34,7 +34,7 @@ export class ServiceArticulo {
     return axios.post(url, articulo, {
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'insomnia/9.3.2',
+        //'User-Agent': 'insomnia/9.3.2',
       },
     });
   }
