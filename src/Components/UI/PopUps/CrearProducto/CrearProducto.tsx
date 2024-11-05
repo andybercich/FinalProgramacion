@@ -82,20 +82,13 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
 
   const returnImages  = ()=>{
     if(editar && productoEdit && productoEdit.imagenes.length>0){
-        productoEdit.imagenes.push(
-            { name: `Foto Numero:${productoEdit.imagenes.length+1} `,
-              url: values.srcPhoto
-    
-             },
-        
-        
-        )
-        return productoEdit.imagenes
+        const imagenes: IImagen[] = [{ url: values.srcPhoto, name: "Imagen numero 1"}]
+        return imagenes
     }else{
         const imagenes: IImagen[] = [{ url: values.srcPhoto, name: "Imagen numero 1"}]
         return imagenes;
     }
-
+    
 
   }
 
@@ -138,6 +131,7 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
             close();
         }
     }
+    
     const response = await service.getArticulosPorSucursal(1);
     console.log(response.data);
     close();

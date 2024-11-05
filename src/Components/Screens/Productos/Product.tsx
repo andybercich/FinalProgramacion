@@ -19,13 +19,18 @@ export const Product = () => {
   const service = new ServiceArticulo();
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    
+
+    
+  }, []);
+
   // Función para cargar productos
   const cargarProductos = async () => {
     try {
       const response = await service.getArticulosPorSucursal(1);
       console.log(response.data);
-      setProductos(response.data);
-      dispatch(setDataTable(productos));
+      dispatch(setDataTable(response.data));
     } catch (error) {
       console.error("Error al cargar los productos", error);
     }
@@ -40,10 +45,13 @@ export const Product = () => {
 
   // Columnas de la tabla
   const columns = [
-    { label: "Nombre", key: "nombre" },
-    { label: "Precio", key: "precio" },
+    { label: "Nombre", key: "denominacion" },
+    { label: "Precio", key: "precioVenta" },
     { label: "Descripción", key: "descripcion" },
-    { label: "Categoría", key: "categoria" },
+    { label: "Categoría", key: "categoria",
+      render: (el: IProductos) => {
+        return el.categoria?.denominacion;
+      }, },
     { label: "Habilitado", key: "habilitado" },
     {
       label: "Acciones",
@@ -53,6 +61,7 @@ export const Product = () => {
           el={row}
           handleDelete={handleDelete}
           setOpenModal={setModalCreate}
+          
         />
       ),
     },
@@ -69,7 +78,7 @@ export const Product = () => {
           <AddIcon/>
       </div>
       {modalCreate && (
-        <CrearProducto editar={false} close={() => setModalCreate(false)} />
+        <CrearProducto editar={true}  close={() => setModalCreate(false)} />
       )}
       {loading ? (
         <div
