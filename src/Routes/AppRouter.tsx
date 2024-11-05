@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import { Home } from "../Components/Screens/Home/Home"
 import { Admin } from "../Components/Screens/Admin/Admin"
 import { Product } from "../Components/Screens/Productos/Product"
-import { Alergeno } from "../Components/UI/Alergenos/alergeno"
+import { Alergeno } from "../Components/Screens/Alergenos/Alergeno"
 
 export const AppRouter = () => {
 

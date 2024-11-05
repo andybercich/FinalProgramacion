@@ -2,11 +2,12 @@ import { Button } from "react-bootstrap";
 import { IProductos } from "../../../Models/types/dtos/productos/IProductos";
 import { setElementActive } from "../../../Redux/Slice/TablaReducer";
 import { useAppDispatch } from "../../Hooks/redux";
+import { IAlergenos } from "../../../Models/types/dtos/alergenos/IAlergenos";
 
 
 // Interfaz para los props del componente
 interface IButtonsTable {
-  el: IProductos; // Elemento de tipo IPersona
+  el: IProductos | IAlergenos; // Elemento de tipo IPersona
   handleDelete: (id: number) => void; // Función para manejar la eliminación de un elemento
   setOpenModal: (state: boolean) => void; // Función para manejar la eliminación de un elemento
 }
