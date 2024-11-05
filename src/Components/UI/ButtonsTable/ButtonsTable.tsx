@@ -43,6 +43,9 @@ export const ButtonsTable = ({
       <Button variant="contained" onClick={handleModalSelected}>
         <span className="material-symbols-outlined">edit</span>
       </Button>
+      <Button variant="contained" onClick={handleModalSelected}>
+        <span className="material-symbols-outlined">view</span>
+      </Button>
       {/* Botón para eliminar el elemento */}
       <Button variant="contained" color="error" onClick={handleDeleteItem}>
         <span className="material-symbols-outlined">delete_forever</span>
