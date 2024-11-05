@@ -69,7 +69,7 @@ export const TableGeneric = <T extends { id: any }>({
       {/* Contenedor del componente Paper */}
       <Paper sx={{ width: "90%", overflow: "hidden" }}>
         {/* Contenedor de la tabla */}
-        <TableContainer sx={{ maxHeight: "80vh" }}>
+        <TableContainer sx={{ maxHeight: "80vh", overflow: "hidden" }}>
           {/* Tabla */}
           <Table stickyHeader aria-label="sticky table">
             {/* Encabezado de la tabla */}

@@ -98,9 +98,7 @@ export const CrearAlergeno: FC<IProps> = ({
             />
           </div>
 
-          <Button type="submit" variant="outline-success">
-            Confirmar
-          </Button>
+          <Button type="submit" variant="outline-primary">Aceptar</Button>
         </form>
       </div>
     </div>

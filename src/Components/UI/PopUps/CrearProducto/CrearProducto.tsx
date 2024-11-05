@@ -264,7 +264,7 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
             </div>
           </div>
 
-          <Button type="submit" variant="outline-info">Aceptar</Button>
+          <Button type="submit" variant="outline-primary">Aceptar</Button>
         </form>
       </div>
     </div>
