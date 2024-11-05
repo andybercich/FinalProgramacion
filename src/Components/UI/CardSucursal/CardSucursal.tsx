@@ -24,7 +24,7 @@ export const CardSucursal: FC<Props> = ({sucursal}) => {
 
   const handleClickAdmin = ()=>{
     dispatch(setSelectedSucursal(sucursal))
-    navigate("/admin")
+    navigate("/admin/productos")
 
   }
   

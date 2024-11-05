@@ -1,0 +1,9 @@
+.customIcon{
+    font-size: 1.8rem;
+    color: green;
+}
+
+.customIcon:hover{
+    color: rgb(39, 170, 39);
+    cursor: pointer;
+}    

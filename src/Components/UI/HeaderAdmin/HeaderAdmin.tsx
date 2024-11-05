@@ -21,7 +21,7 @@ export const HeaderAdmin = () => {
       <div className={styles.contentHeader}>
         <h2
           onClick={() => {
-            navegate(-1);
+            navegate("/");
           }}
         >
           {nombreEmpresa?.nombre || "Empresa"}

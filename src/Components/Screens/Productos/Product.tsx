@@ -8,6 +8,8 @@ import { CircularProgress } from "@mui/material";
 import { ButtonsTable } from "../../UI/ButtonsTable/ButtonsTable";
 import { setDataTable } from "../../../Redux/Slice/TablaReducer";
 import { useAppDispatch } from "../../Hooks/redux";
+import styles from "./Product.module.css";
+import { AddIcon } from "../../UI/Icons/AddIcon/AddIcon";
 
 export const Product = () => {
   const [modalCreate, setModalCreate] = useState<boolean>(false);
@@ -24,10 +26,9 @@ export const Product = () => {
       console.log(response.data);
       setProductos(response.data);
       dispatch(setDataTable(productos));
-      
     } catch (error) {
       console.error("Error al cargar los productos", error);
-    } 
+    }
   };
 
   // Función para eliminar un producto
@@ -48,19 +49,25 @@ export const Product = () => {
       label: "Acciones",
       key: "acciones",
       render: (row: IProductos) => (
-        <ButtonsTable el={row} handleDelete={handleDelete} setOpenModal={setModalCreate} />
+        <ButtonsTable
+          el={row}
+          handleDelete={handleDelete}
+          setOpenModal={setModalCreate}
+        />
       ),
     },
   ];
 
-  // Cargar productos 
+  // Cargar productos
   useEffect(() => {
     cargarProductos();
   }, []);
 
   return (
-    <div>
-      <Button onClick={() => setModalCreate(true)}>Crear Producto</Button>
+    <div className={styles.mainDiv}>
+      <div className={styles.cotentButton} onClick={() => setModalCreate(true)}>
+          <AddIcon/>
+      </div>
       {modalCreate && (
         <CrearProducto editar={false} close={() => setModalCreate(false)} />
       )}
@@ -81,11 +88,13 @@ export const Product = () => {
         </div>
       ) : (
         // Pasar productos a TableGeneric
-        <TableGeneric<IProductos>
-          columns={columns}
-          handleDelete={handleDelete}
-          setOpenModal={setModalCreate}
-        />
+        <div className={styles.containerTabla}>
+          <TableGeneric<IProductos>
+            columns={columns}
+            handleDelete={handleDelete}
+            setOpenModal={setModalCreate}
+          />
+        </div>
       )}
     </div>
   );

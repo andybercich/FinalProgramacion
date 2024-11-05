@@ -93,3 +93,8 @@
 .arrowButton:hover {
     color: rgb(0, 0, 0);
 }
+
+.divText{
+    text-decoration: none;
+    color: black;
+}

@@ -8,7 +8,8 @@ export const SliceBar = () => {
   const [selectedLinkId, setSelectedLinkId] = useState<number | null>(null);
 
   const handleLinkId = (id: number) => {
-    setSelectedLinkId(id); 
+    setSelectedLinkId(id);
+    setShow(false) 
   };
 
   return (
