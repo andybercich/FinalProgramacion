@@ -96,7 +96,7 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
     event.preventDefault();
     const service = new ServiceArticulo()
     const producto: ICreateProducto|IUpdateProducto = {
-        id: editar&& productoEdit ? productoEdit.id : parseInt(Date.now().toPrecision()),
+        id: editar && productoEdit ? productoEdit.id : parseInt(Date.now().toPrecision()),
         denominacion: values.denominacion,
         imagenes:returnImages(),
         habilitado: values.habilitado,
@@ -266,7 +266,7 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
             </div>
           </div>
 
-          <Button variant="outline-info">Aceptar</Button>
+          <Button type="submit" variant="outline-info">Aceptar</Button>
         </form>
       </div>
     </div>

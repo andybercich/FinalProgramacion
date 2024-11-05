@@ -10,7 +10,9 @@ import { IAlergenos } from "../../../Models/types/dtos/alergenos/IAlergenos";
 import { ServiceAlergeno } from "../../../Services/alergenoService";
 import { CrearAlergeno } from "../../UI/PopUps/CrearAlergeno/CrearAlergeno";
 
+
 export const Alergeno = () => {
+  const [verItem, setVerItem] = useState<boolean>(false);
   const [modalCreate, setModalCreate] = useState<boolean>(false);
   const [alergenos, setAlergenos] = useState<IAlergenos[]>([]);
   const [loading, setLoading] = useState(false);
@@ -23,8 +25,7 @@ export const Alergeno = () => {
     try {
       const response = await service.getAllAlergenos();
       console.log(response.data);
-      setAlergenos(response.data);
-      dispatch(setDataTable(alergenos));
+      dispatch(setDataTable(response.data));
     } catch (error) {
       console.error("Error al cargar los alergenos", error);
     }
@@ -39,7 +40,7 @@ export const Alergeno = () => {
 
   // Columnas de la tabla
   const columns = [
-    { label: "Nombre", key: "nombre" },
+    { label: "Nombre", key: "denominacion" },
     {
       label: "Acciones",
       key: "acciones",

@@ -19,11 +19,7 @@ export const Product = () => {
   const service = new ServiceArticulo();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    
-
-    
-  }, []);
+  useEffect(() => {}, []);
 
   // Función para cargar productos
   const cargarProductos = async () => {
@@ -48,10 +44,13 @@ export const Product = () => {
     { label: "Nombre", key: "denominacion" },
     { label: "Precio", key: "precioVenta" },
     { label: "Descripción", key: "descripcion" },
-    { label: "Categoría", key: "categoria",
+    {
+      label: "Categoría",
+      key: "categoria",
       render: (el: IProductos) => {
         return el.categoria?.denominacion;
-      }, },
+      },
+    },
     { label: "Habilitado", key: "habilitado" },
     {
       label: "Acciones",
@@ -61,7 +60,6 @@ export const Product = () => {
           el={row}
           handleDelete={handleDelete}
           setOpenModal={setModalCreate}
-          
         />
       ),
     },
@@ -75,11 +73,12 @@ export const Product = () => {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.cotentButton} onClick={() => setModalCreate(true)}>
-          <AddIcon/>
+        <AddIcon />
       </div>
       {modalCreate && (
-        <CrearProducto editar={true}  close={() => setModalCreate(false)} />
+        <CrearProducto editar={false} close={() => setModalCreate(false)}  />
       )}
+
       {loading ? (
         <div
           style={{
