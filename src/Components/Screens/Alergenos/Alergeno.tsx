@@ -13,7 +13,7 @@ import { CrearAlergeno } from "../../UI/PopUps/CrearAlergeno/CrearAlergeno";
 export const Alergeno = () => {
   const [modalCreate, setModalCreate] = useState<boolean>(false);
   const [alergenos, setAlergenos] = useState<IAlergenos[]>([]);
-  const [loading, setLoading] = useState(false); // Cambiado a true para mostrar el loader al inicio
+  const [loading, setLoading] = useState(false);
 
   const service = new ServiceAlergeno();
   const dispatch = useAppDispatch();
