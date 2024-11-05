@@ -1,11 +1,13 @@
 import { FC } from "react";
 import styles from "./VerProucto.module.css";
+import { IProductos } from "../../../../Models/types/dtos/productos/IProductos";
 
 interface Props {
   onClose: () => void;
+  producto: IProductos | null;
 }
 
-export const VerProducto: FC<Props> = ({ onClose }) => {
+export const VerProducto: FC<Props> = ({ onClose, producto }) => {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.modalProcutos}>
@@ -15,14 +17,14 @@ export const VerProducto: FC<Props> = ({ onClose }) => {
 
         <div className={styles.bodyContainer}>
           <div className={styles.contentTittle}>
-            <h4 style={{ fontWeight: "bold" }}>Nombre Producto</h4>
+            <h4 style={{ fontWeight: "bold" }}>{producto?.denominacion}</h4>
           </div>
           <div>
-            <p>Denominacion:</p>
-            <p>Codigo:</p>
-            <p>Precio de venta:</p>
-            <p>Categoria:</p>
-            <p>Alergeno:</p>
+            <p>Denominacion: {producto?.denominacion}</p>
+            <p>Codigo: {producto?.codigo}</p>
+            <p>Precio de venta: {producto?.precioVenta}</p>
+            <p>Categoria: {producto?.categoria.denominacion} </p>
+            <p>Alergeno: {producto?.alergenos && producto.alergenos.length>0 ? producto?.alergenos.map((prev)=> prev.denominacion) : "No tiene"} </p>
           </div>
         </div>
       </div>

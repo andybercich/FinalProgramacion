@@ -70,6 +70,11 @@ export const Product = () => {
     cargarProductos();
   }, []);
 
+
+
+  
+
+
   return (
     <div className={styles.mainDiv}>
       <div className={styles.cotentButton} onClick={() => setModalCreate(true)}>

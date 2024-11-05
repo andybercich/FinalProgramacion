@@ -1,10 +1,12 @@
 import { Button } from "react-bootstrap";
 import { IProductos } from "../../../Models/types/dtos/productos/IProductos";
 import { setElementActive } from "../../../Redux/Slice/TablaReducer";
-import { useAppDispatch } from "../../Hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../Hooks/redux";
 import { IAlergenos } from "../../../Models/types/dtos/alergenos/IAlergenos";
 import { VerIcon } from "../Icons/VerIcon/VerIcon";
-
+import { useState } from "react";
+import { VerProducto } from "../PopUps/VerProducto/VerProducto";
+import { RootState } from "../../../Redux/Store/Store";
 
 // Interfaz para los props del componente
 interface IButtonsTable {
@@ -20,6 +22,12 @@ export const ButtonsTable = ({
 }: IButtonsTable) => {
   const dispatch = useAppDispatch();
 
+  const [ver, setVer] = useState<boolean>(false);
+  // Selector para obtener el elemento activo
+  const producto = useAppSelector(
+    (state: RootState) => state.tablaReducer.elementActive
+  );
+
   // Función para manejar la selección del modal para editar
   const handleModalSelected = () => {
     // Establecer el elemento activo en el estado
@@ -33,9 +41,9 @@ export const ButtonsTable = ({
     handleDelete(el.id); // Llamar a la función handleDelete con el ID del elemento
   };
 
-  const handleVerItem = () => {
-    dispatch(setElementActive({element:el})); // Llamar a la función handleDelete con el ID del elemento
-    setOpenModal(true)
+  const handleVerProducto = () => {
+    dispatch(setElementActive({ element: el })); // Establece el elemento activo
+    setVer(true); 
   };
 
   return (
@@ -50,13 +58,16 @@ export const ButtonsTable = ({
       <Button variant="contained" onClick={handleModalSelected}>
         <span className="material-symbols-outlined">edit</span>
       </Button>
-      <Button variant="contained" onClick={handleVerItem}>
-        <VerIcon/>
+      <Button variant="contained" onClick={handleVerProducto}>
+        <VerIcon />
       </Button>
       {/* Botón para eliminar el elemento */}
       <Button variant="contained" color="error" onClick={handleDeleteItem}>
         <span className="material-symbols-outlined">delete_forever</span>
       </Button>
+      {ver && producto as IProductos ? (
+        <VerProducto onClose={() => setVer(false)} producto={producto} />
+      ) : null}
     </div>
   );
 };
