@@ -9,11 +9,14 @@ export const VerSucursal: FC<Props> = ({ onClose, sucursal }) => {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.containerCardSucursal}>
-        <div className={styles.containerCardSucursal}>
+        <div className={styles.containerHeaderCard}>
           <span onClick={onClose} className="material-symbols-outlined">
             cancel
           </span>
-          <h4 style={{ fontWeight: "bold" }}>{sucursal.nombre}</h4>
+
+          <h4 className={styles.cardTitle} style={{ fontWeight: "bold" }}>
+            {sucursal.nombre}
+          </h4>
         </div>
 
         <div className={styles.containerBodyCard}>
@@ -23,13 +26,14 @@ export const VerSucursal: FC<Props> = ({ onClose, sucursal }) => {
           <p>
             Horario: {sucursal.horarioApertura} - {sucursal.horarioCierre}
           </p>
-
           <div className={styles.containerImgCard}>
-            {sucursal.logo ? (
-              <img src={sucursal.logo} alt="fotoSucursal" />
-            ) : (
-              <img src={"imgNotFound.jpg"} alt="fotoSucursal" />
-            )}
+            <div className={styles.ImgCard}>
+              {sucursal.logo ? (
+                <img src={sucursal.logo} alt="fotoSucursal" />
+              ) : (
+                <img src={"imgNotFound.jpg"} alt="fotoSucursal" />
+              )}
+            </div>
           </div>
         </div>
       </div>
