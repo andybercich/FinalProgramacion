@@ -14,10 +14,10 @@
 .containerCardSucursal span{
   position: absolute;
   right: 1px;
-  color: rgb(245, 122, 122);
+  color: #ab7d7d;
 }
 .containerHeaderCard span:hover{
-  color: red;
+  color: #B81616;
   transition: 0.4s;
   cursor: pointer;
 }
