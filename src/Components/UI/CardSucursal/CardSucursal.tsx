@@ -10,7 +10,7 @@ import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
 import { CrearSucursal } from "../PopUps/CrearSucursal/CrearSucursal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSelectedEmpresa, setSelectedSucursal } from "../../../Redux/Slice/sucursalsEmpresaElegida";
+import {  setSelectedSucursal } from "../../../Redux/Slice/sucursalsEmpresaElegida";
 
 interface Props {
   sucursal :ISucursal

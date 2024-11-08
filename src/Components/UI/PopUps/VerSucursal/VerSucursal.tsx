@@ -8,29 +8,33 @@ interface Props {
 export const VerSucursal: FC<Props> = ({ onClose, sucursal }) => {
   return (
     <div className={styles.mainDiv}>
-      <div className={styles.cardContainer}>
-        <span onClick={onClose} className="material-symbols-outlined">
-          cancel
-        </span>
+      <div className={styles.containerCardSucursal}>
+        <div className={styles.containerHeaderCard}>
+          <span onClick={onClose} className="material-symbols-outlined">
+            cancel
+          </span>
 
-        <div className={styles.bodyContainer}>
-          
-        <div className={styles.contentTittle}>
-          <h4 style={{ fontWeight: "bold" }}>{sucursal.nombre}</h4>
+          <h4 className={styles.cardTitle} style={{ fontWeight: "bold" }}>
+            {sucursal.nombre}
+          </h4>
         </div>
 
+        <div className={styles.containerBodyCard}>
           <p>Empresa: {sucursal.empresa.nombre}</p>
           <p>Domicilio: {sucursal.domicilio.calle}</p>
           <p>Casa Matriz: {sucursal.esCasaMatriz ? "Si" : "No"}</p>
           <p>
             Horario: {sucursal.horarioApertura} - {sucursal.horarioCierre}
           </p>
-
-          {sucursal.logo ? (
-            <img src={sucursal.logo} alt="fotoSucursal" />
-          ) : (
-            <img src={"imgNotFound.jpg"} alt="fotoSucursal" />
-          )}
+          <div className={styles.containerImgCard}>
+            <div className={styles.ImgCard}>
+              {sucursal.logo ? (
+                <img src={sucursal.logo} alt="fotoSucursal" />
+              ) : (
+                <img src={"imgNotFound.jpg"} alt="fotoSucursal" />
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
