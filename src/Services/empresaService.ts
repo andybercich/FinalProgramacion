@@ -2,18 +2,19 @@ import { ICreateEmpresaDto } from "../Models/types/dtos/empresa/ICreateEmpresaDt
 import { IUpdateEmpresaDto } from "../Models/types/dtos/empresa/IUpdateEmpresaDto";
 import axios, { AxiosResponse } from 'axios'
 
+const empresaService = import.meta.env.VITE_EMPRESA_SERVICE;
 export class ServiceEmpresa {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = 'http://190.221.207.224:8090/empresas';
+    this.baseURL = empresaService;
   }
 
   public async getEmpresaById(id: number): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}`;
     return axios.get(url, {
       headers: {
-        'User-Agent': 'insomnia/9.3.1'
+        //'User-Agent': 'insomnia/9.3.1'
       },
     });
   }

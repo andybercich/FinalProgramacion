@@ -41,7 +41,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
     localidad: "",
     latitud: editar &&  sucursal ? sucursal.latitud : 0,
     longitud: editar &&  sucursal ? sucursal.longitud : 0,
-    calle: editar &&  sucursal ? sucursal.calle : "",
+    calle: editar &&  sucursal ? sucursal.domicilio.calle : "",
     numeroCalle: editar &&  sucursal ? sucursal.domicilio.numero : 0,
     codigoPostal: editar &&  sucursal ? sucursal.domicilio.cp : 0,
     piso: editar &&  sucursal ? sucursal.domicilio.piso : 0,

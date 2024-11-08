@@ -2,18 +2,19 @@ import axios, { AxiosResponse } from "axios";
 import { ICreateAlergeno } from "../Models/types/dtos/alergenos/ICreateAlergeno";
 import { IUpdateAlergeno } from "../Models/types/dtos/alergenos/IUpdateAlergeno";
 
+const alergenoService = import.meta.env.VITE_ALERGENO_SERVICE;
 export class ServiceAlergeno {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = "http://190.221.207.224:8090/alergenos";
+    this.baseURL = alergenoService;
   }
 
   public async getAlergenoById(id: number): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}`;
     return axios.get(url, {
       headers: {
-        "User-Agent": "insomnia/9.3.1",
+        //"User-Agent": "insomnia/9.3.1",
       },
     });
   }

@@ -9,67 +9,86 @@ import { ICreateProducto } from "../../../../Models/types/dtos/productos/ICreate
 import { IUpdateProducto } from "../../../../Models/types/dtos/productos/IUpdateProducto";
 import { IProductos } from "../../../../Models/types/dtos/productos/IProductos";
 import { ServiceArticulo } from "../../../../Services/articuloService";
-import { IImagen } from "../../../../Models/types/IImagen";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../Redux/Store/Store";
 import { Button } from "react-bootstrap";
-
+import { ServiceAlergeno } from "../../../../Services/alergenoService";
+import { ServiceCategoria } from "../../../../Services/categoriaService";
+import { ISucursal } from "../../../../Models/types/dtos/sucursal/ISucursal";
+import { removeElementActive, setDataTable } from "../../../../Redux/Slice/TablaReducer";
+import Select from "react-select";
 
 interface Props {
   close: () => void;
-  editar: boolean;
-  productoEdit?: IProductos
+}
+interface OptionAlergeno{
+  value: string,
+  label: string
 }
 
-export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
+export const CrearProducto: FC<Props> = ({ close }) => {
   const [categorias, setCategorias] = useState<ICategorias[]>([]);
-  const [alergenos, setAlergenos] = useState<IAlergenos[]>([]);
-
+  const [alergenos, setAlergenos] = useState<OptionAlergeno[]>([]);
+  const [optionsAlerg,setOptionsAlerg] = useState([])
+  const dispatch = useDispatch();
+  const sucursal = useSelector((state:RootState)=> state.changeSucursales.sucursal) as ISucursal | null;
+  const product: IProductos = useSelector((state: RootState) => state.tablaReducer.elementActive ) as null | IProductos | IAlergenos;
   const { values, handleChange, resetForm } = useForm({
-    denominacion: editar && productoEdit ? productoEdit.denominacion :   "",
-    codigo:editar && productoEdit ? productoEdit.codigo:  "",
-    precio:editar && productoEdit ? productoEdit.precioVenta:  0,
-    categoria: "",
-    alergeno: "",
-    habilitado: editar && productoEdit ? productoEdit.habilitado : false,
-    descripcion:editar && productoEdit? productoEdit.descripcion : "",
-    srcPhoto:  "",
+    denominacion: product ? product.denominacion :   "",
+    codigo:product ? product.codigo:  "",
+    precio:product ? product.precioVenta:  0,
+    categoria: product ? product.categoria.id : "",
+    habilitado: product ? product.habilitado : false,
+    descripcion:product ? product.descripcion : "",
+    srcPhoto: product && product.imagenes.length  > 0 && product.imagenes[0] ? product.imagenes[0].url   :  "",
   });
 
-  
+  const handleChangeAlergenos = (selectedAlergeno) => {
+    setAlergenos(selectedAlergeno);
+  };
 
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch('http://190.221.207.224:8090/categorias/allCategoriasPorEmpresa/1', {
-          method: "GET",
-          headers: {
-            "User-Agent": "insomnia/9.3.2",
-          },
-        });
-        
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
+        if(sucursal){
 
-        const data = await response.json();
-        setCategorias(data);
+        
+          const service = new ServiceCategoria();
+          let response = await service.getCategoriasPadrePorSucursal(sucursal.id);
+          const categoriasPadre = await response.data;
+          let  arregloCategorias = [];
+          for(let i = 0; i < categoriasPadre.length; i++){
+            response = await service.getAllSubcategoriasByIDCategoriaPadre(categoriasPadre[i].id);
+            
+            if(response.data.length > 0){
+              arregloCategorias.push(...response.data);
+            }
+            
+            
+          }
+
+          console.log(arregloCategorias)
+          setCategorias(arregloCategorias);
+        }
       } catch (error) {
         badContest();
         close();
       }
     };
 
-    const fetchAlergenos = async () => {
+    const fetchAlergenos = async () => { 
       try {
-        const response = await fetch('http://190.221.207.224:8090/alergenos', {
-          method: "GET",
-          headers: {
-            "User-Agent": "insomnia/9.3.2",
-          },
-        });
+        const service = new ServiceAlergeno();
+        const response = await service.getAllAlergenos();
+        
+        const data: IAlergenos[] = response.data;
+        const options = data.map(alergeno => ({
+          value: alergeno.id, 
+          label: alergeno.denominacion 
+        }));
+        
+        setOptionsAlerg(options);
 
-
-        const data = await response.json();
-        setAlergenos(data);
       } catch (error) {
         badContest();
         close();
@@ -80,40 +99,37 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
     fetchAlergenos();
   }, []);
 
-  const returnImages  = ()=>{
-    if(editar && productoEdit && productoEdit.imagenes.length>0){
-        const imagenes: IImagen[] = [{ url: values.srcPhoto, name: "Imagen numero 1"}]
-        return imagenes
-    }else{
-        const imagenes: IImagen[] = [{ url: values.srcPhoto, name: "Imagen numero 1"}]
-        return imagenes;
-    }
-    
 
-  }
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const service = new ServiceArticulo()
     const producto: ICreateProducto|IUpdateProducto = {
-        id: editar && productoEdit ? productoEdit.id : parseInt(Date.now().toPrecision()),
+        id: product ? product.id : 0,
         denominacion: values.denominacion,
-        imagenes:returnImages(),
+        imagenes: [{
+          url: values.srcPhoto,
+          name: "Imagen del producto 1 del producto: "+ values.denominacion 
+        }],
         habilitado: values.habilitado,
         codigo: values.codigo,
         idCategoria: parseInt(values.categoria),
-        idAlergenos: values.alergeno!== "" ? [parseInt(values.alergeno)] : [], 
+        idAlergenos: alergenos 
+        ? alergenos.map((alergeno) =>parseInt(alergeno.value))
+        : [], 
         precioVenta: values.precio,
         descripcion: values.descripcion
 
     }
 
-    if(editar && productoEdit){
+    if(product){
 
         try{
-            await service.updateArticulo(productoEdit.id, producto);
+
+          console.log("Se esta modificando uno", producto)
+
+            await service.updateArticulo(product.id, producto);
             godContest();
-            close();
         }catch(e){
             badContest();
             close();
@@ -125,15 +141,21 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
             console.log("Se esta creando uno nuevo")
             await service.createArticulo(producto);
             godContest();
-            close();
+            
         }catch(e){
-            badContest();
+            badContest("Puede que tu codigo de producto este repetido, revisalo");
             close();
         }
     }
-    
-    close();
 
+    if(sucursal){
+      const response = await service.getArticulosPorSucursal(sucursal.id)
+      dispatch(setDataTable(response.data))
+      console.log(response.data)
+    }
+    dispatch(removeElementActive())
+    resetForm();
+    close();
     
   }
 
@@ -142,9 +164,9 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
       <div className={styles.divPopUp}>
         <div className={styles.headerPopUp}>
           <div className={styles.cancel}>
-            <CancelButton onClick={close}></CancelButton>
+            <CancelButton onClick={()=>{close(); dispatch(removeElementActive()) }}></CancelButton>
           </div>
-          {editar ? <h1>Editar Producto</h1> : <h1>Crear Producto</h1>}
+          {product ? <h1>Editar Producto</h1> : <h1>Crear Producto</h1>}
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -186,29 +208,38 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
                 id=""
                 aria-placeholder="Categoria"
               >
-                <option value="" disabled>Selecciona una Categoría</option>
+                {product ? 
+                <option 
+                key={product.categoria.id} 
+                value={product.categoria.id}>{product.categoria.denominacion}</option>
+
+                : <option value="" disabled>Selecciona una Categoría</option>}
                 {categorias.map((categoria) => (
                     <option key={categoria.id} value={categoria.id}>
                     {categoria.denominacion}
                     </option>
-                ))}
+                  ))}
+
               </select>
 
-              <select
+              <Select
+              options={optionsAlerg}
+              isMulti 
+              onChange={handleChangeAlergenos}
+              value={alergenos}
+              >
+              </Select>
+{/*              <select
                 value={values.alergeno}
                 className={styles.inputLarge}
                 onChange={handleChange}
                 name="alergeno"
                 id=""
                 aria-placeholder="Alergeno"
-              >
-                <option value="" disabled>Selecciona un alergeno</option>
-                {alergenos.map((alergeno) => (
-                    <option key={alergeno.id} value={alergeno.id}>
-                    {alergeno.denominacion}
-                    </option>
-                ))}
-              </select>
+              ></select>*/}
+
+                
+              
 
               <div className={styles.divCheck}>
                 <h5>Habilitado</h5>
@@ -240,7 +271,7 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
                       width: "100%",
                       borderRadius: "10px",
                     }}
-                    src={values.srcPhoto}
+                    src={values.srcPhoto || "imgNotFound.jpg"  }
                     alt="Imagen de Producto"
                   />
                 </div>
@@ -252,7 +283,6 @@ export const CrearProducto: FC<Props> = ({ close, editar, productoEdit }) => {
                       borderRadius: "5px",
                       gap: "0.5rem",
                     }}
-                    required
                     value={values.srcPhoto}
                     onChange={handleChange}
                     type="text"

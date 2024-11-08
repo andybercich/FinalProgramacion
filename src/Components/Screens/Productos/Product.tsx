@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { IProductos } from "../../../Models/types/dtos/productos/IProductos";
 import { CrearProducto } from "../../UI/PopUps/CrearProducto/CrearProducto";
-import { Button } from "react-bootstrap";
 import { ServiceArticulo } from "../../../Services/articuloService";
 import { TableGeneric } from "../../UI/TableGeneric/TableGeneric";
 import { CircularProgress } from "@mui/material";
 import { ButtonsTable } from "../../UI/ButtonsTable/ButtonsTable";
-import { setDataTable } from "../../../Redux/Slice/TablaReducer";
+import { removeElementActive, setDataTable, setElementActive } from "../../../Redux/Slice/TablaReducer";
 import { useAppDispatch } from "../../Hooks/redux";
 import styles from "./Product.module.css";
 import { AddIcon } from "../../UI/Icons/AddIcon/AddIcon";
+import { badContest, godContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
 
 export const Product = () => {
   const [modalCreate, setModalCreate] = useState<boolean>(false);
@@ -35,8 +35,19 @@ export const Product = () => {
   // Función para eliminar un producto
   const handleDelete = async (id: number) => {
     // Aquí puedes llamar a tu servicio para eliminar el producto
-    // await service.deleteArticuloById(id);
+    try {
+
+      await service.deleteArticuloById(id);
+      godContest("El articulo ha sido borrado correctamente");
+      cargarProductos();
+      dispatch(removeElementActive())
+
+    } catch (error) {
+      badContest();
+    }
+    
     setProductos((prev) => prev.filter((producto) => producto.id !== id));
+
   };
 
   // Columnas de la tabla
@@ -81,7 +92,7 @@ export const Product = () => {
         <AddIcon />
       </div>
       {modalCreate && (
-        <CrearProducto editar={false}  close={() => setModalCreate(false)} />
+        <CrearProducto  close={() => setModalCreate(false)} />
       )}
 
       {loading ? (

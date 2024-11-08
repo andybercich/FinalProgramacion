@@ -22,7 +22,7 @@ export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
 
   const handleSelectEmpresa = () => {
     
-      dispatch(setSelectedEmpresa(empresa));
+    dispatch(setSelectedEmpresa(empresa));
       
   };
 

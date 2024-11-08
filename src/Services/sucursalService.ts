@@ -2,11 +2,13 @@ import { ICreateSucursal } from "../Models/types/dtos/sucursal/ICreateSucursal";
 import { IUpdateSucursal } from "../Models/types/dtos/sucursal/IUpdateSucursal";
 import axios, { AxiosResponse } from 'axios'
 
+const sucursalService = import.meta.env.VITE_SUCURSAL_SERVICE
+
 export class ServiceSucursal {
     private baseURL: string;
   
     constructor() {
-      this.baseURL = 'http://190.221.207.224:8090/sucursales';
+      this.baseURL = sucursalService;
     }
   
 
@@ -14,7 +16,7 @@ export class ServiceSucursal {
       const url = `${this.baseURL}/existCasaMatriz/${id}`;
       return axios.get(url, {
         headers: {
-          'User-Agent': 'insomnia/9.3.2',
+          //'User-Agent': 'insomnia/9.3.2',
         },
       });
     }
