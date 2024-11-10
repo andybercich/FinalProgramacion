@@ -76,12 +76,7 @@ export const Alergeno = () => {
       {modalCreate && (
         <CrearAlergeno editar={false} onClose={() => setModalCreate(false)} />
       )}
-      {modalEditar && (
-        <CrearAlergeno editar={true} onClose={()=> setModalEditar(false)}/>
-      )}
-      {modalVer && (
-        <VerAlergeno alergeno={null}  onClose={() => setModalVer(false)} />
-      )}
+
       {loading ? (
         <div
           style={{
