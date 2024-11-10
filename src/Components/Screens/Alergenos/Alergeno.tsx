@@ -14,6 +14,7 @@ import { VerAlergeno } from "../../UI/PopUps/VerAlergeno/VerAlergeno";
 export const Alergeno = () => {
   const [modalCreate, setModalCreate] = useState<boolean>(false);
   const [modalVer, setModalVer] = useState<boolean>(false);
+  const [modalEditar, setModalEditar] = useState<boolean>(false);
   const [alergenos, setAlergenos] = useState<IAlergenos[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +35,7 @@ export const Alergeno = () => {
   // Función para eliminar un alergeno
   const handleDelete = async (id: number) => {
     // Aquí puedes llamar a tu servicio para eliminar el alergeno
-    //await service.deleteAlergenoById(id);
+    await service.deleteAlergenoById(id);
     setAlergenos((prev) => prev.filter((alergeno) => alergeno.id !== id));
   };
 
@@ -67,8 +68,11 @@ export const Alergeno = () => {
       {modalCreate && (
         <CrearAlergeno editar={false} onClose={() => setModalCreate(false)} />
       )}
+      {modalEditar && (
+        <CrearAlergeno editar={true} onClose={()=> setModalEditar(false)}/>
+      )}
       {modalVer && (
-        <VerAlergeno alergeno={null}  onClose={() => setModalVer(true)} />
+        <VerAlergeno alergeno={null}  onClose={() => setModalVer(false)} />
       )}
       {loading ? (
         <div
