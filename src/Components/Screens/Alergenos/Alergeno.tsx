@@ -9,7 +9,6 @@ import { AddIcon } from "../../UI/Icons/AddIcon/AddIcon";
 import { IAlergenos } from "../../../Models/types/dtos/alergenos/IAlergenos";
 import { ServiceAlergeno } from "../../../Services/alergenoService";
 import { CrearAlergeno } from "../../UI/PopUps/CrearAlergeno/CrearAlergeno";
-import { VerAlergeno } from "../../UI/PopUps/VerAlergeno/VerAlergeno";
 import { badContest, godContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
 
 export const Alergeno = () => {
