@@ -7,6 +7,7 @@ import { VerIcon } from "../Icons/VerIcon/VerIcon";
 import { useState } from "react";
 import { VerProducto } from "../PopUps/VerProducto/VerProducto";
 import { RootState } from "../../../Redux/Store/Store";
+import { VerAlergeno } from "../PopUps/VerAlergeno/VerAlergeno";
 
 // Interfaz para los props del componente
 interface IButtonsTable {
@@ -27,7 +28,9 @@ export const ButtonsTable = ({
   const producto = useAppSelector(
     (state: RootState) => state.tablaReducer.elementActive
   );
-
+  const alergeno = useAppSelector(
+    (state: RootState) => state.tablaReducer.elementActive
+  );
   // Función para manejar la selección del modal para editar
   const handleModalSelected = () => {
     // Establecer el elemento activo en el estado
@@ -65,8 +68,12 @@ export const ButtonsTable = ({
       <Button variant="contained" color="error" onClick={handleDeleteItem}>
         <span className="material-symbols-outlined">delete_forever</span>
       </Button>
-      {ver && producto as IProductos ? (
-        <VerProducto onClose={() => setVer(false)} producto={producto} />
+      {ver && el ? (
+        "codigo" in el ? (
+          <VerProducto onClose={() => setVer(false)} producto={el as IProductos} />
+        ) : (
+          <VerAlergeno onClose={() => setVer(false)} alergeno={el as IAlergenos} />
+        )
       ) : null}
     </div>
   );
