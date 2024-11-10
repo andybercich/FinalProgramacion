@@ -14,8 +14,6 @@ import { badContest, godContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
 
 export const Alergeno = () => {
   const [modalCreate, setModalCreate] = useState<boolean>(false);
-  const [modalVer, setModalVer] = useState<boolean>(false);
-  const [modalEditar, setModalEditar] = useState<boolean>(false);
   const [alergenos, setAlergenos] = useState<IAlergenos[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -44,7 +42,7 @@ export const Alergeno = () => {
     } catch (error) {
       badContest();
     }
-    setAlergenos((prev) => prev.filter((alergeno) => alergeno.id !== id));
+    setAlergenos((prev) => prev.filter((alergenos) => alergenos.id !== id));
   };
 
   // Columnas de la tabla
