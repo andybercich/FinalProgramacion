@@ -20,23 +20,3 @@ export const godContest = (message? : string)=>{
       });
 
 }
-
-export const okAlergeno = ()=>{
-  Swal.fire({
-      icon: 'success',
-      title: 'Éxito',
-      text: 'El alergeno ha sido creado correctamente.',
-      showCloseButton: true,
-      confirmButtonText: 'Aceptar',
-    });
-}
-
-export const okAlergeno2 = ()=>{
-  Swal.fire({
-      icon: 'success',
-      title: 'Éxito',
-      text: 'El alergeno ha sido editado correctamente.',
-      showCloseButton: true,
-      confirmButtonText: 'Aceptar',
-    });
-}

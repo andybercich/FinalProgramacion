@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TableGeneric } from "../../UI/TableGeneric/TableGeneric";
 import { CircularProgress } from "@mui/material";
 import { ButtonsTable } from "../../UI/ButtonsTable/ButtonsTable";
-import { setDataTable } from "../../../Redux/Slice/TablaReducer";
+import { removeElementActive, setDataTable } from "../../../Redux/Slice/TablaReducer";
 import { useAppDispatch } from "../../Hooks/redux";
 import styles from "./Alergenos.module.css";
 import { AddIcon } from "../../UI/Icons/AddIcon/AddIcon";
@@ -10,6 +10,7 @@ import { IAlergenos } from "../../../Models/types/dtos/alergenos/IAlergenos";
 import { ServiceAlergeno } from "../../../Services/alergenoService";
 import { CrearAlergeno } from "../../UI/PopUps/CrearAlergeno/CrearAlergeno";
 import { VerAlergeno } from "../../UI/PopUps/VerAlergeno/VerAlergeno";
+import { badContest, godContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
 
 export const Alergeno = () => {
   const [modalCreate, setModalCreate] = useState<boolean>(false);
@@ -35,7 +36,14 @@ export const Alergeno = () => {
   // Función para eliminar un alergeno
   const handleDelete = async (id: number) => {
     // Aquí puedes llamar a tu servicio para eliminar el alergeno
-    await service.deleteAlergenoById(id);
+    try{
+      await service.deleteAlergenoById(id);
+      godContest("El alergeno se elimino correctamente");
+      cargarAlergenos();
+      dispatch(removeElementActive());
+    } catch (error) {
+      badContest();
+    }
     setAlergenos((prev) => prev.filter((alergeno) => alergeno.id !== id));
   };
 
