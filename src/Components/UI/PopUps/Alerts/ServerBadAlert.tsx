@@ -18,5 +18,4 @@ export const godContest = (message? : string)=>{
         showCloseButton: true,
         confirmButtonText: 'Aceptar',
       });
-
 }

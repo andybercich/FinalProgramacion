@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styles from "./CrearAlergeno.module.css";
 import { useForm } from "../../../Hooks/useForm";
 import { IAlergenos } from "../../../../Models/types/dtos/alergenos/IAlergenos";
-import { badContest, okAlergeno, okAlergeno2 } from "../Alerts/ServerBadAlert";
+import { badContest, godContest, okAlergeno, okAlergeno2 } from "../Alerts/ServerBadAlert";
 import { CancelButton } from "../../Icons/CancelButton";
 import { Button } from "react-bootstrap";
 import { ServiceAlergeno } from "../../../../Services/alergenoService";
@@ -43,7 +43,7 @@ export const CrearAlergeno: FC<IProps> = ({
     if (editar && alergenoEdit) {
       try{
         await serviceAlergeno.editAlergeno(alergenoEdit.id, alergeno);
-        okAlergeno2();
+        godContest("Alergeno editado correctamente");
         onClose();
       }catch(error){
         badContest();
@@ -52,7 +52,7 @@ export const CrearAlergeno: FC<IProps> = ({
     } else {
       try{
         await serviceAlergeno.createAlergeno(alergeno);
-        okAlergeno();
+        godContest("Alergeno creado correctamente");
         onClose();
       }catch(error){
         badContest();
