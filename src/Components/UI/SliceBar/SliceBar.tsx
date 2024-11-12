@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 export const SliceBar = () => {
   const [show, setShow] = useState(false);
-  const handleSlice = () => setShow(!show);
   const [selectedLinkId, setSelectedLinkId] = useState<number | null>(null);
 
   const handleLinkId = (id: number) => {
@@ -13,7 +12,7 @@ export const SliceBar = () => {
   };
 
   return (
-    <div className={`${styles.mainDiv} ${!show ? styles.hidden : ''}`}>
+    <div onClick={()=>{setShow(!show)}} className={`${styles.mainDiv} ${!show ? styles.hidden : ''}`}>
 
       <div className={`${styles.divBar} ${!show ? styles.hidden : ''}`}>
 
@@ -61,7 +60,7 @@ export const SliceBar = () => {
 
       <span
         className={`material-symbols-outlined ${styles.arrowButton} ${!show ? styles.hidden : ''}`}
-        onClick={handleSlice}
+        onClick={()=>{setShow(!show)}}
       >
         {show ? 'arrow_back_ios' : 'arrow_forward_ios'}
       </span>
