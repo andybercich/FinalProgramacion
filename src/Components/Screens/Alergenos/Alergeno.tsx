@@ -71,7 +71,7 @@ export const Alergeno = () => {
         <AddIcon />
       </div>
       {modalCreate && (
-        <CrearAlergeno onClose={() => setModalCreate(false)} />
+        <CrearAlergeno  onClose={() => setModalCreate(false)} />
       )}
 
       {loading ? (

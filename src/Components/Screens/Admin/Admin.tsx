@@ -13,7 +13,8 @@ export const Admin = () => {
       
       <div className={styles.containerOutlet}>
 
-        <Outlet></Outlet>
+        <Outlet>
+        </Outlet>
 
       </div>
     </div>
