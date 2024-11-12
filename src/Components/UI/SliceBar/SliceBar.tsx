@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const SliceBar = () => {
   const [show, setShow] = useState(false);
-  const [selectedLinkId, setSelectedLinkId] = useState<number | null>(null);
+  const [selectedLinkId, setSelectedLinkId] = useState<number>(1);
 
   const handleLinkId = (id: number) => {
     setSelectedLinkId(id);
