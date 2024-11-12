@@ -42,7 +42,7 @@ export const CrearAlergeno: FC<IProps> = ({
 
     if (editar && alergenoEdit) {
       try{
-        await serviceAlergeno.editAlergeno(alergenoEdit.id, alergeno);
+        await serviceAlergeno.editAlergeno(alergenoEdit.id, alergeno);  
         godContest("Alergeno editado correctamente");
         onClose();
       }catch(error){
