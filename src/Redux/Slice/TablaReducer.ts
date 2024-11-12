@@ -2,11 +2,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProductos } from "../../Models/types/dtos/productos/IProductos";
 import { IAlergenos } from "../../Models/types/dtos/alergenos/IAlergenos";
+import { ICategorias } from "../../Models/types/dtos/categorias/ICategorias";
 
 // Definimos la interfaz para el estado inicial del slice
 interface IInitialState {
   dataTable: IProductos[] | IAlergenos[]; // Datos de la tabla
-  elementActive: null | IProductos | IAlergenos; // Elemento activo seleccionado
+  elementActive: null | IProductos | IAlergenos | ICategorias; // Elemento activo seleccionado
 }
 
 // Estado inicial del slice
@@ -17,7 +18,7 @@ const initialState: IInitialState = {
 
 // Interfaz para la acción del payload personalizado
 interface PayloadSetElement {
-  element: IProductos | IAlergenos; // Elemento de tipo IPersona
+  element: IProductos | IAlergenos | ICategorias ; // Elemento de tipo IPersona
 }
 
 // Creamos un slice con Redux Toolkit para manejar la tabla
