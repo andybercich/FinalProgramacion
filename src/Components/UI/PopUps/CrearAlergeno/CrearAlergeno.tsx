@@ -2,37 +2,35 @@ import React, { FC } from "react";
 import styles from "./CrearAlergeno.module.css";
 import { useForm } from "../../../Hooks/useForm";
 import { IAlergenos } from "../../../../Models/types/dtos/alergenos/IAlergenos";
-import { badContest, godContest, okAlergeno, okAlergeno2 } from "../Alerts/ServerBadAlert";
+import { badContest, godContest} from "../Alerts/ServerBadAlert";
 import { CancelButton } from "../../Icons/CancelButton";
 import { Button } from "react-bootstrap";
 import { ServiceAlergeno } from "../../../../Services/alergenoService";
 import { ICreateAlergeno } from "../../../../Models/types/dtos/alergenos/ICreateAlergeno";
 import { IUpdateAlergeno } from "../../../../Models/types/dtos/alergenos/IUpdateAlergeno";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../Redux/Store/Store";
+import { removeElementActive } from "../../../../Redux/Slice/TablaReducer";
 
 interface IProps {
   onClose: () => void | null;
-  editar?: boolean;
-  alergenoEdit?: IAlergenos;
 }
 
 export const CrearAlergeno: FC<IProps> = ({
-  onClose,
-  editar,
-  alergenoEdit,
+  onClose
 }) => {
+  const alergenos: IAlergenos = useSelector((state: RootState) => state.tablaReducer.elementActive ) as IAlergenos;
+  const dispatch = useDispatch();
   const { values, handleChange, resetForm } = useForm({
-    denominacion: editar && alergenoEdit ? alergenoEdit.denominacion : "",
-    srcPhoto: "",
+    denominacion: alergenos ? alergenos.denominacion : "",
+    srcPhoto: alergenos && alergenos.imagen ? alergenos.imagen.url : "",
   });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const serviceAlergeno = new ServiceAlergeno();
     const alergeno: ICreateAlergeno | IUpdateAlergeno = {
-      id:
-        editar && alergenoEdit
-          ? alergenoEdit.id
-          : parseInt(Date.now().toPrecision()),
+      id: alergenos ? alergenos.id : 0,
       denominacion: values.denominacion,
       imagen: {
         url: values.srcPhoto,
@@ -40,11 +38,11 @@ export const CrearAlergeno: FC<IProps> = ({
       }
     };
 
-    if (editar && alergenoEdit) {
+    if (alergeno) {
       try{
-        await serviceAlergeno.editAlergeno(alergenoEdit.id, alergeno);  
+        await serviceAlergeno.editAlergeno(alergeno.id, alergeno);
         godContest("Alergeno editado correctamente");
-        onClose();
+        dispatch(removeElementActive())
       }catch(error){
         badContest();
         onClose();
@@ -58,23 +56,23 @@ export const CrearAlergeno: FC<IProps> = ({
         badContest();
         onClose();
       }
-
     }
-
+    dispatch(removeElementActive())
     resetForm();
+    onClose();
   };
 
   return (
     <div className={styles.mainDiv}>
       <div className={styles.modalAlergeno}>
         <div className={styles.contentTittle}>
-          {editar ? (
+          {alergenos ? (
             <h2>Editar Alergeno</h2>
           ) : (
             <h2>Crear Alergeno</h2>
           )}
           <div className={styles.contentbutton}>
-            <CancelButton onClick={onClose} />
+            <CancelButton onClick={()=>{onClose(); dispatch(removeElementActive()) }}/>
           </div>
         </div>
         <form className={styles.formCrearAlergeno} onSubmit={handleSubmit}>
