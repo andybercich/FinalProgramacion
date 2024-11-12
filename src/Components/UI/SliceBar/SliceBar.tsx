@@ -19,7 +19,7 @@ export const SliceBar = () => {
 
         <div className={styles.barTitle}>
 
-          <h1>Admin</h1>
+          <h1 style={{fontSize:"2vw", padding:"2.5rem"}}>Administracion</h1>
 
         </div>
 
@@ -44,14 +44,15 @@ export const SliceBar = () => {
             <h2>Alergenos</h2>
           </Link>
 
-          
-          <div className={`${styles.divText} ${
+          <Link to={"/admin/categorias"} className={`${styles.divText} ${
               selectedLinkId === 3 ? styles.divTextSelected : ""
             }`} 
             onClick={() => handleLinkId(3)}
             >
-            <h2>Categorias</h2>
-          </div>
+              <h2>Categorias</h2>
+
+            </Link>
+
         </div>
 
 
