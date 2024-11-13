@@ -58,7 +58,7 @@ export const CrearProducto: FC<Props> = ({ close }) => {
           const categoriasPadre = await response.data;
           let  arregloCategorias = [];
           for(let i = 0; i < categoriasPadre.length; i++){
-            response = await service.getAllSubcategoriasByIDCategoriaPadre(categoriasPadre[i].id);
+            response = await service.getAllSubcategoriasByIDCategoriaPadre(categoriasPadre[i].id, sucursal.id);
             
             if(response.data.length > 0){
               arregloCategorias.push(...response.data);

@@ -1,0 +1,28 @@
+
+.mainContainer{
+
+    width: 80%;
+    height: 2.8rem;
+    border-radius: 1.5rem;
+    display: grid;
+    background-color: #FFFF;
+    grid-template-columns: 10fr 2fr;
+    margin: 15px 0px 15px 15px;
+}
+
+.titleContainer{
+    padding-left: 2rem;
+    display:flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.actionsContainer{
+    align-items: center;
+    border-radius: 1.5rem;
+    display: flex;
+    justify-content: right;
+    padding-right: 2rem;
+    align-items: center;
+}
+
