@@ -17,6 +17,6 @@
     align-items: center;
     overflow-y: auto;
     gap: 5px;
-    height: 95%;
-    background-color: black;
+    height: 85%;
+    background-color: transparent;
 }

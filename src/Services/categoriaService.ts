@@ -17,7 +17,7 @@ export class ServiceCategoria {
     });
   }
 
-  public async getAllSubcategoriasByIDCategoriaPadre(categoriaPadreId: number): Promise<AxiosResponse<ICategorias>> {
+  public async getAllSubcategoriasByIDCategoriaPadre(categoriaPadreId: number): Promise<AxiosResponse> {
     const url = `${this.baseURL}/allSubCategoriasPorCategoriaPadre/${categoriaPadreId}/1`;
     return axios.get(url, {
       headers: { //'User-Agent': 'insomnia/10.1.1' 
