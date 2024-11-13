@@ -4,12 +4,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 2rem;
+
     border-radius: 0.4rem; 
 }
 
+
 .customIcon{
     color: #008CFF;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     cursor: pointer;
     transition: 500ms;
 }

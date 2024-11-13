@@ -1,6 +1,7 @@
 .customIcon{
     font-size: 1.8rem;
     color: green;
+    transition: 500ms;
 }
 
 .customIcon:hover{
