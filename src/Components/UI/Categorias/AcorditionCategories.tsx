@@ -22,27 +22,24 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
   const [create,setCreate] = useState<boolean>(false);
   const [show,setShow] = useState<boolean>(false);
 
-  useEffect(() => {
-    const getSubs = async () => {
-      const service = new ServiceCategoria();
+  const getSubs = async () => {
+    const service = new ServiceCategoria();
 
-      if (sucursal) {
-        try {
-          const response = await service.getAllSubcategoriasByIDCategoriaPadre(
-            categoria.id,
-            sucursal?.id
-          );
-          setSubCategorias(response.data);
-        } catch (error) {
-          badContest();
-        }
-      } else {
+    if (sucursal) {
+      try {
+        const response = await service.getAllSubcategoriasByIDCategoriaPadre(
+          categoria.id,
+          sucursal?.id
+        );
+        setSubCategorias(response.data);
+      } catch (error) {
         badContest();
       }
-    };
+    } else {
+      badContest();
+    }
+  };
 
-    getSubs();
-  }, []);
 
   return (
 
@@ -67,6 +64,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
             <span
               onClick={() => {
                 setShow(!show);
+                getSubs();
               }}
               className={`material-symbols-outlined ${styles.arrowIcon} ${!show ? styles.hiddenArrow: ''}`}
             >
@@ -87,7 +85,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
 
         {subCategoria && subCategoria.length > 0 ? (
           subCategoria.map((subCategori) => (
-            <SubCategorias key={subCategori.id} subCategoria={subCategori} />
+            <SubCategorias getSubs={getSubs} key={subCategori.id} subCategoria={subCategori} />
           ))
         ) : (
           <p style={{marginLeft:"1.5rem"}}>No se encuentran SubCategorías</p>
@@ -106,7 +104,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
           
     {
         create ? 
-        <CrearSubCategoria idPadre={categoria.id} edit={false} padre= {false} onClose={()=>{setCreate(false)}}></CrearSubCategoria> :
+        <CrearSubCategoria subsCategoria={getSubs} idPadre={categoria.id} edit={false} padre= {false} onClose={()=>{setCreate(false)}}></CrearSubCategoria> :
         null
       }
    </div>

@@ -10,7 +10,7 @@ export class ServiceCategoria {
   }
 
   public async getCategoriasPadrePorSucursal(sucursalId: number): Promise<AxiosResponse<any>> {
-    const url = `${this.baseURL}/allCategoriasPorSucursal/${sucursalId}`;
+    const url = `${this.baseURL}/allCategoriasPadrePorSucursal/${sucursalId}`;
     return axios.get(url, {
       headers: { //'User-Agent': 'insomnia/9.3.2' 
         },

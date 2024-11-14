@@ -15,6 +15,7 @@ import { ICreateCategoria } from "../../../../Models/types/dtos/categorias/ICrea
 
 interface IProps {
   onClose: () => void;
+  subsCategoria?: () => void;
   edit: boolean;
   padre: boolean;
   categoria?: ICategorias;
@@ -27,6 +28,7 @@ export const CrearSubCategoria: FC<IProps> = ({
   edit,
   padre,
   categoria,
+  subsCategoria
 }) => {
   const sucursal: ISucursal | null = useSelector(
     (state: RootState) => state.changeSucursales.sucursal
@@ -64,16 +66,23 @@ export const CrearSubCategoria: FC<IProps> = ({
         };
         console.log(categoriaNueva);
 
-        await serviceCategoria.createCategoria(categoriaNueva);
+        await serviceCategoria.createCategoria(categoriaNueva).then(
+          
+        );
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
 
       const response = await serviceCategoria.getCategoriasPadrePorSucursal(
         sucursal.id
       );
       dispatch(setCategorias(response.data));
+      
+      if(subsCategoria){
 
+        subsCategoria();
+
+      }
+      
       godContest("Se ha creado/modificado la categoria correctamente!!");
     } catch (e) {
       badContest("Hubo un error a la hora de crear/editar una categoria");

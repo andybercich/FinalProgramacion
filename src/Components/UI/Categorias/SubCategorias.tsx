@@ -6,9 +6,11 @@ import { CrearSubCategoria } from "../PopUps/CrearSubCategoria/CrearSubCategoria
 
 interface Props{
     subCategoria: ICategorias
+    getSubs(): void;
+
 }
 
-export const SubCategorias: FC<Props> = ({subCategoria}) => {
+export const SubCategorias: FC<Props> = ({subCategoria, getSubs}) => {
 
   const [edit, setEdit] = useState<boolean>(false);
   return (
@@ -30,7 +32,7 @@ export const SubCategorias: FC<Props> = ({subCategoria}) => {
       </div>
 
       {edit ? 
-      <CrearSubCategoria padre={false} onClose={() => { setEdit(false) } } categoria={subCategoria} edit={true}></CrearSubCategoria>
+      <CrearSubCategoria subsCategoria={getSubs} padre={false} onClose={() => { setEdit(false) } } categoria={subCategoria} edit={true}></CrearSubCategoria>
       : null}
 
     </div>
