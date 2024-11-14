@@ -12,7 +12,7 @@ import { badContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
 
 
 
-export const Categorias = () => {
+export const CategoriasScreen = () => {
 
   /*Más adelante tendremos que obtener las categorias mediante una variable del redux, de momento lo dejamos así*/
 

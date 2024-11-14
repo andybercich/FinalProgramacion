@@ -1,13 +1,13 @@
 
 .mainContainer{
 
-    width: 80%;
+    width: 45vw;
     height: 2.8rem;
     border-radius: 1.5rem;
     display: grid;
     background-color: #FFFF;
     grid-template-columns: 10fr 2fr;
-    margin: 15px 0px 15px 15px;
+    margin: 8px 0px 8px 8px;
 }
 
 .titleContainer{

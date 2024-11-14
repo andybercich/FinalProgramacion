@@ -19,6 +19,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
   const sucursal = useSelector((state:RootState)=> state.changeSucursales.sucursal) as ISucursal | null;
   const [edit,setEdit] = useState<boolean>(false);
   const [create,setCreate] = useState<boolean>(false);
+  const [show,setShow] = useState<boolean>(false);
 
   useEffect(() => {
     const getSubs = async () => {
@@ -51,11 +52,11 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
         </div>
 
         <div className={styles.actionsContainer}>
-          <div onClick={()=>{setCreate(true)}}>
+          <div style={{alignItems:"center"}} onClick={()=>{setCreate(true)}}>
             <AddIcon></AddIcon>
           </div>
 
-          <div onClick={()=>{setEdit(true)}}>
+          <div style={{alignItems:"center", marginBottom:"4px"}} onClick={()=>{setEdit(true)}}>
             <EditIcon></EditIcon>
           </div>
           
@@ -78,7 +79,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
 
       <div
        className={` ${styles.subCategoriasContainer} ${!show ? styles.hidden : ''}`}
-       onClick={()=>{setShow(!show)}}
+       
        
       >
       <div className={styles.subCategoriasContainer}>
@@ -98,5 +99,6 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
 
 
     </div>
+   </div>
   );
 };
