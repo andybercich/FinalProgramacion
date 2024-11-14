@@ -6,6 +6,8 @@ interface UserDataInitial{
     empresa: IEmpresa | null,
     sucursal: ISucursal | null
 }
+
+
 const initialState: UserDataInitial = {empresa: null, sucursal: null}
 const Empresa = createSlice({
     name: "empresa",

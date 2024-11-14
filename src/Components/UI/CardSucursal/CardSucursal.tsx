@@ -11,6 +11,8 @@ import { CrearSucursal } from "../PopUps/CrearSucursal/CrearSucursal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {  setSelectedSucursal } from "../../../Redux/Slice/sucursalsEmpresaElegida";
+import { setCategorias } from "../../../Redux/Slice/categorias";
+import { ServiceCategoria } from "../../../Services/categoriaService";
 
 interface Props {
   sucursal :ISucursal
@@ -22,7 +24,11 @@ export const CardSucursal: FC<Props> = ({sucursal}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
-  const handleClickAdmin = ()=>{
+  const handleClickAdmin = async ()=>{
+    const service = new ServiceCategoria();
+    const response = await service.getCategoriasPadrePorSucursal(sucursal.id);
+
+    dispatch(setCategorias(response.data))
     dispatch(setSelectedSucursal(sucursal))
     navigate("/admin/productos")
 
