@@ -54,7 +54,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
 
         <div className={styles.actionsContainer}>
           <div style={{alignItems:"center"}} onClick={()=>{setCreate(true)}}>
-            <AddIcon></AddIcon>
+            <AddIcon></AddIcon> 
           </div>
 
           <div style={{alignItems:"center", marginBottom:"4px"}} onClick={()=>{setEdit(true)}}>
@@ -90,7 +90,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
             <SubCategorias key={subCategori.id} subCategoria={subCategori} />
           ))
         ) : (
-          <p>No se encuentran categorías</p>
+          <p style={{marginLeft:"1.5rem"}}>No se encuentran SubCategorías</p>
         )}
       </div>
 
