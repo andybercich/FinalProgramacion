@@ -74,6 +74,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
 
       </div>
       <div className={styles.subCategoriasContainer}>
+        
         {subCategoria && subCategoria.length > 0 ? (
           subCategoria.map((subCategori) => (
             <SubCategorias key={subCategori.id} subCategoria={subCategori} />
