@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect,  useState } from "react";
 import styles from "./Acordition.module.css";
 import { ICategorias } from "../../../Models/types/dtos/categorias/ICategorias";
 import { EditIcon } from "../Icons/EditIcon/EditIcon";
@@ -24,30 +24,28 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
     const getSubs = async () => {
       const service = new ServiceCategoria();
 
-
-        if(sucursal){
-          try {
-            const response = await service.getAllSubcategoriasByIDCategoriaPadre(
-            categoria.id, sucursal?.id
-            );
-            setSubCategorias(response.data);
-          } catch (error) {
-            badContest();
-          }
-        }else{
+      if (sucursal) {
+        try {
+          const response = await service.getAllSubcategoriasByIDCategoriaPadre(
+            categoria.id,
+            sucursal?.id
+          );
+          setSubCategorias(response.data);
+        } catch (error) {
           badContest();
         }
-
-
+      } else {
+        badContest();
+      }
     };
 
     getSubs();
   }, []);
 
   return (
+
     <div>
       <div className={styles.categoriaPadre}>
-
         <div className={styles.titleContainer}>
           <h3>{categoria.denominacion}</h3>
         </div>
@@ -65,23 +63,24 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
 
           <div className={styles.arrowContainer}>
             <span
-              onClick={() => {}}
-              className={`material-symbols-outlined ${styles.arrowIcon}`}
+              onClick={() => {
+                setShow(!show);
+              }}
+              className={`material-symbols-outlined ${styles.arrowIcon} ${!show ? styles.hiddenArrow: ''}`}
             >
               keyboard_arrow_down
             </span>
           </div>
 
-          {/*<span
-          className={`material-symbols-outlined ${styles.arrowButton} ${!show ? styles.hidden : ''}`}
-          onClick={()=>{setShow(!show)}}
-        >
-          {show ? 'arrow_back_ios' : 'arrow_forward_ios'}
-        </span> */}
-
+          
         </div>
-
       </div>
+
+      <div
+       className={` ${styles.subCategoriasContainer} ${!show ? styles.hidden : ''}`}
+       onClick={()=>{setShow(!show)}}
+       
+      >
       <div className={styles.subCategoriasContainer}>
 
         {subCategoria && subCategoria.length > 0 ? (

@@ -14,7 +14,7 @@ export const SliceBar = () => {
   return (
     <div onClick={()=>{setShow(!show)}} className={`${styles.mainDiv} ${!show ? styles.hidden : ''}`}>
 
-      <div className={`${styles.divBar} ${!show ? styles.hidden : ''}`}>
+      <div className={`${styles.divBar } ${!show ? styles.hidden : ''}`}>
 
         <div className={styles.barTitle}>
 
