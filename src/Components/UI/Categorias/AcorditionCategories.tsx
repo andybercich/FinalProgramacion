@@ -103,6 +103,12 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
         <CrearSubCategoria edit={true} padre= {true} categoria={categoria} onClose={()=>{setEdit(false)}}></CrearSubCategoria> :
         null
       }
+          
+    {
+        create ? 
+        <CrearSubCategoria idPadre={categoria.id} edit={false} padre= {false} onClose={()=>{setCreate(false)}}></CrearSubCategoria> :
+        null
+      }
    </div>
   );
 };

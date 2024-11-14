@@ -39,50 +39,45 @@ export const CrearSubCategoria: FC<IProps> = ({ idPadre,onClose, edit, padre, ca
     try{
 
       if(edit && categoria && sucursal){
-
+        
         const categoriaEditada: IUpdateCategoria={
           id:categoria.id,
           denominacion: values.denominacion,
           eliminado:false,
           idEmpresa: sucursal.empresa.id,
-          idSucursales: categoria.sucursales.map((sucursal) => sucursal.id),
+          idSucursales: null,
           idCategoriaPadre: (!padre && categoria.categoriaPadre?.id ? categoria.categoriaPadre.id : null)    
         }
+        console.log("editando")
+        await serviceCategoria.updateCategoria(categoria.id, categoriaEditada);
         
-        serviceCategoria.updateCategoria(categoria.id, categoriaEditada);
-        
-      }else if (!edit && categoria && sucursal){
+      }else if (!edit && sucursal){
 
         const categoriaNueva : ICreateCategoria ={
             denominacion: values.denominacion,
             idEmpresa: sucursal.empresa.id,
             idCategoriaPadre: idPadre ? idPadre : null
         }
+        console.log("Creando categoria")
 
-        serviceCategoria.createCategoria(categoriaNueva)
+        await serviceCategoria.createCategoria(categoriaNueva)
 
       }
 
+      await new Promise((resolve) => setTimeout(resolve, 100));
+        
+      const response = await serviceCategoria.getCategoriasPadrePorSucursal(sucursal.id)
+      dispatch(setCategorias(response.data))
+  
+      godContest("Se ha creado/modificado la categoria correctamente!!");
 
 
     }catch(e){
       badContest("Hubo un error a la hora de crear/editar una categoria")
     }
   
-    setTimeout(() => {
-      
-    }, 200);
 
-    if(sucursal){
-      const response = await serviceCategoria.getCategoriasPadrePorSucursal(sucursal.id)
-      dispatch(setCategorias(response.data))
-  
-      godContest("Se ha creado/modificado la categoria correctamente!!");
-  
-    }
 
-  
-    
 
     resetForm();
     onClose();
@@ -92,7 +87,8 @@ export const CrearSubCategoria: FC<IProps> = ({ idPadre,onClose, edit, padre, ca
     <div className={styles.mainDiv}>
       <div className={styles.modalCategoria}>
         <div className={styles.contentTittle}>
-          <h2>Crear SubCategoria</h2>
+          {padre ?<h2>Categoria</h2> : <h2>SubCategoria</h2>}
+          
 
           <div className={styles.contentbutton}>
             <CancelButton

@@ -6,8 +6,6 @@ import { AcorditionCategories } from "../../UI/Categorias/AcorditionCategories";
 import styles from "./categoria.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Redux/Store/Store";
-import { badContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
-import { setCategorias } from "../../../Redux/Slice/categorias";
 
 
 
@@ -16,6 +14,13 @@ import { setCategorias } from "../../../Redux/Slice/categorias";
 export const CategoriasScreen = () => {
 
   const categorias = useSelector((state:RootState) => state.setCategorias.categorias);
+
+  useEffect(() => {
+    
+    return () => {
+      
+    };
+  }, [categorias]);
 
 
   return (
