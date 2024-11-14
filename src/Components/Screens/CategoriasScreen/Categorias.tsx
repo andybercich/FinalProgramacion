@@ -4,9 +4,10 @@ import { ICategorias } from "../../../Models/types/dtos/categorias/ICategorias";
 import { ServiceCategoria } from "../../../Services/categoriaService";
 import { AcorditionCategories } from "../../UI/Categorias/AcorditionCategories";
 import styles from "./categoria.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Redux/Store/Store";
 import { badContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
+import { setCategorias } from "../../../Redux/Slice/categorias";
 
 
 
@@ -14,29 +15,7 @@ import { badContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
 
 export const CategoriasScreen = () => {
 
-  /*Más adelante tendremos que obtener las categorias mediante una variable del redux, de momento lo dejamos así*/
-
-  const sucursalId = useSelector((state:RootState) => state.changeSucursales.sucursal?.id) as number | null;
-  const [categorias,setCategorias] = useState<ICategorias[]>([]);
-  
-  useEffect( ()=>{
-    const fetchData = async () => {
-      if(sucursalId){
-        const service = new ServiceCategoria();
-  
-        try{
-          const response = await service.getCategoriasPadrePorSucursal(sucursalId); 
-          setCategorias(response.data);
-        }catch(e){
-          badContest("No se han conseguido correctamente las categorias")
-        }
-
-      }
-    }
-      fetchData();
-    
-    }
-  ,[]);
+  const categorias = useSelector((state:RootState) => state.setCategorias.categorias);
 
 
   return (

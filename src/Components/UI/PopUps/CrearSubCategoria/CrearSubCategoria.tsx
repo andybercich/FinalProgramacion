@@ -3,32 +3,31 @@ import styles from "./CrearSubCategoria.module.css";
 import { FC } from "react";
 import { ICategorias } from "../../../../Models/types/dtos/categorias/ICategorias";
 import { RootState } from "../../../../Redux/Store/Store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../Hooks/useForm";
 import { CancelButton } from "../../Icons/CancelButton";
-import { useAppDispatch } from "../../../Hooks/redux";
 import { ServiceCategoria } from "../../../../Services/categoriaService";
 import { IUpdateCategoria } from "../../../../Models/types/dtos/categorias/IUpdateCategoria";
-import { removeElementActive } from "../../../../Redux/Slice/TablaReducer";
-import { IEmpresa } from "../../../../Models/types/dtos/empresa/IEmpresa";
-import { ICreateCategoria } from "../../../../Models/types/dtos/categorias/ICreateCategoria";
-import { log } from "console";
 import { badContest, godContest } from "../Alerts/ServerBadAlert";
+import { setCategorias } from "../../../../Redux/Slice/categorias";
+import { ISucursal } from "../../../../Models/types/dtos/sucursal/ISucursal";
+import { ICreateCategoria } from "../../../../Models/types/dtos/categorias/ICreateCategoria";
+
 
 interface IProps {
-  onClose: () => void | null;
+  onClose: () => void;
+  edit: boolean;
+  padre: boolean;
+  categoria? : ICategorias;
+  idPadre? : number
 }
 
-export const CrearSubCategoria: FC<IProps> = ({ onClose }) => {
-  const empresa: IEmpresa | null = useSelector(
-    (state: RootState) => state.changeSucursales.empresa
+export const CrearSubCategoria: FC<IProps> = ({ idPadre,onClose, edit, padre, categoria }) => {
+  const sucursal: ISucursal | null = useSelector(
+    (state: RootState) => state.changeSucursales.sucursal
   );
-
-  const categoria: ICategorias | null = useSelector(
-    (state: RootState) => state.tablaReducer.elementActive
-  );
-
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
+  
   const { values, handleChange, resetForm } = useForm({
     denominacion: categoria ? categoria.denominacion : "",
   });
@@ -37,26 +36,54 @@ export const CrearSubCategoria: FC<IProps> = ({ onClose }) => {
     event.preventDefault();
 
     const serviceCategoria = new ServiceCategoria();
+    try{
 
-    const subCategoria: ICreateCategoria = {
-      denominacion: values.denominacion,
-      idEmpresa: empresa ? empresa.id : 0,
-      idCategoriaPadre: categoria ? categoria.categoriaPadre?.id : null,
-    };
+      if(edit && categoria && sucursal){
 
-    try {
-      if (categoria) {
-        serviceCategoria.createCategoria(subCategoria);
-      } else {
-        serviceCategoria.createCategoria(subCategoria);
+        const categoriaEditada: IUpdateCategoria={
+          id:categoria.id,
+          denominacion: values.denominacion,
+          eliminado:false,
+          idEmpresa: sucursal.empresa.id,
+          idSucursales: categoria.sucursales.map((sucursal) => sucursal.id),
+          idCategoriaPadre: (!padre && categoria.categoriaPadre?.id ? categoria.categoriaPadre.id : null)    
+        }
+        
+        serviceCategoria.updateCategoria(categoria.id, categoriaEditada);
+        
+      }else if (!edit && categoria && sucursal){
+
+        const categoriaNueva : ICreateCategoria ={
+            denominacion: values.denominacion,
+            idEmpresa: sucursal.empresa.id,
+            idCategoriaPadre: idPadre ? idPadre : null
+        }
+
+        serviceCategoria.createCategoria(categoriaNueva)
+
       }
-      godContest("Se ha creado la categoria");
-    } catch (error) {
-      badContest("No se ha creado");
+
+
+
+    }catch(e){
+      badContest("Hubo un error a la hora de crear/editar una categoria")
+    }
+  
+    setTimeout(() => {
+      
+    }, 200);
+
+    if(sucursal){
+      const response = await serviceCategoria.getCategoriasPadrePorSucursal(sucursal.id)
+      dispatch(setCategorias(response.data))
+  
+      godContest("Se ha creado/modificado la categoria correctamente!!");
+  
     }
 
-    const sds = await serviceCategoria.getCategoriasPorEmpresa(empresa?.id);
-    console.log(sds.data);
+  
+    
+
     resetForm();
     onClose();
   };
@@ -71,7 +98,6 @@ export const CrearSubCategoria: FC<IProps> = ({ onClose }) => {
             <CancelButton
               onClick={() => {
                 onClose();
-                dispatch(removeElementActive());
               }}
             />
           </div>

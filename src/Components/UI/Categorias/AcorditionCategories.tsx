@@ -9,6 +9,7 @@ import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
 import { RootState } from "../../../Redux/Store/Store";
 import { useSelector } from "react-redux";
 import { badContest } from "../PopUps/Alerts/ServerBadAlert";
+import { CrearSubCategoria } from "../PopUps/CrearSubCategoria/CrearSubCategoria";
 
 interface Props {
   categoria: ICategorias;
@@ -93,12 +94,15 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
         )}
       </div>
 
-      {
-        
-      }
 
 
     </div>
+    
+    {
+        edit ? 
+        <CrearSubCategoria edit={true} padre= {true} categoria={categoria} onClose={()=>{setEdit(false)}}></CrearSubCategoria> :
+        null
+      }
    </div>
   );
 };
