@@ -17,6 +17,8 @@ interface Props {
 export const AcorditionCategories: FC<Props> = ({ categoria }) => {
   const [subCategoria, setSubCategorias] = useState<ICategorias[]>([]);
   const sucursal = useSelector((state:RootState)=> state.changeSucursales.sucursal) as ISucursal | null;
+  const [edit,setEdit] = useState<boolean>(false);
+  const [create,setCreate] = useState<boolean>(false);
 
   useEffect(() => {
     const getSubs = async () => {
@@ -51,8 +53,15 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
         </div>
 
         <div className={styles.actionsContainer}>
-          <AddIcon></AddIcon>
-          <EditIcon></EditIcon>
+          <div onClick={()=>{setCreate(true)}}>
+            <AddIcon></AddIcon>
+          </div>
+
+          <div onClick={()=>{setEdit(true)}}>
+            <EditIcon></EditIcon>
+          </div>
+          
+          
 
           <div className={styles.arrowContainer}>
             <span
@@ -74,7 +83,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
 
       </div>
       <div className={styles.subCategoriasContainer}>
-        
+
         {subCategoria && subCategoria.length > 0 ? (
           subCategoria.map((subCategori) => (
             <SubCategorias key={subCategori.id} subCategoria={subCategori} />
@@ -83,6 +92,10 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
           <p>No se encuentran categorías</p>
         )}
       </div>
+
+      {
+        
+      }
 
 
     </div>
