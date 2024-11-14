@@ -20,8 +20,6 @@ export class ServiceCategoria {
   public async getAllSubcategoriasByIDCategoriaPadre(categoriaPadreId: number, idSucursal: number): Promise<AxiosResponse> {
     const url = `${this.baseURL}/allSubCategoriasPorCategoriaPadre/${categoriaPadreId}/${idSucursal}`;
     return axios.get(url, {
-      headers: { //'User-Agent': 'insomnia/10.1.1' 
-        },
     });
   }
 
@@ -39,6 +37,17 @@ export class ServiceCategoria {
       headers: { //'User-Agent': 'insomnia/9.3.2' 
         },
     });
+  }
+
+  public async getAllSubCategoriasByIdSucursal(id:number): Promise<AxiosResponse<any>>{
+    const url = `${this.baseURL}/allSubCategoriasPorSucursal/${id}`;
+    return axios.get(url,{
+      headers:{
+
+      },
+
+    });
+
   }
 
   public async createCategoria(categoria: any): Promise<AxiosResponse<any>> {

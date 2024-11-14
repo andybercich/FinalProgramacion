@@ -54,24 +54,13 @@ export const CrearProducto: FC<Props> = ({ close }) => {
 
         
           const service = new ServiceCategoria();
-          let response = await service.getCategoriasPadrePorSucursal(sucursal.id);
-          const categoriasPadre = await response.data;
-          let  arregloCategorias = [];
-          for(let i = 0; i < categoriasPadre.length; i++){
-            response = await service.getAllSubcategoriasByIDCategoriaPadre(categoriasPadre[i].id, sucursal.id);
-            
-            if(response.data.length > 0){
-              arregloCategorias.push(...response.data);
-            }
-            
-            
-          }
+          let response = await service.getAllSubCategoriasByIdSucursal(sucursal.id);
+          const subCategorias = await response.data;
 
-          console.log(arregloCategorias)
-          setCategorias(arregloCategorias);
+
+          setCategorias(subCategorias);
         }
       } catch (error) {
-        badContest();
         close();
       }
     };
