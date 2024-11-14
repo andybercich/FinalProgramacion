@@ -45,7 +45,7 @@ export const CrearSubCategoria: FC<IProps> = ({ idPadre,onClose, edit, padre, ca
           denominacion: values.denominacion,
           eliminado:false,
           idEmpresa: sucursal.empresa.id,
-          idSucursales: null,
+          idSucursales: [sucursal.id],
           idCategoriaPadre: (!padre && categoria.categoriaPadre?.id ? categoria.categoriaPadre.id : null)    
         }
         console.log("editando")
@@ -58,7 +58,7 @@ export const CrearSubCategoria: FC<IProps> = ({ idPadre,onClose, edit, padre, ca
             idEmpresa: sucursal.empresa.id,
             idCategoriaPadre: idPadre ? idPadre : null
         }
-        console.log("Creando categoria")
+        console.log(categoriaNueva)
 
         await serviceCategoria.createCategoria(categoriaNueva)
 
