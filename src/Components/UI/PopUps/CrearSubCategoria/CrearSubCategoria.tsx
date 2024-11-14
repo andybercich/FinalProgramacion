@@ -64,7 +64,7 @@ export const CrearSubCategoria: FC<IProps> = ({ idPadre,onClose, edit, padre, ca
 
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 500));
         
       const response = await serviceCategoria.getCategoriasPadrePorSucursal(sucursal.id)
       dispatch(setCategorias(response.data))
