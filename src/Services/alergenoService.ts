@@ -13,9 +13,7 @@ export class ServiceAlergeno {
   public async getAlergenoById(id: number): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}`;
     return axios.get(url, {
-      headers: {
-        //"User-Agent": "insomnia/9.3.1",
-      },
+      headers: {},
     });
   }
 

@@ -14,9 +14,7 @@ export class ServiceSucursal {
   public async getIsCasaMatriz(id: number): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/existCasaMatriz/${id}`;
     return axios.get(url, {
-      headers: {
-        //'User-Agent': 'insomnia/9.3.2',
-      },
+      headers: {},
     });
   }
 
@@ -27,7 +25,6 @@ export class ServiceSucursal {
     return axios.post(url, sucursal, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.2',
       },
     });
   }
@@ -40,7 +37,6 @@ export class ServiceSucursal {
     return axios.put(url, sucursal, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.2',
       },
     });
   }
@@ -52,7 +48,6 @@ export class ServiceSucursal {
     return axios.get(url, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.2',
       },
     });
   }

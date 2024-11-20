@@ -13,9 +13,7 @@ export class ServiceCategoria {
   ): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/allCategoriasPadrePorSucursal/${sucursalId}`;
     return axios.get(url, {
-      headers: {
-        //'User-Agent': 'insomnia/9.3.2'
-      },
+      headers: {},
     });
   }
 
@@ -32,18 +30,14 @@ export class ServiceCategoria {
   ): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/allCategoriasPorEmpresa/${empresaId}`;
     return axios.get(url, {
-      headers: {
-        //'User-Agent': 'insomnia/9.3.2'
-      },
+      headers: {},
     });
   }
 
   public async getOneCategoria(id: number): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}`;
     return axios.get(url, {
-      headers: {
-        //'User-Agent': 'insomnia/9.3.2'
-      },
+      headers: {},
     });
   }
 
@@ -61,7 +55,6 @@ export class ServiceCategoria {
     return axios.post(url, categoria, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.2',
       },
     });
   }
@@ -74,7 +67,6 @@ export class ServiceCategoria {
     return axios.put(url, categoria, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.2',
       },
     });
   }

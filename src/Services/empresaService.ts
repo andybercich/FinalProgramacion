@@ -13,9 +13,7 @@ export class ServiceEmpresa {
   public async getEmpresaById(id: number): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}`;
     return axios.get(url, {
-      headers: {
-        //'User-Agent': 'insomnia/9.3.1'
-      },
+      headers: {},
     });
   }
 
@@ -25,7 +23,6 @@ export class ServiceEmpresa {
     return axios.post(this.baseURL, empresa, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.1',
       },
     });
   }
@@ -38,7 +35,6 @@ export class ServiceEmpresa {
     return axios.put(url, empresa, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.1',
       },
     });
   }
@@ -47,7 +43,6 @@ export class ServiceEmpresa {
     return axios.get(this.baseURL, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.1',
       },
     });
   }

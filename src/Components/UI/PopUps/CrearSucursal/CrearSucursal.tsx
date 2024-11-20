@@ -86,7 +86,7 @@ export const CrearSucursal: FC<Props> = ({
           logo: values.srcPhoto,
         };
 
-        serviceSucursal.editOneSucursal(sucursal.id, nuevaSucursal);
+        await serviceSucursal.editOneSucursal(sucursal.id, nuevaSucursal);
         godContest();
       } else {
         const nuevaSucursal: ICreateSucursal = {

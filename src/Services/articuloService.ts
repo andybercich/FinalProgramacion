@@ -16,9 +16,7 @@ export class ServiceArticulo {
     const url = `${this.baseURL}/pagedPorSucursal/1`;
     return axios.get(url, {
       params: { page, size },
-      headers: {
-        //'User-Agent': 'insomnia/10.1.0'
-      },
+      headers: {},
     });
   }
 
@@ -27,18 +25,14 @@ export class ServiceArticulo {
   ): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/porSucursal/${id}`;
     return axios.get(url, {
-      headers: {
-        //'User-Agent': 'insomnia/9.3.2'
-      },
+      headers: {},
     });
   }
 
   public async getArticuloById(id: number): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}`;
     return axios.get(url, {
-      headers: {
-        //'User-Agent': 'insomnia/9.3.2'
-      },
+      headers: {},
     });
   }
 
@@ -47,7 +41,6 @@ export class ServiceArticulo {
     return axios.post(url, articulo, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.2',
       },
     });
   }
@@ -60,7 +53,6 @@ export class ServiceArticulo {
     return axios.put(url, articulo, {
       headers: {
         "Content-Type": "application/json",
-        //'User-Agent': 'insomnia/9.3.2',
       },
     });
   }
@@ -68,9 +60,7 @@ export class ServiceArticulo {
   public async deleteArticuloById(id: number): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}`;
     return axios.delete(url, {
-      headers: {
-        //'User-Agent': 'insomnia/10.1.0'
-      },
+      headers: {},
     });
   }
 
@@ -81,9 +71,7 @@ export class ServiceArticulo {
     const url = `${this.baseURL}/`;
     return axios.post(url, null, {
       params: { id, publicId },
-      headers: {
-        //'User-Agent': 'insomnia/10.1.0'
-      },
+      headers: {},
     });
   }
 }

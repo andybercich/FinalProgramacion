@@ -13,8 +13,8 @@
 }
 .cardContainer {
   position: relative;
-  width: 25vw;
-  height: 65vh auto;
+  width: 20vw;
+  height: 50vh;
   background-color: #fff;
   border-radius: 10px;
   display: flex;
