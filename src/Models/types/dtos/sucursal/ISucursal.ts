@@ -2,7 +2,6 @@ import { IDomicilio } from "../../IDomicilio";
 import { ICategorias } from "../categorias/ICategorias";
 import { IEmpresa } from "../empresa/IEmpresa";
 
-
 export interface ISucursal {
   id: number;
   nombre: string;
@@ -11,7 +10,7 @@ export interface ISucursal {
   calle: string;
   latitud: number;
   longitud: number;
-  categorias: ICategorias[]|null;
+  categorias: ICategorias[] | null;
   esCasaMatriz: boolean;
   horarioApertura: string;
   eliminado: boolean;

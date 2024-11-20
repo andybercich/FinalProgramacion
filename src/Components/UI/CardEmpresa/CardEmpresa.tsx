@@ -11,7 +11,7 @@ import { setSelectedEmpresa } from "../../../Redux/Slice/sucursalsEmpresaElegida
 import { IEmpresa } from "../../../Models/types/dtos/empresa/IEmpresa";
 
 interface IProps {
-  empresa:IEmpresa
+  empresa: IEmpresa;
   onAddEmpresa: (empresa: IEmpresa) => void;
 }
 
@@ -21,20 +21,18 @@ export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
   const dispatch = useDispatch();
 
   const handleSelectEmpresa = () => {
-    
     dispatch(setSelectedEmpresa(empresa));
-      
   };
 
   const handleViewClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); +
-    handleSelectEmpresa();
+    e.stopPropagation();
+    +handleSelectEmpresa();
     setModalVer(true);
   };
 
   const handleEditClick = (e: React.MouseEvent) => {
-    e.stopPropagation();+
-    handleSelectEmpresa();
+    e.stopPropagation();
+    +handleSelectEmpresa();
     setModalEditar(true);
   };
 
@@ -47,7 +45,9 @@ export const CardEmpresa: FC<IProps> = ({ empresa, onAddEmpresa }) => {
     <Card onClick={handleSelectEmpresa} className={styles.containerCard}>
       <Card.Body>
         <Card.Title className={styles.tittleCard}>
-          {empresa.nombre ? empresa.nombre.toUpperCase() : 'Nombre no disponible'}
+          {empresa.nombre
+            ? empresa.nombre.toUpperCase()
+            : "Nombre no disponible"}
         </Card.Title>
         <div className={styles.contentIcons}>
           <div onClick={handleViewClick}>

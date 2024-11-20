@@ -9,29 +9,30 @@ import { EmpresasContainer } from "../../UI/ContenedorEmpresas/EmpresasContainer
 import { CrearSucursal } from "../../UI/PopUps/CrearSucursal/CrearSucursal";
 import ListSucursal from "../../UI/ListSucursal/ListSucursal";
 
-
 export const Home = () => {
-  
   const [modalSucursal, setmodalSucursal] = useState(false);
-  const empresa = useSelector((state: RootState) => state.changeSucursales.empresa) as IEmpresa | null;
+  const empresa = useSelector(
+    (state: RootState) => state.changeSucursales.empresa
+  ) as IEmpresa | null;
   const serviceSucursal = new ServiceSucursal();
   const [sucursales, setSucursales] = useState<ISucursal[]>([]);
 
   useEffect(() => {
     if (empresa) {
-        serviceSucursal.getAllSucursalesByEmpresa(empresa.id)
-            .then(response => {
-                setSucursales(response.data); 
-                console.log('Sucursales:', response.data);
-            })
-            .catch(error => {
-                console.error('Error al obtener sucursales:', error);
-            });
+      serviceSucursal
+        .getAllSucursalesByEmpresa(empresa.id)
+        .then((response) => {
+          setSucursales(response.data);
+          console.log("Sucursales:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener sucursales:", error);
+        });
     }
-}, [empresa]);
+  }, [empresa]);
 
   return (
-  <div className={style.containerApp}>
+    <div className={style.containerApp}>
       <div className={style.sectionEmpresa}>
         <div className={style.headerEmpresa}>
           <h2>Empresas</h2>
@@ -46,7 +47,6 @@ export const Home = () => {
           casaMatriz={false}
         />
       )}
-      
 
       <div className={style.sectionSucursal}>
         <div className={style.headerSucursal}>
@@ -56,7 +56,7 @@ export const Home = () => {
             onClick={() => {
               setmodalSucursal(true);
             }}
-            disabled= {empresa ? false : true}
+            disabled={empresa ? false : true}
           >
             Agregar Sucursal
           </button>
@@ -72,8 +72,5 @@ export const Home = () => {
         </div>
       </div>
     </div>
-
-    
-    
   );
 };

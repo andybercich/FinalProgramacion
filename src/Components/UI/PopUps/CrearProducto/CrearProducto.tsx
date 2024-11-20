@@ -15,32 +15,42 @@ import { Button } from "react-bootstrap";
 import { ServiceAlergeno } from "../../../../Services/alergenoService";
 import { ServiceCategoria } from "../../../../Services/categoriaService";
 import { ISucursal } from "../../../../Models/types/dtos/sucursal/ISucursal";
-import { removeElementActive, setDataTable } from "../../../../Redux/Slice/TablaReducer";
+import {
+  removeElementActive,
+  setDataTable,
+} from "../../../../Redux/Slice/TablaReducer";
 import Select from "react-select";
 
 interface Props {
   close: () => void;
 }
-interface OptionAlergeno{
-  value: string,
-  label: string
+interface OptionAlergeno {
+  value: string;
+  label: string;
 }
 
 export const CrearProducto: FC<Props> = ({ close }) => {
   const [categorias, setCategorias] = useState<ICategorias[]>([]);
   const [alergenos, setAlergenos] = useState<OptionAlergeno[]>([]);
-  const [optionsAlerg,setOptionsAlerg] = useState([])
+  const [optionsAlerg, setOptionsAlerg] = useState([]);
   const dispatch = useDispatch();
-  const sucursal = useSelector((state:RootState)=> state.changeSucursales.sucursal) as ISucursal | null;
-  const product: IProductos = useSelector((state: RootState) => state.tablaReducer.elementActive ) as null | IProductos | IAlergenos;
+  const sucursal = useSelector(
+    (state: RootState) => state.changeSucursales.sucursal
+  ) as ISucursal | null;
+  const product: IProductos = useSelector(
+    (state: RootState) => state.tablaReducer.elementActive
+  ) as null | IProductos | IAlergenos;
   const { values, handleChange, resetForm } = useForm({
-    denominacion: product ? product.denominacion :   "",
-    codigo:product ? product.codigo:  "",
-    precio:product ? product.precioVenta:  0,
+    denominacion: product ? product.denominacion : "",
+    codigo: product ? product.codigo : "",
+    precio: product ? product.precioVenta : 0,
     categoria: product ? product.categoria.id : "",
     habilitado: product ? product.habilitado : false,
-    descripcion:product ? product.descripcion : "",
-    srcPhoto: product && product.imagenes.length  > 0 && product.imagenes[0] ? product.imagenes[0].url   :  "",
+    descripcion: product ? product.descripcion : "",
+    srcPhoto:
+      product && product.imagenes.length > 0 && product.imagenes[0]
+        ? product.imagenes[0].url
+        : "",
   });
 
   const handleChangeAlergenos = (selectedAlergeno) => {
@@ -50,13 +60,12 @@ export const CrearProducto: FC<Props> = ({ close }) => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        if(sucursal){
-
-        
+        if (sucursal) {
           const service = new ServiceCategoria();
-          let response = await service.getAllSubCategoriasByIdSucursal(sucursal.id);
+          let response = await service.getAllSubCategoriasByIdSucursal(
+            sucursal.id
+          );
           const subCategorias = await response.data;
-
 
           setCategorias(subCategorias);
         }
@@ -65,19 +74,18 @@ export const CrearProducto: FC<Props> = ({ close }) => {
       }
     };
 
-    const fetchAlergenos = async () => { 
+    const fetchAlergenos = async () => {
       try {
         const service = new ServiceAlergeno();
         const response = await service.getAllAlergenos();
-        
-        const data: IAlergenos[] = response.data;
-        const options = data.map(alergeno => ({
-          value: alergeno.id, 
-          label: alergeno.denominacion 
-        }));
-        
-        setOptionsAlerg(options);
 
+        const data: IAlergenos[] = response.data;
+        const options = data.map((alergeno) => ({
+          value: alergeno.id,
+          label: alergeno.denominacion,
+        }));
+
+        setOptionsAlerg(options);
       } catch (error) {
         badContest();
         close();
@@ -88,72 +96,70 @@ export const CrearProducto: FC<Props> = ({ close }) => {
     fetchAlergenos();
   }, []);
 
-
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const service = new ServiceArticulo()
-    const producto: ICreateProducto|IUpdateProducto = {
-        id: product ? product.id : 0,
-        denominacion: values.denominacion,
-        imagenes: [{
+    const service = new ServiceArticulo();
+    const producto: ICreateProducto | IUpdateProducto = {
+      id: product ? product.id : 0,
+      denominacion: values.denominacion,
+      imagenes: [
+        {
           url: values.srcPhoto,
-          name: "Imagen del producto 1 del producto: "+ values.denominacion 
-        }],
-        habilitado: values.habilitado,
-        codigo: values.codigo,
-        idCategoria: parseInt(values.categoria),
-        idAlergenos: alergenos 
-        ? alergenos.map((alergeno) =>parseInt(alergeno.value))
-        : [], 
-        precioVenta: values.precio,
-        descripcion: values.descripcion
+          name: "Imagen del producto 1 del producto: " + values.denominacion,
+        },
+      ],
+      habilitado: values.habilitado,
+      codigo: values.codigo,
+      idCategoria: parseInt(values.categoria),
+      idAlergenos: alergenos
+        ? alergenos.map((alergeno) => parseInt(alergeno.value))
+        : [],
+      precioVenta: values.precio,
+      descripcion: values.descripcion,
+    };
 
+    if (product) {
+      try {
+        console.log("Se esta modificando uno", producto);
+
+        await service.updateArticulo(product.id, producto);
+        godContest();
+      } catch (e) {
+        badContest();
+        close();
+      }
+    } else {
+      try {
+        console.log("Se esta creando uno nuevo");
+        await service.createArticulo(producto);
+        godContest();
+      } catch (e) {
+        badContest("Puede que tu codigo de producto este repetido, revisalo");
+        close();
+      }
     }
 
-    if(product){
-
-        try{
-
-          console.log("Se esta modificando uno", producto)
-
-            await service.updateArticulo(product.id, producto);
-            godContest();
-        }catch(e){
-            badContest();
-            close();
-
-        }
-
-    }else{
-        try{
-            console.log("Se esta creando uno nuevo")
-            await service.createArticulo(producto);
-            godContest();
-            
-        }catch(e){
-            badContest("Puede que tu codigo de producto este repetido, revisalo");
-            close();
-        }
+    if (sucursal) {
+      const response = await service.getArticulosPorSucursal(sucursal.id);
+      dispatch(setDataTable(response.data));
+      console.log(response.data);
     }
-
-    if(sucursal){
-      const response = await service.getArticulosPorSucursal(sucursal.id)
-      dispatch(setDataTable(response.data))
-      console.log(response.data)
-    }
-    dispatch(removeElementActive())
+    dispatch(removeElementActive());
     resetForm();
     close();
-    
-  }
+  };
 
   return (
     <div className={styles.mainDiv}>
       <div className={styles.divPopUp}>
         <div className={styles.headerPopUp}>
           <div className={styles.cancel}>
-            <CancelButton onClick={()=>{close(); dispatch(removeElementActive()) }}></CancelButton>
+            <CancelButton
+              onClick={() => {
+                close();
+                dispatch(removeElementActive());
+              }}
+            ></CancelButton>
           </div>
           {product ? <h1>Editar Producto</h1> : <h1>Crear Producto</h1>}
         </div>
@@ -190,55 +196,51 @@ export const CrearProducto: FC<Props> = ({ close }) => {
               />
               <select
                 value={values.categoria}
-                onChange={handleChange}              
+                onChange={handleChange}
                 className={styles.inputLarge}
                 name="categoria"
                 required
                 id=""
                 aria-placeholder="Categoria"
               >
-                {product ? 
-                <option 
-                key={product.categoria.id} 
-                value={product.categoria.id}>{product.categoria.denominacion}</option>
-
-                : <option value="" disabled>Selecciona una Categoría</option>}
+                {product ? (
+                  <option
+                    key={product.categoria.id}
+                    value={product.categoria.id}
+                  >
+                    {product.categoria.denominacion}
+                  </option>
+                ) : (
+                  <option value="" disabled>
+                    Selecciona una Categoría
+                  </option>
+                )}
                 {categorias.map((categoria) => (
-                    <option key={categoria.id} value={categoria.id}>
+                  <option key={categoria.id} value={categoria.id}>
                     {categoria.denominacion}
-                    </option>
-                  ))}
-
+                  </option>
+                ))}
               </select>
 
               <Select
-              options={optionsAlerg}
-              isMulti 
-              onChange={handleChangeAlergenos}
-              value={alergenos}
-              >
-              </Select>
-{/*              <select
-                value={values.alergeno}
-                className={styles.inputLarge}
-                onChange={handleChange}
-                name="alergeno"
-                id=""
-                aria-placeholder="Alergeno"
-              ></select>*/}
-
-                
-              
+                options={optionsAlerg}
+                isMulti
+                onChange={handleChangeAlergenos}
+                value={alergenos}
+              ></Select>
 
               <div className={styles.divCheck}>
                 <h5>Habilitado</h5>
                 <input
-                checked={values.habilitado}        
-                onChange={(e) => handleChange({ 
-                    target: { name: "habilitado", value: e.target.checked } 
-                  })} 
-                name="habilitado"
-                type="checkbox" />
+                  checked={values.habilitado}
+                  onChange={(e) =>
+                    handleChange({
+                      target: { name: "habilitado", value: e.target.checked },
+                    })
+                  }
+                  name="habilitado"
+                  type="checkbox"
+                />
               </div>
             </div>
 
@@ -260,7 +262,7 @@ export const CrearProducto: FC<Props> = ({ close }) => {
                       width: "100%",
                       borderRadius: "10px",
                     }}
-                    src={values.srcPhoto || "imgNotFound.jpg"  }
+                    src={values.srcPhoto || "imgNotFound.jpg"}
                     alt="Imagen de Producto"
                   />
                 </div>
@@ -283,7 +285,9 @@ export const CrearProducto: FC<Props> = ({ close }) => {
             </div>
           </div>
 
-          <Button type="submit" variant="outline-primary">Aceptar</Button>
+          <Button type="submit" variant="outline-primary">
+            Aceptar
+          </Button>
         </form>
       </div>
     </div>

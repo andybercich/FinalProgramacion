@@ -7,8 +7,6 @@ export const App = () => {
       <BrowserRouter>
         <AppRouter></AppRouter>
       </BrowserRouter>
-      
-
     </>
   );
 };

@@ -1,135 +1,142 @@
-import { FC } from 'react';
-import styles from './CrearEmpresa.module.css';
-import { CancelButton } from '../../Icons/CancelButton';
-import { Button } from 'react-bootstrap';
-import { useForm } from '../../../Hooks/useForm';
-import Swal from 'sweetalert2';
-import { ServiceEmpresa } from '../../../../Services/empresaService';
-import { IEmpresa } from '../../../../Models/types/dtos/empresa/IEmpresa';
-import { godContest, badContest } from '../Alerts/ServerBadAlert';
+import { FC } from "react";
+import styles from "./CrearEmpresa.module.css";
+import { CancelButton } from "../../Icons/CancelButton";
+import { Button } from "react-bootstrap";
+import { useForm } from "../../../Hooks/useForm";
+import Swal from "sweetalert2";
+import { ServiceEmpresa } from "../../../../Services/empresaService";
+import { IEmpresa } from "../../../../Models/types/dtos/empresa/IEmpresa";
+import { godContest, badContest } from "../Alerts/ServerBadAlert";
 
 interface Props {
-    onClose: () => void;
-    onAddEmpresa: (empresa: IEmpresa) => void;
-    editar?: boolean ;
-    empresa : IEmpresa | null;
+  onClose: () => void;
+  onAddEmpresa: (empresa: IEmpresa) => void;
+  editar?: boolean;
+  empresa: IEmpresa | null;
 }
 
-export const CrearEmpresa: FC<Props> = ({ onClose, onAddEmpresa, editar,empresa }) => {
-    const { values, handleChange, resetForm } = useForm({
-        nombre: editar && empresa ? empresa.nombre : '',
-        razonSocial: editar && empresa ? empresa.razonSocial : '',
-        cuit: editar && empresa ? empresa.cuit.toString() : '',
-        logo: editar && empresa?.logo ? empresa.logo : '',
+export const CrearEmpresa: FC<Props> = ({
+  onClose,
+  onAddEmpresa,
+  editar,
+  empresa,
+}) => {
+  const { values, handleChange, resetForm } = useForm({
+    nombre: editar && empresa ? empresa.nombre : "",
+    razonSocial: editar && empresa ? empresa.razonSocial : "",
+    cuit: editar && empresa ? empresa.cuit.toString() : "",
+    logo: editar && empresa?.logo ? empresa.logo : "",
+  });
 
-    });
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-    
-        if (values.cuit && values.cuit.toString().length !== 11) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'El CUIT debe tener exactamente 11 dígitos.',
-            showCloseButton: true,
-            confirmButtonText: 'Aceptar',
-          });
-          return;
-        }
-    
-        const nuevaEmpresa: IEmpresa = {
-          id: editar && empresa ? empresa.id : Date.now(), 
-          nombre: values.nombre,
-          razonSocial: values.razonSocial,
-          cuit: parseInt(values.cuit as string, 10) || 0,
-          logo: values.logo,
-          sucursales: editar && empresa ? empresa.sucursales : null,
-          pais:{
-            nombre: "Argentina",
-            id: 0,
-          }
-        };
-    
-        const serviceEmpresa = new ServiceEmpresa();
-        try {
-          if (editar && empresa) {
-            await serviceEmpresa.editEmpresa(empresa.id, nuevaEmpresa);
-            godContest();
-          } else {
-            await serviceEmpresa.createEmpresa(nuevaEmpresa);
-            godContest();
-          }
+    if (values.cuit && values.cuit.toString().length !== 11) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "El CUIT debe tener exactamente 11 dígitos.",
+        showCloseButton: true,
+        confirmButtonText: "Aceptar",
+      });
+      return;
+    }
 
-            setTimeout(() => {
-              window.location.reload()
-            }, 1500);
-            
-    
-          const empresasActualizadas = await serviceEmpresa.getAllEmpresas();
-          onAddEmpresa(empresasActualizadas.data); 
-        } catch (error) {
-          badContest();
-          console.error('Error al guardar la empresa:', error);
-        }
-    
-        resetForm();
-        onClose();
-      };
+    const nuevaEmpresa: IEmpresa = {
+      id: editar && empresa ? empresa.id : Date.now(),
+      nombre: values.nombre,
+      razonSocial: values.razonSocial,
+      cuit: parseInt(values.cuit as string, 10) || 0,
+      logo: values.logo,
+      sucursales: editar && empresa ? empresa.sucursales : null,
+      pais: {
+        nombre: "Argentina",
+        id: 0,
+      },
+    };
 
-    return (
-        <div className={styles.mainDiv}>
-            <div className={styles.modalEmpresa}>
-                <div className={styles.contentTittle}>
-                    {editar && empresa ? <h2>Modificar Empresa</h2> :<h2>Crear Empresa</h2>  }
-                    
-                    <div className={styles.contentbutton}>
-                        <CancelButton onClick={onClose} />
-                    </div>
-                </div>
-                <form className={styles.formCrearEmpresa} onSubmit={handleSubmit}>
-                    <div className={styles.contentInputs}>
-                        <input
-                            type="text"
-                            name="nombre"
-                            placeholder="Ingresa un Nombre"
-                            value={values.nombre}
-                            onChange={handleChange}
-                            required
-                        />
+    const serviceEmpresa = new ServiceEmpresa();
+    try {
+      if (editar && empresa) {
+        await serviceEmpresa.editEmpresa(empresa.id, nuevaEmpresa);
+        godContest();
+      } else {
+        await serviceEmpresa.createEmpresa(nuevaEmpresa);
+        godContest();
+      }
 
-                        <input
-                            type="text"
-                            name="razonSocial"
-                            placeholder="Ingresa una Razón Social"
-                            value={values.razonSocial}
-                            onChange={handleChange}
-                            required
-                        />
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
 
-                        <input
-                            type="number"
-                            name="cuit"
-                            placeholder="Ingresa un CUIT"
-                            value={values.cuit ? values.cuit : ""}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+      const empresasActualizadas = await serviceEmpresa.getAllEmpresas();
+      onAddEmpresa(empresasActualizadas.data);
+    } catch (error) {
+      badContest();
+      console.error("Error al guardar la empresa:", error);
+    }
 
-                    <input
-                        type="text"
-                        name="logo"
-                        placeholder="Agrega una Imagen"
-                        value={values.logo}
-                        onChange={handleChange}
-                    />
+    resetForm();
+    onClose();
+  };
 
-                    <Button type="submit" variant="outline-success">
-                        Confirmar
-                    </Button>
-                </form>
-            </div>
+  return (
+    <div className={styles.mainDiv}>
+      <div className={styles.modalEmpresa}>
+        <div className={styles.contentTittle}>
+          {editar && empresa ? (
+            <h2>Modificar Empresa</h2>
+          ) : (
+            <h2>Crear Empresa</h2>
+          )}
+
+          <div className={styles.contentbutton}>
+            <CancelButton onClick={onClose} />
+          </div>
         </div>
-    );
+        <form className={styles.formCrearEmpresa} onSubmit={handleSubmit}>
+          <div className={styles.contentInputs}>
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Ingresa un Nombre"
+              value={values.nombre}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="text"
+              name="razonSocial"
+              placeholder="Ingresa una Razón Social"
+              value={values.razonSocial}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="number"
+              name="cuit"
+              placeholder="Ingresa un CUIT"
+              value={values.cuit ? values.cuit : ""}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <input
+            type="text"
+            name="logo"
+            placeholder="Agrega una Imagen"
+            value={values.logo}
+            onChange={handleChange}
+          />
+
+          <Button type="submit" variant="outline-success">
+            Confirmar
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
 };

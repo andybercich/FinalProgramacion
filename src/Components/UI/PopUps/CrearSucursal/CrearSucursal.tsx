@@ -17,36 +17,43 @@ import { ServiceEmpresa } from "../../../../Services/empresaService";
 
 interface Props {
   onClose: () => void;
-  editar?: boolean ;
-  sucursal? : ISucursal;
-  casaMatriz: boolean
+  editar?: boolean;
+  sucursal?: ISucursal;
+  casaMatriz: boolean;
 }
 
-export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal }) => {
+export const CrearSucursal: FC<Props> = ({
+  onClose,
+  casaMatriz,
+  editar,
+  sucursal,
+}) => {
   const [localidadSeleccionada, setLocalidadSeleccionada] = useState("");
   const dispatch = useDispatch();
-  const empresa = useSelector((state: RootState) => state.changeSucursales.empresa) as IEmpresa | null;
+  const empresa = useSelector(
+    (state: RootState) => state.changeSucursales.empresa
+  ) as IEmpresa | null;
 
   const handleLocalidadChange = (localidad: string) => {
     setLocalidadSeleccionada(localidad);
   };
 
   const { values, handleChange, resetForm } = useForm({
-    nombre: editar && sucursal ? sucursal.nombre : '',
-    apertura: editar &&  sucursal ? sucursal.horarioApertura : "",
-    cierre: editar &&  sucursal ? sucursal.horarioCierre : "",
-    casaMatriz: editar &&  sucursal ? sucursal.esCasaMatriz : false,
+    nombre: editar && sucursal ? sucursal.nombre : "",
+    apertura: editar && sucursal ? sucursal.horarioApertura : "",
+    cierre: editar && sucursal ? sucursal.horarioCierre : "",
+    casaMatriz: editar && sucursal ? sucursal.esCasaMatriz : false,
     pais: "",
-    provincia:  "",
+    provincia: "",
     localidad: "",
-    latitud: editar &&  sucursal ? sucursal.latitud : 0,
-    longitud: editar &&  sucursal ? sucursal.longitud : 0,
-    calle: editar &&  sucursal ? sucursal.domicilio.calle : "",
-    numeroCalle: editar &&  sucursal ? sucursal.domicilio.numero : 0,
-    codigoPostal: editar &&  sucursal ? sucursal.domicilio.cp : 0,
-    piso: editar &&  sucursal ? sucursal.domicilio.piso : 0,
-    departamento: editar &&  sucursal ? sucursal.domicilio.nroDpto : 0,
-    srcPhoto:editar &&  sucursal ? sucursal.logo : "",
+    latitud: editar && sucursal ? sucursal.latitud : 0,
+    longitud: editar && sucursal ? sucursal.longitud : 0,
+    calle: editar && sucursal ? sucursal.domicilio.calle : "",
+    numeroCalle: editar && sucursal ? sucursal.domicilio.numero : 0,
+    codigoPostal: editar && sucursal ? sucursal.domicilio.cp : 0,
+    piso: editar && sucursal ? sucursal.domicilio.piso : 0,
+    departamento: editar && sucursal ? sucursal.domicilio.nroDpto : 0,
+    srcPhoto: editar && sucursal ? sucursal.logo : "",
   });
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -55,8 +62,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
     const serviceSucursal: ServiceSucursal = new ServiceSucursal();
     const serviceEmpresa = new ServiceEmpresa();
     try {
-
-      if(editar && sucursal){
+      if (editar && sucursal) {
         const nuevaSucursal: IUpdateSucursal = {
           id: sucursal.id,
           nombre: values.nombre,
@@ -72,18 +78,17 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
             cp: values.codigoPostal,
             piso: values.piso,
             nroDpto: values.departamento,
-            idLocalidad: parseInt(localidadSeleccionada)
+            idLocalidad: parseInt(localidadSeleccionada),
           },
-          categorias: sucursal.categorias ? sucursal.categorias: [] ,
+          categorias: sucursal.categorias ? sucursal.categorias : [],
           eliminado: false,
           idEmpresa: empresa ? empresa.id : 0,
           logo: values.srcPhoto,
         };
 
-        serviceSucursal.editOneSucursal(sucursal.id,nuevaSucursal);
+        serviceSucursal.editOneSucursal(sucursal.id, nuevaSucursal);
         godContest();
-
-      }else{
+      } else {
         const nuevaSucursal: ICreateSucursal = {
           nombre: values.nombre,
           horarioApertura: values.apertura,
@@ -104,25 +109,20 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
         };
         await serviceSucursal.createOneSucursalByEmpresa(nuevaSucursal);
         godContest();
-
       }
     } catch (error) {
-      badContest()
+      badContest();
       console.error("Error al obtener las sucursales:", error);
     }
 
-    setTimeout(() => {
-
-
-    }, 100);
-    if(empresa){
+    setTimeout(() => {}, 100);
+    if (empresa) {
       const response = await serviceEmpresa.getEmpresaById(empresa.id);
-      dispatch(setSelectedEmpresa(response.data))
+      dispatch(setSelectedEmpresa(response.data));
     }
 
     resetForm();
     onClose();
-
   };
 
   return (
@@ -182,9 +182,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
             </div>
 
             <div className={styles.colums}>
-              <Selectors
-                onLocalidadChange={handleLocalidadChange}
-              ></Selectors>
+              <Selectors onLocalidadChange={handleLocalidadChange}></Selectors>
 
               <input
                 required
@@ -235,7 +233,7 @@ export const CrearSucursal: FC<Props> = ({ onClose, casaMatriz, editar, sucursal
               <input
                 type="number"
                 name="piso"
-                placeholder="Ingrese el numero de piso"  
+                placeholder="Ingrese el numero de piso"
                 className={styles.largeInput}
                 value={values.piso ? values.piso : ""}
                 onChange={handleChange}

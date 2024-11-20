@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { TableGeneric } from "../../UI/TableGeneric/TableGeneric";
 import { CircularProgress } from "@mui/material";
 import { ButtonsTable } from "../../UI/ButtonsTable/ButtonsTable";
-import { removeElementActive, setDataTable } from "../../../Redux/Slice/TablaReducer";
+import {
+  removeElementActive,
+  setDataTable,
+} from "../../../Redux/Slice/TablaReducer";
 import { useAppDispatch } from "../../Hooks/redux";
 import styles from "./Alergenos.module.css";
 import { AddIcon } from "../../UI/Icons/AddIcon/AddIcon";
@@ -19,7 +22,6 @@ export const Alergeno = () => {
   const service = new ServiceAlergeno();
   const dispatch = useAppDispatch();
 
-  // Función para cargar alergenos
   const cargarAlergenos = async () => {
     try {
       const response = await service.getAllAlergenos();
@@ -30,10 +32,8 @@ export const Alergeno = () => {
     }
   };
 
-  // Función para eliminar un alergeno
   const handleDelete = async (id: number) => {
-    // Aquí puedes llamar a tu servicio para eliminar el alergeno
-    try{
+    try {
       await service.deleteAlergenoById(id);
       godContest("El alergeno se elimino correctamente");
       cargarAlergenos();
@@ -44,7 +44,6 @@ export const Alergeno = () => {
     setAlergenos((prev) => prev.filter((alergenos) => alergenos.id !== id));
   };
 
-  // Columnas de la tabla
   const columns = [
     { label: "Nombre", key: "denominacion" },
     {
@@ -60,7 +59,6 @@ export const Alergeno = () => {
     },
   ];
 
-  // Cargar alergenos
   useEffect(() => {
     cargarAlergenos();
   }, []);
@@ -70,9 +68,7 @@ export const Alergeno = () => {
       <div className={styles.cotentButton} onClick={() => setModalCreate(true)}>
         <AddIcon />
       </div>
-      {modalCreate && (
-        <CrearAlergeno  onClose={() => setModalCreate(false)} />
-      )}
+      {modalCreate && <CrearAlergeno onClose={() => setModalCreate(false)} />}
 
       {loading ? (
         <div
@@ -90,7 +86,6 @@ export const Alergeno = () => {
           <h2>Cargando...</h2>
         </div>
       ) : (
-        // Pasar alergenos a TableGeneric
         <div className={styles.containerTabla}>
           <TableGeneric<IAlergenos>
             columns={columns}

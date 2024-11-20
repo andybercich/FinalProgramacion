@@ -1,4 +1,3 @@
-
 import { baseDto } from "../baseDto/baseDto";
 import { ICategorias } from "../categorias/ICategorias";
 

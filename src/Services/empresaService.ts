@@ -1,6 +1,6 @@
 import { ICreateEmpresaDto } from "../Models/types/dtos/empresa/ICreateEmpresaDto";
 import { IUpdateEmpresaDto } from "../Models/types/dtos/empresa/IUpdateEmpresaDto";
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse } from "axios";
 
 const empresaService = import.meta.env.VITE_EMPRESA_SERVICE;
 export class ServiceEmpresa {
@@ -19,20 +19,25 @@ export class ServiceEmpresa {
     });
   }
 
-  public async createEmpresa(empresa: ICreateEmpresaDto): Promise<AxiosResponse<any>> {
+  public async createEmpresa(
+    empresa: ICreateEmpresaDto
+  ): Promise<AxiosResponse<any>> {
     return axios.post(this.baseURL, empresa, {
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         //'User-Agent': 'insomnia/9.3.1',
       },
     });
   }
 
-  public async editEmpresa(id: number, empresa: IUpdateEmpresaDto): Promise<AxiosResponse<any>> {
+  public async editEmpresa(
+    id: number,
+    empresa: IUpdateEmpresaDto
+  ): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}`;
     return axios.put(url, empresa, {
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         //'User-Agent': 'insomnia/9.3.1',
       },
     });
@@ -41,7 +46,7 @@ export class ServiceEmpresa {
   public async getAllEmpresas(): Promise<AxiosResponse<any>> {
     return axios.get(this.baseURL, {
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         //'User-Agent': 'insomnia/9.3.1',
       },
     });

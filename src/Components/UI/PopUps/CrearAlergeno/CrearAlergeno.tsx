@@ -10,7 +10,10 @@ import { ICreateAlergeno } from "../../../../Models/types/dtos/alergenos/ICreate
 import { IUpdateAlergeno } from "../../../../Models/types/dtos/alergenos/IUpdateAlergeno";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../Redux/Store/Store";
-import { removeElementActive, setDataTable } from "../../../../Redux/Slice/TablaReducer";
+import {
+  removeElementActive,
+  setDataTable,
+} from "../../../../Redux/Slice/TablaReducer";
 
 interface IProps {
   onClose: () => void | null;
@@ -38,29 +41,29 @@ export const CrearAlergeno: FC<IProps> = ({ onClose }) => {
       },
     };
 
-    if(alergenos){
-      try{
+    if (alergenos) {
+      try {
         await serviceAlergeno.editAlergeno(alergeno.id, alergeno);
         godContest("Alergeno editado correctamente");
-        dispatch(removeElementActive())
-      }catch(error){
-        badContest(); 
-        onClose(); 
+        dispatch(removeElementActive());
+      } catch (error) {
+        badContest();
+        onClose();
       }
-    }else{
-      try{
+    } else {
+      try {
         await serviceAlergeno.createAlergeno(alergeno);
         godContest("Alergeno creado correctamente");
-        dispatch(removeElementActive())
-      }catch(error){
-        badContest(); 
-        onClose(); 
+        dispatch(removeElementActive());
+      } catch (error) {
+        badContest();
+        onClose();
       }
     }
 
-    const response = await serviceAlergeno.getAllAlergenos()
-    dispatch(setDataTable(response.data))
-    dispatch(removeElementActive())
+    const response = await serviceAlergeno.getAllAlergenos();
+    dispatch(setDataTable(response.data));
+    dispatch(removeElementActive());
     resetForm();
     onClose();
   };
@@ -69,13 +72,14 @@ export const CrearAlergeno: FC<IProps> = ({ onClose }) => {
     <div className={styles.mainDiv}>
       <div className={styles.modalAlergeno}>
         <div className={styles.contentTittle}>
-          {alergenos ? (
-            <h2>Editar Alergeno</h2>
-          ) : (
-            <h2>Crear Alergeno</h2>
-          )}
+          {alergenos ? <h2>Editar Alergeno</h2> : <h2>Crear Alergeno</h2>}
           <div className={styles.contentbutton}>
-            <CancelButton onClick={()=>{onClose(); dispatch(removeElementActive()) }} />
+            <CancelButton
+              onClick={() => {
+                onClose();
+                dispatch(removeElementActive());
+              }}
+            />
           </div>
         </div>
         <form className={styles.formCrearAlergeno} onSubmit={handleSubmit}>
@@ -99,7 +103,9 @@ export const CrearAlergeno: FC<IProps> = ({ onClose }) => {
             />
           </div>
 
-          <Button type="submit" variant="outline-primary">Aceptar</Button>
+          <Button type="submit" variant="outline-primary">
+            Aceptar
+          </Button>
         </form>
       </div>
     </div>

@@ -1,41 +1,24 @@
-import { FC, useEffect, useState } from "react";
-
+import { FC } from "react";
 import CardSucursal from "../CardSucursal/CardSucursal";
 import styles from "./ListSucursal.module.css";
 import { ISucursal } from "../../../Models/types/dtos/sucursal/ISucursal";
 
 interface Props {
-  sucursales : ISucursal[]
+  sucursales: ISucursal[];
 }
 
-const ListSucursal: FC<Props> = ({sucursales}) => {
-
-
-
-
-  return (
-    (sucursales.length !== 0 ? 
-    
-    (
-    
+const ListSucursal: FC<Props> = ({ sucursales }) => {
+  return sucursales.length !== 0 ? (
     <div className={styles.containerListSucursal}>
       {sucursales.map((sucursal) => (
         <CardSucursal key={sucursal.id} sucursal={sucursal} />
       ))}
-    
-    </div>): 
-
-      <div className={styles.noSucursalMessage}>
-        <p >No hay sucursales en esta empresa.</p>
-      </div>
-
-      
-    
-  
-  )
-   
+    </div>
+  ) : (
+    <div className={styles.noSucursalMessage}>
+      <p>No hay sucursales en esta empresa.</p>
+    </div>
   );
 };
-
 
 export default ListSucursal;

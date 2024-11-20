@@ -1,17 +1,17 @@
 .mainDiv {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 
-.divPopUp{
+.divPopUp {
   position: absolute;
   width: 60vw;
   height: 75vh;
@@ -23,12 +23,10 @@
   align-items: center;
 }
 
-.cancel{
-
+.cancel {
   position: absolute;
   top: 0;
   right: 5px;
-
 }
 
 .form {
@@ -42,36 +40,32 @@
   padding: 0;
 }
 
-
-.divColumns{
+.divColumns {
   width: 100%;
   height: 80%;
   display: grid;
-  grid-template-columns: 1fr 1fr; 
-  margin-bottom: 10px; 
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 10px;
 }
 
-.columns{
-
+.columns {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 25px;
   align-items: center;
-
 }
 
-.divCheck{
+.divCheck {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   width: 30%;
   height: 10%;
-  
 }
 
-.inputLarge{
+.inputLarge {
   width: 80%;
   height: 10%;
   border-radius: 10px;
@@ -80,46 +74,43 @@
   gap: 15px;
   outline: none;
   padding: 5px;
- background-color: #ACC4FF80;
+  background-color: #acc4ff80;
 }
 
-.description{
+.description {
   width: 95%;
   height: 45%;
   margin-top: -10%;
   border-radius: 10px;
   border: none;
   padding: 5px;
-  background-color: #ACC4FF80;
+  background-color: #acc4ff80;
   box-shadow: none;
   outline: none;
-  resize: none; 
-  overflow-wrap: break-word; 
+  resize: none;
+  overflow-wrap: break-word;
 }
 
-.cotainerImg{
-    
+.cotainerImg {
   display: flex;
   grid-template-columns: 1.2fr 1.6fr;
   width: 100%;
   border-radius: 10px;
-  height:28%;
-  background-color: #ACC4FF80;
+  height: 28%;
+  background-color: #acc4ff80;
   margin-bottom: 5px;
 }
 
-.divImg{
+.divImg {
   width: 50%;
   height: 100%;
 }
 
-.divSrc{
+.divSrc {
   width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
 }
-

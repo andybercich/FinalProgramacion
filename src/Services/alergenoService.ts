@@ -56,13 +56,16 @@ export class ServiceAlergeno {
     });
   }
 
-  public async deleteAlergenoImage(id: number, publicId: string): Promise<AxiosResponse<any>> {
+  public async deleteAlergenoImage(
+    id: number,
+    publicId: string
+  ): Promise<AxiosResponse<any>> {
     const url = `${this.baseURL}/${id}/${publicId}`;
-    
+
     return axios.delete(url, {
-        headers: {
-            "Content-Type": "application/json",
-        },
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-}
+  }
 }

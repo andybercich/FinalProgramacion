@@ -1,4 +1,4 @@
-import { FC, useEffect,  useState } from "react";
+import { FC, useState } from "react";
 import styles from "./Acordition.module.css";
 import { ICategorias } from "../../../Models/types/dtos/categorias/ICategorias";
 import { EditIcon } from "../Icons/EditIcon/EditIcon";
@@ -17,10 +17,12 @@ interface Props {
 
 export const AcorditionCategories: FC<Props> = ({ categoria }) => {
   const [subCategoria, setSubCategorias] = useState<ICategorias[]>([]);
-  const sucursal = useSelector((state:RootState)=> state.changeSucursales.sucursal) as ISucursal | null;
-  const [edit,setEdit] = useState<boolean>(false);
-  const [create,setCreate] = useState<boolean>(false);
-  const [show,setShow] = useState<boolean>(false);
+  const sucursal = useSelector(
+    (state: RootState) => state.changeSucursales.sucursal
+  ) as ISucursal | null;
+  const [edit, setEdit] = useState<boolean>(false);
+  const [create, setCreate] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
 
   const getSubs = async () => {
     const service = new ServiceCategoria();
@@ -40,9 +42,7 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
     }
   };
 
-
   return (
-
     <div>
       <div className={styles.categoriaPadre}>
         <div className={styles.titleContainer}>
@@ -50,15 +50,23 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
         </div>
 
         <div className={styles.actionsContainer}>
-          <div style={{alignItems:"center"}} onClick={()=>{setCreate(true)}}>
-            <AddIcon></AddIcon> 
+          <div
+            style={{ alignItems: "center" }}
+            onClick={() => {
+              setCreate(true);
+            }}
+          >
+            <AddIcon></AddIcon>
           </div>
 
-          <div style={{alignItems:"center", marginBottom:"4px"}} onClick={()=>{setEdit(true)}}>
+          <div
+            style={{ alignItems: "center", marginBottom: "4px" }}
+            onClick={() => {
+              setEdit(true);
+            }}
+          >
             <EditIcon></EditIcon>
           </div>
-          
-          
 
           <div className={styles.arrowContainer}>
             <span
@@ -66,47 +74,60 @@ export const AcorditionCategories: FC<Props> = ({ categoria }) => {
                 setShow(!show);
                 getSubs();
               }}
-              className={`material-symbols-outlined ${styles.arrowIcon} ${!show ? styles.hiddenArrow: ''}`}
+              className={`material-symbols-outlined ${styles.arrowIcon} ${
+                !show ? styles.hiddenArrow : ""
+              }`}
             >
               keyboard_arrow_down
             </span>
           </div>
-
-          
         </div>
       </div>
 
       <div
-       className={` ${styles.subCategoriasContainer} ${!show ? styles.hidden : ''}`}
-       
-       
+        className={` ${styles.subCategoriasContainer} ${
+          !show ? styles.hidden : ""
+        }`}
       >
-      <div className={styles.subCategoriasContainer}>
-
-        {subCategoria && subCategoria.length > 0 ? (
-          subCategoria.map((subCategori) => (
-            <SubCategorias getSubs={getSubs} key={subCategori.id} subCategoria={subCategori} />
-          ))
-        ) : (
-          <p style={{marginLeft:"1.5rem"}}>No se encuentran SubCategorías</p>
-        )}
+        <div className={styles.subCategoriasContainer}>
+          {subCategoria && subCategoria.length > 0 ? (
+            subCategoria.map((subCategori) => (
+              <SubCategorias
+                getSubs={getSubs}
+                key={subCategori.id}
+                subCategoria={subCategori}
+              />
+            ))
+          ) : (
+            <p style={{ marginLeft: "1.5rem" }}>
+              No se encuentran SubCategorías
+            </p>
+          )}
+        </div>
       </div>
 
+      {edit ? (
+        <CrearSubCategoria
+          edit={true}
+          padre={true}
+          categoria={categoria}
+          onClose={() => {
+            setEdit(false);
+          }}
+        ></CrearSubCategoria>
+      ) : null}
 
-
+      {create ? (
+        <CrearSubCategoria
+          subsCategoria={getSubs}
+          idPadre={categoria.id}
+          edit={false}
+          padre={false}
+          onClose={() => {
+            setCreate(false);
+          }}
+        ></CrearSubCategoria>
+      ) : null}
     </div>
-    
-    {
-        edit ? 
-        <CrearSubCategoria edit={true} padre= {true} categoria={categoria} onClose={()=>{setEdit(false)}}></CrearSubCategoria> :
-        null
-      }
-          
-    {
-        create ? 
-        <CrearSubCategoria subsCategoria={getSubs} idPadre={categoria.id} edit={false} padre= {false} onClose={()=>{setCreate(false)}}></CrearSubCategoria> :
-        null
-      }
-   </div>
   );
 };

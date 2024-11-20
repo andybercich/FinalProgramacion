@@ -1,9 +1,9 @@
 import axios from "axios";
-import {  FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { IPais } from "../../../../Models/types/IPais";
 import { IProvincia } from "../../../../Models/types/IProvincia";
 import { ILocalidad } from "../../../../Models/types/ILocalidad";
-import styles from "./CrearSucursal.module.css"
+import styles from "./CrearSucursal.module.css";
 
 interface Props {
   onLocalidadChange: (localidad: string) => void;
@@ -13,19 +13,19 @@ export const Selectors: FC<Props> = ({ onLocalidadChange }) => {
   const [paises, setPaises] = useState<IPais[]>([]);
   const [provincias, setProvincias] = useState<IProvincia[]>([]);
   const [localidades, setLocalidades] = useState<ILocalidad[]>([]);
-  const [selectedPais, setSelectedPais] = useState('');
-  const [selectedLocalidad, setSelectedLocalidad] = useState('');
-  const [selectedProvincia, setSelectedProvincia] = useState('');
+  const [selectedPais, setSelectedPais] = useState("");
+  const [selectedLocalidad, setSelectedLocalidad] = useState("");
+  const [selectedProvincia, setSelectedProvincia] = useState("");
   const [loadingProvincias, setLoadingProvincias] = useState(false);
   const [loadingLocalidades, setLoadingLocalidades] = useState(false);
 
   useEffect(() => {
     const fetchPaises = async () => {
       try {
-        const response = await axios.get('http://190.221.207.224:8090/paises');
+        const response = await axios.get("http://190.221.207.224:8090/paises");
         setPaises(response.data);
       } catch (error) {
-        console.error('Error al obtener países:', error);
+        console.error("Error al obtener países:", error);
       }
     };
 
@@ -38,10 +38,12 @@ export const Selectors: FC<Props> = ({ onLocalidadChange }) => {
 
       setLoadingProvincias(true);
       try {
-        const response = await axios.get(`http://190.221.207.224:8090/provincias/findByPais/${selectedPais}`);
+        const response = await axios.get(
+          `http://190.221.207.224:8090/provincias/findByPais/${selectedPais}`
+        );
         setProvincias(response.data);
       } catch (error) {
-        console.error('Error al obtener provincias:', error);
+        console.error("Error al obtener provincias:", error);
       } finally {
         setLoadingProvincias(false);
       }
@@ -56,10 +58,12 @@ export const Selectors: FC<Props> = ({ onLocalidadChange }) => {
 
       setLoadingLocalidades(true);
       try {
-        const response = await axios.get(`http://190.221.207.224:8090/localidades/findByProvincia/${selectedProvincia}`);
+        const response = await axios.get(
+          `http://190.221.207.224:8090/localidades/findByProvincia/${selectedProvincia}`
+        );
         setLocalidades(response.data);
       } catch (error) {
-        console.error('Error al obtener localidades:', error);
+        console.error("Error al obtener localidades:", error);
       } finally {
         setLoadingLocalidades(false);
       }
@@ -71,14 +75,14 @@ export const Selectors: FC<Props> = ({ onLocalidadChange }) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
 
-    if (name === 'pais') {
+    if (name === "pais") {
       setSelectedPais(value);
-      setSelectedProvincia(''); 
-      setLocalidades([]); 
-    } else if (name === 'provincia') {
+      setSelectedProvincia("");
+      setLocalidades([]);
+    } else if (name === "provincia") {
       setSelectedProvincia(value);
-    } else if (name === 'localidad') {
-      setSelectedLocalidad(value)
+    } else if (name === "localidad") {
+      setSelectedLocalidad(value);
       onLocalidadChange(value);
     }
   };
@@ -92,9 +96,13 @@ export const Selectors: FC<Props> = ({ onLocalidadChange }) => {
         value={selectedPais}
         onChange={handleChange}
       >
-        <option value="" disabled>Seleccione un País</option>
-        {paises.map(pais => (
-          <option key={pais.id} value={pais.id}>{pais.nombre}</option>
+        <option value="" disabled>
+          Seleccione un País
+        </option>
+        {paises.map((pais) => (
+          <option key={pais.id} value={pais.id}>
+            {pais.nombre}
+          </option>
         ))}
       </select>
 
@@ -106,12 +114,16 @@ export const Selectors: FC<Props> = ({ onLocalidadChange }) => {
         onChange={handleChange}
         disabled={!selectedPais || loadingProvincias}
       >
-        <option value="" disabled>Seleccione una Provincia</option>
+        <option value="" disabled>
+          Seleccione una Provincia
+        </option>
         {loadingProvincias ? (
           <option>Cargando...</option>
         ) : (
-          provincias.map(provincia => (
-            <option key={provincia.id} value={provincia.id}>{provincia.nombre}</option>
+          provincias.map((provincia) => (
+            <option key={provincia.id} value={provincia.id}>
+              {provincia.nombre}
+            </option>
           ))
         )}
       </select>
@@ -122,14 +134,18 @@ export const Selectors: FC<Props> = ({ onLocalidadChange }) => {
         className={styles.largeInput}
         onChange={handleChange}
         disabled={!selectedProvincia || loadingLocalidades}
-        value={selectedLocalidad }
+        value={selectedLocalidad}
       >
-        <option value="" disabled>Seleccione una Localidad</option>
+        <option value="" disabled>
+          Seleccione una Localidad
+        </option>
         {loadingLocalidades ? (
           <option>Cargando...</option>
         ) : (
-          localidades.map(localidad => (
-            <option key={localidad.id} value={localidad.id}>{localidad.nombre}</option>
+          localidades.map((localidad) => (
+            <option key={localidad.id} value={localidad.id}>
+              {localidad.nombre}
+            </option>
           ))
         )}
       </select>

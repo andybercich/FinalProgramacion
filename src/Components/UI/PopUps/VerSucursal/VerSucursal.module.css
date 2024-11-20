@@ -11,13 +11,13 @@
   z-index: 999;
   font-family: "Unbounded", sans-serif;
 }
-.containerCardSucursal span{
+.containerCardSucursal span {
   position: absolute;
   right: 1px;
   color: #ab7d7d;
 }
-.containerHeaderCard span:hover{
-  color: #B81616;
+.containerHeaderCard span:hover {
+  color: #b81616;
   transition: 0.4s;
   cursor: pointer;
 }
@@ -32,7 +32,6 @@
 .containerHeaderCard {
   display: flex;
   justify-content: center;
-  
 }
 .cardTitle {
   align-items: center;
@@ -45,21 +44,19 @@
   flex-direction: column;
   justify-content: space-between;
   font-size: 13px;
-  
 }
-.containerBodyCard p{
-  padding-left: 6px ;
+.containerBodyCard p {
+  padding-left: 6px;
 }
 .containerImgCard {
   display: flex;
   justify-content: center;
   font-size: 13px;
- text-align: center;
- height: 200px;
+  text-align: center;
+  height: 200px;
 }
-.ImgCard img{
+.ImgCard img {
   height: 20vh;
   width: 18vw;
   border-radius: 5px;
 }
-

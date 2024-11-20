@@ -14,7 +14,13 @@ export const VerProducto: FC<Props> = ({ onClose, producto }) => {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.modalProcutos}>
-        <span onClick={()=>{ dispatch(removeElementActive());  onClose();}} className="material-symbols-outlined">
+        <span
+          onClick={() => {
+            dispatch(removeElementActive());
+            onClose();
+          }}
+          className="material-symbols-outlined"
+        >
           cancel
         </span>
 
@@ -27,7 +33,12 @@ export const VerProducto: FC<Props> = ({ onClose, producto }) => {
             <p>Codigo: {producto?.codigo}</p>
             <p>Precio de venta: {producto?.precioVenta}</p>
             <p>Categoria: {producto?.categoria.denominacion} </p>
-            <p>Alergeno: {producto?.alergenos && producto.alergenos.length>0 ? producto?.alergenos.map((prev)=> prev.denominacion) : "No tiene"} </p>
+            <p>
+              Alergeno:{" "}
+              {producto?.alergenos && producto.alergenos.length > 0
+                ? producto?.alergenos.map((prev) => prev.denominacion)
+                : "No tiene"}{" "}
+            </p>
           </div>
         </div>
       </div>

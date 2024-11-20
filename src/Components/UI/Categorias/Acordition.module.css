@@ -33,17 +33,15 @@
   font-size: 3rem;
   transition: transform 0.3s ease;
   rotate: 180deg;
-  
 }
 .arrowIcon:hover {
   cursor: pointer;
 }
-.hiddenArrow{
-    transform: rotate(180deg);
-    
+.hiddenArrow {
+  transform: rotate(180deg);
 }
 
- .subCategoriasContainer {
+.subCategoriasContainer {
   background-color: transparent;
   display: flex;
   flex-direction: column;
@@ -57,6 +55,6 @@
 .subCategoriasContainer.hidden {
   height: 0;
   transition: 500ms;
-  transform: translateY( );
+  transform: translateY();
   display: none;
-} 
+}

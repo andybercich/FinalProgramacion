@@ -1,4 +1,4 @@
-import { IImagen } from '../../IImagen';
+import { IImagen } from "../../IImagen";
 
 export interface IAlergenos {
   id: number;

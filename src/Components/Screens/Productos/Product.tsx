@@ -5,7 +5,10 @@ import { ServiceArticulo } from "../../../Services/articuloService";
 import { TableGeneric } from "../../UI/TableGeneric/TableGeneric";
 import { CircularProgress } from "@mui/material";
 import { ButtonsTable } from "../../UI/ButtonsTable/ButtonsTable";
-import { removeElementActive, setDataTable, setElementActive } from "../../../Redux/Slice/TablaReducer";
+import {
+  removeElementActive,
+  setDataTable,
+} from "../../../Redux/Slice/TablaReducer";
 import { useAppDispatch } from "../../Hooks/redux";
 import styles from "./Product.module.css";
 import { AddIcon } from "../../UI/Icons/AddIcon/AddIcon";
@@ -14,14 +17,12 @@ import { badContest, godContest } from "../../UI/PopUps/Alerts/ServerBadAlert";
 export const Product = () => {
   const [modalCreate, setModalCreate] = useState<boolean>(false);
   const [productos, setProductos] = useState<IProductos[]>([]);
-  const [loading, setLoading] = useState(false); // Cambiado a true para mostrar el loader al inicio
-
+  const [loading, setLoading] = useState(false);
   const service = new ServiceArticulo();
   const dispatch = useAppDispatch();
 
   useEffect(() => {}, []);
 
-  // Función para cargar productos
   const cargarProductos = async () => {
     try {
       const response = await service.getArticulosPorSucursal(1);
@@ -32,25 +33,19 @@ export const Product = () => {
     }
   };
 
-  // Función para eliminar un producto
   const handleDelete = async (id: number) => {
-    // Aquí puedes llamar a tu servicio para eliminar el producto
     try {
-
       await service.deleteArticuloById(id);
       godContest("El articulo ha sido borrado correctamente");
       cargarProductos();
-      dispatch(removeElementActive())
-
+      dispatch(removeElementActive());
     } catch (error) {
       badContest();
     }
-    
-    setProductos((prev) => prev.filter((producto) => producto.id !== id));
 
+    setProductos((prev) => prev.filter((producto) => producto.id !== id));
   };
 
-  // Columnas de la tabla
   const columns = [
     { label: "Nombre", key: "denominacion" },
     { label: "Precio", key: "precioVenta" },
@@ -76,24 +71,16 @@ export const Product = () => {
     },
   ];
 
-  // Cargar productos
   useEffect(() => {
     cargarProductos();
   }, []);
-
-
-
-  
-
 
   return (
     <div className={styles.mainDiv}>
       <div className={styles.cotentButton} onClick={() => setModalCreate(true)}>
         <AddIcon />
       </div>
-      {modalCreate && (
-        <CrearProducto  close={() => setModalCreate(false)} />
-      )}
+      {modalCreate && <CrearProducto close={() => setModalCreate(false)} />}
 
       {loading ? (
         <div
@@ -111,7 +98,6 @@ export const Product = () => {
           <h2>Cargando...</h2>
         </div>
       ) : (
-        // Pasar productos a TableGeneric
         <div className={styles.containerTabla}>
           <TableGeneric<IProductos>
             columns={columns}

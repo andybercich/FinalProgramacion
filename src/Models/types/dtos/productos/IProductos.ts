@@ -1,4 +1,3 @@
-
 import { IImagen } from "../../IImagen";
 import { IAlergenos } from "../alergenos/IAlergenos";
 import { ICategorias } from "../categorias/ICategorias";

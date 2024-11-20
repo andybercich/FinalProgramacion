@@ -8,5 +8,5 @@ export interface ICreateProducto {
   codigo: string;
   idCategoria: number;
   idAlergenos: number[];
-  imagenes: IImagen[]
+  imagenes: IImagen[];
 }

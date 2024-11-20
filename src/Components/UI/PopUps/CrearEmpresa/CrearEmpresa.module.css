@@ -28,7 +28,7 @@
   text-align: center;
 }
 
-.contentbutton{
+.contentbutton {
   position: absolute;
   left: 98%;
   top: -30%;
@@ -69,7 +69,6 @@
   flex-direction: column;
   gap: 2vh;
 }
-
 
 .contentInputs input {
   padding: 8px;

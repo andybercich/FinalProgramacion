@@ -6,7 +6,7 @@ interface CategoriasState {
 }
 
 const initialState: CategoriasState = {
-  categorias: []
+  categorias: [],
 };
 
 const CategoriasSlice = createSlice({
@@ -15,8 +15,8 @@ const CategoriasSlice = createSlice({
   reducers: {
     setCategorias: (state, action: PayloadAction<ICategorias[]>) => {
       state.categorias = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { setCategorias } = CategoriasSlice.actions;
