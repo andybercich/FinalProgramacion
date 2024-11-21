@@ -10,16 +10,16 @@ import { godContest, badContest } from "../Alerts/ServerBadAlert";
 
 interface Props {
   onClose: () => void;
-  onAddEmpresa: (empresa: IEmpresa) => void;
   editar?: boolean;
   empresa: IEmpresa | null;
+  fetchEmpresas: Promise<void>;
 }
 
 export const CrearEmpresa: FC<Props> = ({
   onClose,
-  onAddEmpresa,
   editar,
   empresa,
+  fetchEmpresas
 }) => {
   const { values, handleChange, resetForm } = useForm({
     nombre: editar && empresa ? empresa.nombre : "",
@@ -65,12 +65,7 @@ export const CrearEmpresa: FC<Props> = ({
         godContest();
       }
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-
-      const empresasActualizadas = await serviceEmpresa.getAllEmpresas();
-      onAddEmpresa(empresasActualizadas.data);
+      fetchEmpresas;
     } catch (error) {
       badContest();
       console.error("Error al guardar la empresa:", error);

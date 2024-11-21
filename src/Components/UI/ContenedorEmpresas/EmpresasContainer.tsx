@@ -39,8 +39,8 @@ export const EmpresasContainer = () => {
       {showCrearEmpresa && (
         <CrearEmpresa
           onClose={() => setShowCrearEmpresa(false)}
-          onAddEmpresa={handleAddEmpresa}
           empresa={null}
+          fetchEmpresas={fetchEmpresas()}
         />
       )}
     </div>
