@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { AcorditionCategories } from "../../UI/Categorias/AcorditionCategories";
-import styles from "./categoria.module.css";
+import { AcorditionCategories } from "../../UI/CategoriasComponents/AcorditionCategories";
+import styles from "./Categorias.module.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/Store/Store";
 import { AddIcon } from "../../UI/Icons/AddIcon/AddIcon";

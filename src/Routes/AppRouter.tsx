@@ -3,7 +3,7 @@ import { Home } from "../Components/Screens/Home/Home";
 import { Admin } from "../Components/Screens/Admin/Admin";
 import { Product } from "../Components/Screens/Productos/Product";
 import { Alergeno } from "../Components/Screens/Alergenos/Alergeno";
-import { CategoriasScreen } from "../Components/Screens/CategoriasScreen/Categorias";
+import { CategoriasScreen } from "../Components/Screens/Categorias/Categorias";
 
 export const AppRouter = () => {
   return (

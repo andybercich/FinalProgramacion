@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import styles from "./Acordition.module.css";
+import styles from "./AcorditionCategories.module.css";
 import { ICategorias } from "../../../Models/types/dtos/categorias/ICategorias";
 import { EditIcon } from "../Icons/EditIcon/EditIcon";
 import { AddIcon } from "../Icons/AddIcon/AddIcon";
